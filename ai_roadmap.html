@@ -1,0 +1,4295 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Developer Roadmap — 12 Ay</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* default (dark zaten) */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* arka planı ayrı class'a alıyoruz */
+body.bg-motivation {
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.8)),
+    url('focus.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* LIGHT MODE override (önceden yoktu, ekliyoruz) */
+body.light-mode.bg-motivation {
+  /* daha açık overlay lazım yoksa çok karanlık kalır */
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.7)),
+    url('./assets/bg.jpg');
+}
+.logo, .mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+body::after {
+  content:'';
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+
+  /* bunu sonradan ekledim çünkü görseller çok dikkat çekiyordu */
+  background: rgba(0,0,0,0.55);
+
+  backdrop-filter: blur(3px); /* hafif blur, çok abartmadım */
+
+  pointer-events:none;
+  z-index:0;
+}
+/* REALITY MODE */
+body.reality-on {
+  background:#0a0000;
+}
+
+body.reality-on .motivation-box {
+  border:1px solid rgba(255,0,0,0.5);
+  color:#ff2e2e;
+  background: rgba(255,0,0,0.07);
+}
+
+.motivation-box {
+  border:1px solid rgba(255,0,0,0.3);
+  background: rgba(255,0,0,0.05);
+  color:#ff4d4d;
+  font-weight:600;
+}
+
+/* ===== NORWEGIAN MODE ===== */
+body.norway-on {
+  --green: #ef2b2d;
+  --green-dim: #aa1010;
+  --green-dark: #3d0000;
+  --green-glow: rgba(239,43,45,0.15);
+  --green-glow2: rgba(239,43,45,0.4);
+  --bg: #05000a;
+  --bg2: #08000f;
+  --bg3: #0f0018;
+  --panel: #0a0012;
+  --panel2: #0c0016;
+  --border: rgba(239,43,45,0.22);
+  --border-bright: rgba(255,255,255,0.5);
+  --text: #ffd6d6;
+  --text-dim: #996666;
+}
+body.norway-on header {
+  background: linear-gradient(180deg, rgba(239,43,45,0.07) 0%, transparent 100%);
+}
+body.norway-on .logo::before {
+  content: '🇳🇴 ';
+}
+body.norway-on body::before {
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,30,0.1) 2px, rgba(0,0,30,0.1) 4px);
+}
+.norway-flag-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+.norway-flag-btn:hover, .norway-flag-btn.active {
+  background: rgba(239,43,45,0.15);
+  border-color: #ef2b2d;
+  color: #ef2b2d;
+  box-shadow: 0 0 12px rgba(239,43,45,0.3);
+}
+
+  :root {
+    --green: #00ff41;
+    --green-dim: #00aa2a;
+    --green-dark: #003d10;
+    --green-glow: rgba(0,255,65,0.15);
+    --green-glow2: rgba(0,255,65,0.4);
+    --bg: #010c03;
+    --bg2: #020f05;
+    --bg3: #041408;
+    --panel: #060e07;
+    --panel2: #081209;
+    --border: rgba(0,255,65,0.2);
+    --border-bright: rgba(0,255,65,0.5);
+    --text: #c8ffd4;
+    --text-dim: #5a9960;
+    --red: #ff3333;
+    --amber: #ffaa00;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+ 
+  /* Scanline effect */
+  body::before {
+    content:'';
+    position:fixed;
+    top:0;left:0;right:0;bottom:0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    pointer-events:none;
+    z-index:9999;
+  }
+
+  /* Matrix rain canvas */
+  #matrix-bg { position:fixed; top:0; left:0; z-index:0; opacity:0.07; pointer-events:none; }
+
+  .app { position:relative; z-index:1; }
+
+  /* ===== HEADER ===== */
+  header {
+    border-bottom: 1px solid var(--border-bright);
+    padding: 16px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background: linear-gradient(180deg, rgba(0,255,65,0.05) 0%, transparent 100%);
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter: blur(10px);
+  }
+
+  .logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    font-weight:900;
+    color: var(--green);
+    text-shadow: 0 0 20px var(--green-glow2);
+    letter-spacing:2px;
+  }
+
+  .logo span { color: var(--text-dim); font-weight:400; }
+
+  .header-stats {
+    display:flex;
+    gap:20px;
+    align-items:center;
+    font-size:0.75rem;
+  }
+
+  .hstat {
+    color: var(--text-dim);
+  }
+  .hstat strong {
+    color: var(--green);
+    font-family:'Orbitron',monospace;
+  }
+
+  .nav-tabs {
+    display:flex;
+    gap:4px;
+  }
+
+  .nav-tab {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 6px 14px;
+    cursor:pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:1px;
+    transition: all 0.2s;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+
+  .nav-tab:hover, .nav-tab.active {
+    background: var(--green-glow);
+    border-color: var(--green);
+    color: var(--green);
+    box-shadow: 0 0 12px var(--green-glow);
+  }
+
+  /* ===== LAYOUT ===== */
+  .main-layout {
+    display:grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 61px);
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 16px;
+    background: var(--bg2);
+    overflow-y:auto;
+    max-height: calc(100vh - 61px);
+    position:sticky;
+    top:61px;
+  }
+
+  .sidebar-section { margin-bottom:20px; }
+  .sidebar-title {
+    font-family:'Orbitron',monospace;
+    font-size:0.6rem;
+    color: var(--text-dim);
+    letter-spacing:3px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:8px;
+  }
+
+  .month-btn {
+    display:block;
+    width:100%;
+    background:none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding:7px 10px;
+    text-align:left;
+    cursor:pointer;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.72rem;
+    margin-bottom:3px;
+    transition:all 0.2s;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .month-btn::before {
+    content:'';
+    position:absolute;
+    left:0;top:0;bottom:0;
+    width: 3px;
+    background: var(--green-dim);
+    transform:scaleY(0);
+    transition:transform 0.2s;
+  }
+
+  .month-btn:hover::before, .month-btn.active::before { transform:scaleY(1); }
+  .month-btn:hover, .month-btn.active {
+    border-color: var(--green-dim);
+    color: var(--green);
+    background: var(--green-glow);
+    padding-left:14px;
+  }
+
+  .month-btn .m-progress {
+    float:right;
+    font-size:0.65rem;
+    color: var(--green-dim);
+  }
+
+  /* Progress bar mini */
+  .mini-bar {
+    height:2px;
+    background: var(--bg3);
+    margin-top:4px;
+    border-radius:1px;
+    overflow:hidden;
+  }
+  .mini-bar-fill {
+    height:100%;
+    background: var(--green);
+    transition: width 0.5s;
+    box-shadow: 0 0 6px var(--green);
+  }
+
+  /* ===== CONTENT ===== */
+  .content { overflow-y:auto; }
+
+  .page { display:none; padding:20px; }
+  .page.active { display:block; }
+
+  /* ===== STAT CARDS ===== */
+  .stat-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+    gap:12px;
+    margin-bottom:24px;
+  }
+
+  .stat-card {
+    border: 1px solid var(--border);
+    padding: 14px;
+    background: var(--panel);
+    position:relative;
+    overflow:hidden;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+
+  .stat-card::after {
+    content:'';
+    position:absolute;
+    top:0;right:0;
+    border-top: 10px solid var(--green-dim);
+    border-left: 10px solid transparent;
+  }
+
+  .stat-label {
+    font-size:0.6rem;
+    color: var(--text-dim);
+    letter-spacing:2px;
+    margin-bottom:6px;
+  }
+
+  .stat-value {
+    font-family:'Orbitron',monospace;
+    font-size:1.6rem;
+    font-weight:700;
+    color: var(--green);
+    text-shadow: 0 0 20px var(--green-glow2);
+  }
+
+  .stat-sub {
+    font-size:0.65rem;
+    color: var(--text-dim);
+    margin-top:2px;
+  }
+
+  /* ===== OVERALL PROGRESS ===== */
+  .overall-bar-wrap {
+    border: 1px solid var(--border);
+    padding: 16px;
+    margin-bottom:24px;
+    background: var(--panel);
+  }
+
+  .overall-label {
+    display:flex;
+    justify-content:space-between;
+    font-size:0.7rem;
+    color: var(--text-dim);
+    margin-bottom:8px;
+  }
+
+  .overall-label strong { color:var(--green); font-family:'Orbitron',monospace; }
+
+  .overall-bar {
+    height:12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    overflow:hidden;
+  }
+
+  .overall-fill {
+    height:100%;
+    background: linear-gradient(90deg, var(--green-dim), var(--green));
+    box-shadow: 0 0 15px var(--green-glow2);
+    transition: width 0.8s cubic-bezier(0.16,1,0.3,1);
+    position:relative;
+  }
+
+  .overall-fill::after {
+    content:'';
+    position:absolute;
+    right:0;top:0;bottom:0;width:3px;
+    background:white;
+    opacity:0.6;
+    animation: pulse-bar 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-bar {
+    0%,100%{ opacity:0.6; }
+    50%{ opacity:0; }
+  }
+
+  /* ===== DAY CARDS ===== */
+  .month-header {
+    font-family:'Orbitron',monospace;
+    font-size:1rem;
+    color: var(--green);
+    margin-bottom:16px;
+    padding-bottom:8px;
+    border-bottom: 1px solid var(--border-bright);
+    text-shadow: 0 0 15px var(--green-glow2);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .month-tag {
+    font-size:0.65rem;
+    padding:3px 8px;
+    border: 1px solid var(--green-dim);
+    color: var(--green-dim);
+    letter-spacing:2px;
+  }
+
+  .days-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+    gap:10px;
+  }
+
+  .day-card {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    padding: 14px;
+    cursor:pointer;
+    transition: all 0.25s;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .day-card::before {
+    content:'';
+    position:absolute;
+    left:0;top:0;bottom:0;width:3px;
+    background: var(--green-dim);
+    transform:scaleY(0);
+    transform-origin:bottom;
+    transition:transform 0.25s;
+  }
+
+  .day-card:hover::before, .day-card.completed::before { transform:scaleY(1); }
+  .day-card.completed::before { background: var(--green); }
+
+  .day-card:hover {
+    border-color: var(--green-dim);
+    background: var(--panel2);
+    transform:translateX(2px);
+  }
+
+  .day-card.completed {
+    border-color: rgba(0,255,65,0.3);
+    background: rgba(0,255,65,0.03);
+  }
+
+  .day-card.project-day {
+    border-color: rgba(255,170,0,0.3);
+  }
+  .day-card.project-day::before { background: var(--amber); }
+  .day-card.project-day.completed::before { background: var(--green); }
+
+  .day-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:8px;
+  }
+
+  .day-date {
+    font-size:0.65rem;
+    color: var(--text-dim);
+  }
+
+  .day-type-badge {
+    font-size:0.55rem;
+    padding:2px 6px;
+    letter-spacing:1px;
+  }
+
+  .badge-proje { border:1px solid var(--amber); color:var(--amber); }
+  .badge-bonus { border:1px solid #aa44ff; color:#aa44ff; }
+  .badge-kapanis { border:1px solid #ff6699; color:#ff6699; }
+  .badge-normal { border:1px solid var(--border); color:var(--text-dim); }
+  .badge-offday { border:1px solid #4488ff; color:#4488ff; }
+
+  /* Off day card style */
+  .day-card.offday {
+    border-color: rgba(68,136,255,0.3);
+    background: rgba(68,136,255,0.03);
+    opacity:0.7;
+  }
+  .day-card.offday::before { background: #4488ff; }
+  .day-card.offday .day-title { color: #4488ff; }
+
+  .offday-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 4px 10px;
+    cursor:pointer;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.65rem;
+    transition:all 0.2s;
+    letter-spacing:1px;
+  }
+  .offday-btn:hover { border-color:#4488ff; color:#4488ff; }
+  .offday-btn.active { border-color:#4488ff; color:#4488ff; background:rgba(68,136,255,0.1); }
+
+  /* Day note in modal */
+  .day-note-area {
+    width:100%;
+    background:var(--bg3);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:10px;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.72rem;
+    resize:vertical;
+    min-height:80px;
+    outline:none;
+    transition:border-color 0.2s;
+    line-height:1.5;
+    margin-top:6px;
+  }
+  .day-note-area:focus { border-color:var(--green-dim); }
+  .day-note-area::placeholder { color:var(--text-dim); }
+
+  /* ===== LIGHT MODE ===== */
+  body.light-mode {
+    --green: #00aa2a;
+    --green-dim: #007a1f;
+    --green-dark: #e8f5ea;
+    --green-glow: rgba(0,170,42,0.12);
+    --green-glow2: rgba(0,170,42,0.25);
+    --bg: #f8faf8;
+    --bg2: #f0f4f0;
+    --bg3: #e8ece8;
+    --panel: #ffffff;
+    --panel2: #f5f7f5;
+    --border: rgba(0,170,42,0.25);
+    --border-bright: rgba(0,170,42,0.4);
+    --text: #1a2a1a;
+    --text-dim: #5a6a5a;
+    --red: #cc2222;
+    --amber: #cc8800;
+  }
+  body.light-mode::before { display:none; }
+  body.light-mode #matrix-bg { opacity:0.02; }
+  body.light-mode .stat-value,
+  body.light-mode .logo { text-shadow:none; }
+  body.light-mode header { background: linear-gradient(180deg, rgba(0,170,42,0.08) 0%, transparent 100%); }
+
+  /* Theme toggle button */
+  .theme-toggle-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 32px;
+  }
+  .theme-toggle-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+    box-shadow: 0 0 8px var(--green-glow);
+  }
+
+  /* ===== CONFETTI CANVAS ===== */
+  #confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10000;
+  }
+
+  /* ===== MILESTONE MODAL ===== */
+  .milestone-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s;
+  }
+  .milestone-overlay.show { opacity:1; visibility:visible; }
+
+  .milestone-content {
+    text-align: center;
+    transform: scale(0.8);
+    transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    max-width: 500px;
+    padding: 40px;
+  }
+  .milestone-overlay.show .milestone-content { transform:scale(1); }
+
+  .milestone-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    animation: milestone-bounce 0.6s ease-out;
+  }
+  @keyframes milestone-bounce {
+    0% { transform: scale(0) rotate(-20deg); }
+    50% { transform: scale(1.3) rotate(10deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+
+  .milestone-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    color: var(--green);
+    text-shadow: 0 0 30px var(--green-glow2);
+    margin-bottom: 12px;
+    letter-spacing: 3px;
+  }
+
+  .milestone-desc {
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
+  .milestone-sub {
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    margin-bottom: 30px;
+  }
+
+  .milestone-close-btn {
+    background: none;
+    border: 2px solid var(--green);
+    color: var(--green);
+    padding: 12px 40px;
+    cursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+  }
+  .milestone-close-btn:hover {
+    background: var(--green-glow);
+    box-shadow: 0 0 20px var(--green-glow2);
+  }
+
+  /* ===== UNDO TOAST ===== */
+  .undo-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--panel);
+    border: 1px solid var(--amber);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 9998;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .undo-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  .undo-toast-text {
+    color: var(--text);
+    font-size: 0.75rem;
+  }
+  .undo-btn {
+    background: none;
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .undo-btn:hover {
+    background: rgba(255,170,0,0.15);
+  }
+
+  /* ===== STREAK WARNING ===== */
+  .streak-warning {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: var(--panel);
+    border: 1px solid var(--amber);
+    padding: 14px 18px;
+    z-index: 9997;
+    max-width: 300px;
+    transform: translateX(350px);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .streak-warning.show { transform: translateX(0); }
+  .streak-warning-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    color: var(--amber);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .streak-warning-text {
+    color: var(--text);
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+  .streak-warning-close {
+    position: absolute;
+    top: 8px; right: 10px;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  /* ===== DAILY MOTIVATION ===== */
+  .daily-motivation {
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--panel) 0%, var(--panel2) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .daily-motivation::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--green), var(--amber));
+  }
+  .daily-motivation-label {
+    font-size: 0.55rem;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .daily-motivation-text {
+    color: var(--text);
+    font-size: 0.8rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ===== MICRO INTERACTIONS ===== */
+  .day-card {
+    transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .day-card:hover {
+    transform: translateX(4px) scale(1.01);
+  }
+  .day-card:active {
+    transform: translateX(2px) scale(0.99);
+  }
+  .day-card.completing {
+    animation: complete-pulse 0.5s ease-out;
+  }
+  @keyframes complete-pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(0,255,65,0); }
+    50% { transform: scale(1.03); box-shadow: 0 0 30px var(--green-glow2); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(0,255,65,0); }
+  }
+
+  .check-btn {
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .check-btn:hover {
+    transform: scale(1.05);
+  }
+  .check-btn:active {
+    transform: scale(0.95);
+  }
+
+  .nav-tab, .month-btn, .norway-flag-btn {
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .nav-tab:active, .month-btn:active {
+    transform: scale(0.97);
+  }
+
+  /* Progress bar glow animation */
+  .overall-fill, .mini-bar-fill, .xp-bar-fill {
+    transition: width 0.8s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .progress-updating .overall-fill {
+    animation: progress-glow 0.8s ease-out;
+  }
+  @keyframes progress-glow {
+    0% { box-shadow: 0 0 15px var(--green-glow2); }
+    50% { box-shadow: 0 0 40px var(--green), 0 0 60px var(--green-glow2); }
+    100% { box-shadow: 0 0 15px var(--green-glow2); }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .main-layout {
+      grid-template-columns: 1fr;
+    }
+    .sidebar {
+      position: fixed;
+      left: -280px;
+      top: 61px;
+      width: 280px;
+      height: calc(100vh - 61px);
+      z-index: 99;
+      transition: left 0.3s;
+      border-right: 1px solid var(--border);
+    }
+    .sidebar.open { left: 0; }
+    .sidebar-overlay {
+      position: fixed;
+      top: 61px; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 98;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    .sidebar-overlay.open { opacity:1; visibility:visible; }
+    .mobile-menu-btn {
+      display: flex;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--green);
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-stats { display:none; }
+    .nav-tabs { gap:2px; }
+    .nav-tab { padding:5px 8px; font-size:0.6rem; }
+    .days-grid { grid-template-columns:1fr; }
+    .notes-grid { grid-template-columns:1fr; }
+    .stat-grid { grid-template-columns:repeat(2,1fr); }
+  }
+
+  @media (min-width: 901px) {
+    .mobile-menu-btn { display:none; }
+    .sidebar-overlay { display:none; }
+  }
+
+  @media (max-width: 600px) {
+    header { padding:10px 12px; flex-wrap:wrap; gap:8px; }
+    .logo { font-size:0.85rem; }
+    .nav-tabs { order:3; width:100%; justify-content:center; }
+    .content { padding:10px; }
+    .stat-grid { grid-template-columns:1fr 1fr; gap:8px; }
+    .stat-card { padding:10px; }
+    .stat-value { font-size:1.2rem; }
+    .day-card { padding:10px; }
+    .milestone-content { padding:20px; }
+    .milestone-title { font-size:1.4rem; }
+    .milestone-icon { font-size:3.5rem; }
+  }
+
+  .day-note-save-btn {
+    margin-top:6px;
+    float:right;
+    background:none;
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:5px 12px;
+    cursor:pointer;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.65rem;
+    transition:all 0.2s;
+  }
+  .day-note-save-btn:hover { border-color:var(--green); color:var(--green); }
+
+  .day-note-indicator {
+    display:inline-block;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--amber);
+    margin-left:5px;
+    vertical-align:middle;
+    box-shadow:0 0 5px var(--amber);
+  }
+
+  .day-title {
+    font-family:'Rajdhani',sans-serif;
+    font-size:1rem;
+    font-weight:700;
+    color: var(--text);
+    margin-bottom:6px;
+    line-height:1.2;
+  }
+
+  .day-card.completed .day-title { color: var(--green); }
+
+  .day-desc {
+    font-size:0.65rem;
+    color: var(--text-dim);
+    line-height:1.5;
+    margin-bottom:10px;
+  }
+
+  .day-actions {
+    display:flex;
+    gap:6px;
+    align-items:center;
+  }
+
+  .check-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 4px 10px;
+    cursor:pointer;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.65rem;
+    transition:all 0.2s;
+    letter-spacing:1px;
+  }
+
+  .check-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+    box-shadow: 0 0 8px var(--green-glow);
+  }
+
+  .day-card.completed .check-btn {
+    border-color: var(--green);
+    color: var(--green);
+    background: var(--green-glow);
+  }
+
+  .detail-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 4px 10px;
+    cursor:pointer;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.65rem;
+    transition:all 0.2s;
+  }
+  .detail-btn:hover { border-color:var(--green-dim); color:var(--green); }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    display:none;
+    position:fixed;
+    top:0;left:0;right:0;bottom:0;
+    background:rgba(0,0,0,0.85);
+    z-index:1000;
+    align-items:center;
+    justify-content:center;
+  }
+  .modal-overlay.open { display:flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border-bright);
+    max-width:640px;
+    width:90%;
+    max-height:85vh;
+    overflow-y:auto;
+    box-shadow: 0 0 60px rgba(0,255,65,0.15);
+    position:relative;
+  }
+
+  .modal-header {
+    padding:16px 20px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    background: linear-gradient(90deg, var(--green-glow) 0%, transparent 100%);
+  }
+
+  .modal-title {
+    font-family:'Rajdhani',sans-serif;
+    font-size:1.2rem;
+    font-weight:700;
+    color: var(--green);
+    line-height:1.2;
+    flex:1;
+  }
+
+  .modal-close {
+    background:none;
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    width:28px;height:28px;
+    cursor:pointer;
+    font-size:0.9rem;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    margin-left:10px;
+  }
+  .modal-close:hover { border-color:var(--red); color:var(--red); }
+
+  .modal-body { padding:20px; }
+
+  .modal-section {
+    margin-bottom:16px;
+  }
+
+  .modal-section-title {
+    font-size:0.6rem;
+    letter-spacing:3px;
+    color: var(--text-dim);
+    margin-bottom:8px;
+    padding-bottom:4px;
+    border-bottom:1px solid var(--border);
+  }
+
+  .modal-section-content {
+    font-size:0.78rem;
+    color: var(--text);
+    line-height:1.7;
+  }
+
+  .tip-item {
+    display:flex;
+    gap:8px;
+    padding:6px 0;
+    border-bottom:1px solid rgba(0,255,65,0.06);
+  }
+
+  .tip-icon { color:var(--green); flex-shrink:0; }
+
+  .tip-link {
+    color:var(--green-dim);
+    text-decoration:none;
+    font-size:0.72rem;
+  }
+  .tip-link:hover { color:var(--green); text-decoration:underline; }
+
+  .motivation-box {
+    border:1px solid var(--border-bright);
+    padding:12px;
+    background: rgba(0,255,65,0.03);
+    font-style:italic;
+    color:var(--green);
+    font-size:0.75rem;
+    line-height:1.6;
+    position:relative;
+  }
+
+  .motivation-box::before {
+    content:'"';
+    font-size:3rem;
+    color:var(--green-dim);
+    opacity:0.3;
+    position:absolute;
+    top:-10px;left:6px;
+    font-family:Georgia,serif;
+    line-height:1;
+  }
+
+  .modal-complete-btn {
+    width:100%;
+    padding:12px;
+    background: none;
+    border: 1px solid var(--green);
+    color: var(--green);
+    cursor:pointer;
+    font-family:'Orbitron',monospace;
+    font-size:0.8rem;
+    letter-spacing:2px;
+    transition:all 0.2s;
+    margin-top:16px;
+  }
+
+  .modal-complete-btn:hover {
+    background: var(--green-glow);
+    box-shadow: 0 0 20px var(--green-glow2);
+  }
+
+  .modal-complete-btn.done {
+    border-color: var(--green);
+    background: rgba(0,255,65,0.1);
+    color: var(--green);
+  }
+
+  /* ===== ISTATISTIK PAGE ===== */
+  .chart-area {
+    border: 1px solid var(--border);
+    padding:20px;
+    background:var(--panel);
+    margin-bottom:16px;
+  }
+
+  .chart-title {
+    font-family:'Orbitron',monospace;
+    font-size:0.7rem;
+    color:var(--text-dim);
+    letter-spacing:2px;
+    margin-bottom:14px;
+  }
+
+  .bar-chart { display:flex; align-items:flex-end; gap:4px; height:140px; }
+
+  .bar-item {
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    height:100%;
+    gap:4px;
+  }
+
+  .bar-fill {
+    width:100%;
+    min-height:3px;
+    background: linear-gradient(180deg, var(--green) 0%, var(--green-dim) 100%);
+    box-shadow: 0 0 8px rgba(0,255,65,0.3);
+    transition:height 0.8s cubic-bezier(0.16,1,0.3,1);
+    position:relative;
+  }
+
+  .bar-fill.done { background: var(--green); box-shadow:0 0 12px var(--green-glow2); }
+  .bar-fill.partial { background: linear-gradient(180deg, var(--amber), var(--green-dim)); }
+
+  .bar-label {
+    font-size:0.55rem;
+    color:var(--text-dim);
+    text-align:center;
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    height:50px;
+    overflow:hidden;
+  }
+
+  .streak-display {
+    text-align:center;
+    padding:30px;
+  }
+
+  .streak-num {
+    font-family:'Orbitron',monospace;
+    font-size:4rem;
+    font-weight:900;
+    color:var(--green);
+    text-shadow:0 0 40px var(--green-glow2);
+    line-height:1;
+  }
+
+  .streak-label {
+    font-size:0.7rem;
+    color:var(--text-dim);
+    letter-spacing:3px;
+    margin-top:6px;
+  }
+
+  /* ===== QUIZ PAGE ===== */
+  .quiz-container {
+    max-width:600px;
+    margin:0 auto;
+  }
+
+  .quiz-header {
+    margin-bottom:20px;
+    text-align:center;
+  }
+
+  .quiz-title {
+    font-family:'Orbitron',monospace;
+    font-size:1.2rem;
+    color:var(--green);
+    text-shadow:0 0 20px var(--green-glow2);
+    margin-bottom:6px;
+  }
+
+  .quiz-progress-bar {
+    height:4px;
+    background:var(--bg3);
+    border:1px solid var(--border);
+    overflow:hidden;
+    margin-top:10px;
+  }
+
+  .quiz-progress-fill {
+    height:100%;
+    background:var(--green);
+    box-shadow:0 0 8px var(--green-glow2);
+    transition:width 0.4s;
+  }
+
+  .quiz-question-box {
+    border:1px solid var(--border-bright);
+    padding:20px;
+    background:var(--panel);
+    margin-bottom:16px;
+    min-height:80px;
+  }
+
+  .quiz-q-num {
+    font-size:0.6rem;
+    color:var(--text-dim);
+    letter-spacing:2px;
+    margin-bottom:8px;
+  }
+
+  .quiz-q-text {
+    font-family:'Rajdhani',sans-serif;
+    font-size:1.05rem;
+    font-weight:600;
+    color:var(--text);
+    line-height:1.4;
+  }
+
+  .quiz-options {
+    display:grid;
+    gap:8px;
+    margin-bottom:16px;
+  }
+
+  .quiz-option {
+    background:none;
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:10px 14px;
+    cursor:pointer;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.75rem;
+    text-align:left;
+    transition:all 0.2s;
+  }
+
+  .quiz-option:hover:not(:disabled) {
+    border-color:var(--green-dim);
+    color:var(--green);
+    background:var(--green-glow);
+  }
+
+  .quiz-option.correct {
+    border-color:var(--green);
+    background:rgba(0,255,65,0.15);
+    color:var(--green);
+  }
+
+  .quiz-option.wrong {
+    border-color:var(--red);
+    background:rgba(255,51,51,0.1);
+    color:var(--red);
+  }
+
+  .quiz-feedback {
+    padding:10px 14px;
+    border:1px solid var(--border);
+    font-size:0.72rem;
+    line-height:1.5;
+    margin-bottom:12px;
+    min-height:40px;
+  }
+
+  .quiz-feedback.ok { border-color:var(--green); background:rgba(0,255,65,0.05); color:var(--green); }
+  .quiz-feedback.fail { border-color:var(--red); background:rgba(255,51,51,0.05); color:var(--red); }
+
+  .quiz-next-btn {
+    background:none;
+    border:1px solid var(--green);
+    color:var(--green);
+    padding:10px 24px;
+    cursor:pointer;
+    font-family:'Orbitron',monospace;
+    font-size:0.7rem;
+    letter-spacing:2px;
+    transition:all 0.2s;
+    width:100%;
+  }
+  .quiz-next-btn:hover { background:var(--green-glow); box-shadow:0 0 15px var(--green-glow2); }
+
+  .quiz-result {
+    text-align:center;
+    padding:40px 20px;
+  }
+
+  .quiz-score {
+    font-family:'Orbitron',monospace;
+    font-size:3rem;
+    color:var(--green);
+    text-shadow:0 0 30px var(--green-glow2);
+    margin-bottom:10px;
+  }
+
+  /* ===== AI CHAT ===== */
+  .chat-container {
+    display:flex;
+    flex-direction:column;
+    height:calc(100vh - 120px);
+    max-height:700px;
+  }
+
+  .chat-header {
+    border:1px solid var(--border);
+    padding:12px 16px;
+    background:var(--panel);
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .chat-status {
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 8px var(--green);
+    animation:blink-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes blink-dot {
+    0%,100%{opacity:1;}
+    50%{opacity:0.3;}
+  }
+
+  .chat-title-small {
+    font-family:'Orbitron',monospace;
+    font-size:0.7rem;
+    color:var(--green);
+    letter-spacing:2px;
+  }
+
+  .chat-messages {
+    flex:1;
+    overflow-y:auto;
+    border:1px solid var(--border);
+    padding:14px;
+    background:var(--panel);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .msg {
+    max-width:85%;
+    padding:10px 12px;
+    font-size:0.73rem;
+    line-height:1.6;
+  }
+
+  .msg.user {
+    align-self:flex-end;
+    background:var(--green-glow);
+    border:1px solid var(--green-dim);
+    color:var(--green);
+    border-radius:0;
+  }
+
+  .msg.ai {
+    align-self:flex-start;
+    background:var(--panel2);
+    border:1px solid var(--border);
+    color:var(--text);
+  }
+
+  .msg .msg-prefix {
+    font-size:0.55rem;
+    letter-spacing:2px;
+    margin-bottom:4px;
+    color:var(--text-dim);
+  }
+
+  .msg.user .msg-prefix { color:var(--green-dim); }
+
+  .typing-indicator {
+    display:flex;
+    gap:4px;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    background:var(--panel2);
+    align-self:flex-start;
+    max-width:80px;
+  }
+
+  .typing-dot {
+    width:5px;height:5px;
+    background:var(--green);
+    border-radius:50%;
+    animation:typing-bounce 1.2s ease-in-out infinite;
+  }
+  .typing-dot:nth-child(2){animation-delay:0.2s;}
+  .typing-dot:nth-child(3){animation-delay:0.4s;}
+
+  @keyframes typing-bounce {
+    0%,60%,100%{transform:translateY(0);}
+    30%{transform:translateY(-6px);}
+  }
+
+  .chat-input-row {
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+  }
+
+  .chat-input {
+    flex:1;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:10px 14px;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.73rem;
+    outline:none;
+    transition:border-color 0.2s;
+  }
+  .chat-input:focus { border-color:var(--green-dim); }
+  .chat-input::placeholder { color:var(--text-dim); }
+
+  .chat-send {
+    background:none;
+    border:1px solid var(--green);
+    color:var(--green);
+    padding:10px 16px;
+    cursor:pointer;
+    font-family:'Orbitron',monospace;
+    font-size:0.65rem;
+    letter-spacing:1px;
+    transition:all 0.2s;
+  }
+  .chat-send:hover { background:var(--green-glow); box-shadow:0 0 12px var(--green-glow2); }
+
+  .chat-suggestions {
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:8px;
+  }
+
+  .sug-btn {
+    background:none;
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:4px 10px;
+    cursor:pointer;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.62rem;
+    transition:all 0.2s;
+  }
+  .sug-btn:hover { border-color:var(--green-dim); color:var(--green); }
+
+  /* ===== NOTES PAGE ===== */
+  .notes-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+
+  .note-card {
+    border:1px solid var(--border);
+    padding:16px;
+    background:var(--panel);
+  }
+
+  .note-card-title {
+    font-family:'Orbitron',monospace;
+    font-size:0.65rem;
+    color:var(--green-dim);
+    letter-spacing:2px;
+    margin-bottom:10px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--border);
+  }
+
+  .note-textarea {
+    width:100%;
+    background:var(--bg3);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:10px;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.72rem;
+    resize:vertical;
+    min-height:120px;
+    outline:none;
+    transition:border-color 0.2s;
+    line-height:1.5;
+  }
+  .note-textarea:focus { border-color:var(--green-dim); }
+
+  .note-save-btn {
+    margin-top:8px;
+    background:none;
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:5px 12px;
+    cursor:pointer;
+    font-family:'Share Tech Mono',monospace;
+    font-size:0.65rem;
+    transition:all 0.2s;
+    float:right;
+  }
+  .note-save-btn:hover { border-color:var(--green); color:var(--green); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width:6px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--green-dark); border-radius:3px; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--green-dim); }
+
+  /* Terminal cursor blink */
+  .cursor::after {
+    content:'▋';
+    animation: cursor-blink 1s step-end infinite;
+    color:var(--green);
+  }
+  @keyframes cursor-blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+  /* Responsive */
+  @media(max-width:768px){
+    .main-layout { grid-template-columns:1fr; }
+    .sidebar { display:none; }
+    .notes-grid { grid-template-columns:1fr; }
+    .header-stats { display:none; }
+    .nav-tabs { flex-wrap:wrap; }
+  }
+
+  /* Glitch animation for title */
+  @keyframes glitch {
+    0%{ text-shadow:0 0 20px var(--green-glow2); }
+    2%{ text-shadow:2px 0 var(--red), -2px 0 var(--green-dim), 0 0 20px var(--green-glow2); transform:skewX(-1deg); }
+    4%{ text-shadow:0 0 20px var(--green-glow2); transform:skewX(0); }
+    96%{ text-shadow:0 0 20px var(--green-glow2); }
+    98%{ text-shadow:-2px 0 var(--red), 2px 0 var(--green-dim); transform:skewX(1deg); }
+    100%{ text-shadow:0 0 20px var(--green-glow2); transform:skewX(0); }
+  }
+
+  .logo { animation:glitch 8s ease-in-out infinite; }
+
+  /* ===== ROZET SİSTEMİ ===== */
+  .badge-showcase { display:flex; flex-wrap:wrap; gap:12px; }
+  .rozet-item {
+    border:1px solid var(--border);
+    padding:12px 14px;
+    background:var(--panel);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:200px;
+    flex:1;
+    transition:all 0.2s;
+    position:relative;
+    overflow:hidden;
+  }
+  .rozet-item.earned { border-color:var(--green-dim); background:rgba(0,255,65,0.04); }
+  .rozet-item.earned::after { content:''; position:absolute; top:0;right:0; border-top:8px solid var(--green-dim); border-left:8px solid transparent; }
+  .rozet-item.locked { opacity:0.4; }
+  .rozet-icon { font-size:1.6rem; flex-shrink:0; }
+  .rozet-info { flex:1; }
+  .rozet-name { font-family:'Orbitron',monospace; font-size:0.65rem; color:var(--green); letter-spacing:1px; }
+  .rozet-desc { font-size:0.62rem; color:var(--text-dim); margin-top:2px; }
+  .rozet-date { font-size:0.58rem; color:var(--green-dim); margin-top:3px; }
+
+  /* ===== SEVİYE ===== */
+  .level-display { border:1px solid var(--border-bright); padding:24px; background:var(--panel); text-align:center; margin-bottom:20px; }
+  .level-rank { font-family:'Orbitron',monospace; font-size:2rem; font-weight:900; color:var(--green); text-shadow:0 0 30px var(--green-glow2); margin-bottom:4px; }
+  .level-title { font-size:0.7rem; color:var(--text-dim); letter-spacing:3px; margin-bottom:16px; }
+  .xp-bar-wrap { background:var(--bg3); border:1px solid var(--border); height:10px; overflow:hidden; margin-bottom:6px; }
+  .xp-bar-fill { height:100%; background:linear-gradient(90deg,var(--green-dim),var(--green)); box-shadow:0 0 10px var(--green-glow2); transition:width 0.8s cubic-bezier(0.16,1,0.3,1); }
+  .xp-label { font-size:0.62rem; color:var(--text-dim); display:flex; justify-content:space-between; }
+
+  /* ===== HAFTALIK RAPOR ===== */
+  .week-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-bottom:16px; }
+  .week-cell { aspect-ratio:1; border:1px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:0.55rem; color:var(--text-dim); background:var(--panel); transition:all 0.2s; }
+  .week-cell.active { border-color:var(--green); background:rgba(0,255,65,0.12); color:var(--green); }
+  .week-cell.offday-c { border-color:#4488ff; background:rgba(68,136,255,0.08); color:#4488ff; }
+  .week-cell.today { box-shadow:0 0 0 1px var(--amber); }
+  .week-cell-day { font-family:'Orbitron',monospace; font-size:0.5rem; margin-bottom:2px; }
+  .week-cell-count { font-size:0.7rem; font-weight:700; }
+  .trend-row { display:flex; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.72rem; }
+  .trend-label { color:var(--text-dim); width:130px; flex-shrink:0; }
+  .trend-val { color:var(--green); font-family:'Orbitron',monospace; font-size:0.8rem; }
+
+  /* ===== SNİPPET DEPOSU ===== */
+  .snippet-form { border:1px solid var(--border); padding:16px; background:var(--panel); margin-bottom:20px; }
+  .snippet-input-row { display:grid; grid-template-columns:1fr 1fr auto; gap:8px; margin-bottom:8px; }
+  .snip-input { background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:8px 10px; font-family:'Share Tech Mono',monospace; font-size:0.72rem; outline:none; transition:border-color 0.2s; }
+  .snip-input:focus { border-color:var(--green-dim); }
+  .snip-input::placeholder { color:var(--text-dim); }
+  .snip-select { background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:8px 10px; font-family:'Share Tech Mono',monospace; font-size:0.72rem; outline:none; cursor:pointer; }
+  .snip-code { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--green); padding:10px; font-family:'JetBrains Mono',monospace; font-size:0.72rem; resize:vertical; min-height:100px; outline:none; line-height:1.6; transition:border-color 0.2s; }
+  .snip-code:focus { border-color:var(--green-dim); }
+  .snip-add-btn { background:none; border:1px solid var(--green); color:var(--green); padding:8px 16px; cursor:pointer; font-family:'Orbitron',monospace; font-size:0.65rem; letter-spacing:1px; transition:all 0.2s; white-space:nowrap; }
+  .snip-add-btn:hover { background:var(--green-glow); box-shadow:0 0 12px var(--green-glow2); }
+  .snippet-list { display:flex; flex-direction:column; gap:10px; }
+  .snippet-card { border:1px solid var(--border); background:var(--panel); overflow:hidden; transition:border-color 0.2s; }
+  .snippet-card:hover { border-color:var(--green-dim); }
+  .snippet-card-header { display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--panel2); cursor:pointer; }
+  .snippet-lang-badge { font-family:'Orbitron',monospace; font-size:0.55rem; padding:2px 7px; border:1px solid var(--green-dim); color:var(--green-dim); letter-spacing:1px; flex-shrink:0; }
+  .snippet-title-text { flex:1; font-size:0.78rem; color:var(--text); }
+  .snippet-topic-tag { font-size:0.6rem; color:var(--text-dim); padding:2px 6px; border:1px solid var(--border); }
+  .snippet-del-btn { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:0.75rem; padding:2px 6px; transition:color 0.2s; }
+  .snippet-del-btn:hover { color:var(--red); }
+  .snippet-code-block { display:none; padding:14px; font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--green); line-height:1.7; background:var(--bg3); white-space:pre-wrap; word-break:break-word; position:relative; }
+  .snippet-code-block.open { display:block; }
+  .snip-copy-btn { position:absolute; top:8px; right:8px; background:none; border:1px solid var(--border); color:var(--text-dim); padding:3px 8px; cursor:pointer; font-family:'Share Tech Mono',monospace; font-size:0.6rem; transition:all 0.2s; }
+  .snip-copy-btn:hover { border-color:var(--green); color:var(--green); }
+  .snip-search { width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:10px 14px; font-family:'Share Tech Mono',monospace; font-size:0.72rem; outline:none; margin-bottom:14px; transition:border-color 0.2s; }
+  .snip-search:focus { border-color:var(--green-dim); }
+  .snip-search::placeholder { color:var(--text-dim); }
+
+  /* achievement popup */
+  .achievement-popup {
+    position:fixed;
+    bottom:20px;right:20px;
+    background:var(--panel);
+    border:1px solid var(--green);
+    padding:12px 16px;
+    z-index:2000;
+    box-shadow:0 0 30px var(--green-glow2);
+    font-size:0.75rem;
+    color:var(--green);
+    transform:translateX(200%);
+    transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    max-width:250px;
+  }
+  .achievement-popup.show { transform:translateX(0); }
+  .ach-title { font-family:'Orbitron',monospace; font-size:0.6rem; letter-spacing:2px; color:var(--text-dim); margin-bottom:4px; }
+</style>
+</head>
+<body>
+
+<canvas id="matrix-bg"></canvas>
+
+<!-- Confetti Canvas -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- Milestone Overlay -->
+<div class="milestone-overlay" id="milestone-overlay" onclick="closeMilestone()">
+  <div class="milestone-content" onclick="event.stopPropagation()">
+    <div class="milestone-icon" id="milestone-icon"></div>
+    <div class="milestone-title" id="milestone-title"></div>
+    <div class="milestone-desc" id="milestone-desc"></div>
+    <div class="milestone-sub" id="milestone-sub"></div>
+    <button class="milestone-close-btn" onclick="closeMilestone()">DEVAM ET</button>
+  </div>
+</div>
+
+<!-- Undo Toast -->
+<div class="undo-toast" id="undo-toast">
+  <span class="undo-toast-text" id="undo-toast-text"></span>
+  <button class="undo-btn" onclick="performUndo()">GERİ AL</button>
+</div>
+
+<!-- Streak Warning -->
+<div class="streak-warning" id="streak-warning">
+  <button class="streak-warning-close" onclick="closeStreakWarning()">&times;</button>
+  <div class="streak-warning-title" id="streak-warning-title"></div>
+  <div class="streak-warning-text" id="streak-warning-text"></div>
+</div>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<div class="app">
+  <!-- HEADER -->
+  <header>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+      <div class="logo">AI<span>_</span>ROADMAP<span>.exe</span></div>
+      <div class="header-stats">
+        <div class="hstat">TAMAMLANAN: <strong id="hdr-done">0</strong></div>
+        <div class="hstat">TOPLAM: <strong>237</strong></div>
+        <div class="hstat">STREAK: <strong id="hdr-streak">0</strong></div>
+      </div>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showPage('roadmap')">ROADMAP</button>
+      <button class="nav-tab" onclick="showPage('istatistik')">İSTATİSTİK</button>
+      <button class="nav-tab" onclick="showPage('kviz')">KVİZ</button>
+      <button class="nav-tab" onclick="showPage('chat')">AI CHAT</button>
+      <button class="nav-tab" onclick="showPage('notlar')">NOTLAR</button>
+      <button class="nav-tab" onclick="showPage('offdays')">OFF DAYS</button>
+      <button class="nav-tab" onclick="showPage('profil')">PROFİL</button>
+      <button class="nav-tab" onclick="showPage('haftalik')">HAFTALIK</button>
+      <button class="nav-tab" onclick="showPage('snippets')">SNİPPETLAR</button>
+      <button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Tema Degistir">🌙</button>
+      <button class="norway-flag-btn" id="norway-btn" onclick="toggleNorwayMode()" title="Norvec Modu">🇳🇴</button>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">// AYLAR</div>
+        <div id="month-list"></div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">// GENEL İLERLEME</div>
+        <div class="overall-bar-wrap" style="padding:10px;">
+          <div class="overall-label">
+            <span>İLERLEME</span>
+            <strong id="sb-pct">0%</strong>
+          </div>
+          <div class="overall-bar">
+            <div class="overall-fill" id="sb-bar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <!-- ROADMAP PAGE -->
+      <div class="page active" id="page-roadmap">
+        <div class="stat-grid" id="stat-grid">
+          <div class="stat-card">
+            <div class="stat-label">TAMAMLANAN GÜN</div>
+            <div class="stat-value" id="stat-done">0</div>
+            <div class="stat-sub">/ 237 toplam</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">KALAN GÜN</div>
+            <div class="stat-value" id="stat-left">237</div>
+            <div class="stat-sub">devam et!</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">TAMAMLANAN AY</div>
+            <div class="stat-value" id="stat-months">0</div>
+            <div class="stat-sub">/ 12 ay</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">GÜNLÜK STREAK</div>
+            <div class="stat-value" id="stat-streak">0</div>
+            <div class="stat-sub">🔥 gün</div>
+          </div>
+        </div>
+
+        <!-- Daily Motivation -->
+        <div class="daily-motivation" id="daily-motivation">
+          <div class="daily-motivation-label">// GUNUN MOTIVASYONU</div>
+          <div class="daily-motivation-text" id="daily-motivation-text"></div>
+        </div>
+
+        <div class="overall-bar-wrap" id="overall-bar-wrap">
+          <div class="overall-label">
+            <span>12 AYLIK YOL HARİTASI İLERLEMESİ</span>
+            <strong id="overall-pct">%0</strong>
+          </div>
+          <div class="overall-bar">
+            <div class="overall-fill" id="overall-bar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div id="month-content"></div>
+      </div>
+
+      <!-- İSTATİSTİK PAGE -->
+      <div class="page" id="page-istatistik">
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-label">TAMAMLANAN</div>
+            <div class="stat-value" id="ist-done">0</div>
+            <div class="stat-sub">görev bitti</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">YÜZDE</div>
+            <div class="stat-value" id="ist-pct">0%</div>
+            <div class="stat-sub">toplam ilerleme</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">PROJE GÜNÜ</div>
+            <div class="stat-value" id="ist-proj">0</div>
+            <div class="stat-sub">proje tamamlandı</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">STREAK</div>
+            <div class="stat-value" id="ist-streak">0</div>
+            <div class="stat-sub">🔥 gün arka arkaya</div>
+          </div>
+        </div>
+
+        <div class="chart-area">
+          <div class="chart-title">// AY BAZLI İLERLEME DURUMU</div>
+          <div class="bar-chart" id="month-bar-chart"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="chart-area">
+            <div class="chart-title">// HAFTALIK AKTIVITE (SON 4 HAFTA)</div>
+            <div id="week-activity" style="font-size:0.7rem;color:var(--text-dim);line-height:2;">Veri yükleniyor...</div>
+          </div>
+          <div class="chart-area" style="text-align:center;">
+            <div class="chart-title">// EN UZUN STREAK</div>
+            <div class="streak-display">
+              <div class="streak-num" id="best-streak">0</div>
+              <div class="streak-label">GÜN ART ARDA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KVİZ PAGE -->
+      <div class="page" id="page-kviz">
+        <div class="quiz-container">
+          <div class="quiz-header">
+            <div class="quiz-title cursor">AI DEVELOPER KVİZİ</div>
+            <div style="font-size:0.65rem;color:var(--text-dim);">Öğrendiklerini test et — 10 soru</div>
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress-fill" id="quiz-prog" style="width:0%"></div>
+            </div>
+          </div>
+          <div id="quiz-area"></div>
+        </div>
+      </div>
+
+      <!-- AI CHAT PAGE -->
+      <div class="page" id="page-chat">
+        <div class="chat-container">
+          <div class="chat-header">
+            <div class="chat-status"></div>
+            <div class="chat-title-small">AI MENTOR // ROADMAP ASISTANI</div>
+          </div>
+          <div class="chat-messages" id="chat-messages">
+            <div class="msg ai">
+              <div class="msg-prefix">// AI_MENTOR</div>
+              Merhaba! 👋 Ben AI Roadmap asistanınım. Yol haritandaki herhangi bir konu hakkında soru sorabilirsin. Python, ML, DL, LLM, deployment — hangi konuda yardıma ihtiyacın var?
+            </div>
+          </div>
+          <div class="chat-suggestions">
+            <button class="sug-btn" onclick="sendSuggestion(this)">RAG nedir?</button>
+            <button class="sug-btn" onclick="sendSuggestion(this)">LangChain nasıl başlarım?</button>
+            <button class="sug-btn" onclick="sendSuggestion(this)">Fine-tuning için ne gerekli?</button>
+            <button class="sug-btn" onclick="sendSuggestion(this)">Docker ile deploy nasıl yapılır?</button>
+            <button class="sug-btn" onclick="sendSuggestion(this)">Portfolio'mu nasıl güçlendiririm?</button>
+          </div>
+          <div class="chat-input-row">
+            <input class="chat-input" id="chat-input" placeholder="Sorunuzu yazın... (örn: PyTorch ile nasıl başlarım?)" onkeydown="if(event.key==='Enter')sendChat()">
+            <button class="chat-send" onclick="sendChat()">GÖNDER</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTLAR PAGE -->
+      <div class="page" id="page-notlar">
+        <div class="notes-grid">
+          <div class="note-card">
+            <div class="note-card-title">// GÜNLÜK NOTLAR</div>
+            <textarea class="note-textarea" id="note-daily" placeholder="Bugün ne öğrendim..." rows="6"></textarea>
+            <button class="note-save-btn" onclick="saveNote('daily')">KAYDET</button>
+          </div>
+          <div class="note-card">
+            <div class="note-card-title">// HEDEFLER</div>
+            <textarea class="note-textarea" id="note-goals" placeholder="Bu ay hedeflerim..." rows="6"></textarea>
+            <button class="note-save-btn" onclick="saveNote('goals')">KAYDET</button>
+          </div>
+          <div class="note-card">
+            <div class="note-card-title">// KAYNAKLAR</div>
+            <textarea class="note-textarea" id="note-resources" placeholder="Faydalı linkler, videolar, kitaplar..." rows="6"></textarea>
+            <button class="note-save-btn" onclick="saveNote('resources')">KAYDET</button>
+          </div>
+          <div class="note-card">
+            <div class="note-card-title">// ZORLUKLAR & ÇÖZÜMLER</div>
+            <textarea class="note-textarea" id="note-challenges" placeholder="Takıldığım konular ve nasıl aştım..." rows="6"></textarea>
+            <button class="note-save-btn" onclick="saveNote('challenges')">KAYDET</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- OFF DAYS PAGE -->
+      <div class="page" id="page-offdays">
+        <div style="margin-bottom:20px;">
+          <div style="font-family:'Orbitron',monospace;font-size:1rem;color:var(--green);margin-bottom:6px;text-shadow:0 0 15px var(--green-glow2);">// OFF DAY TAKİBİ</div>
+          <div style="font-size:0.72rem;color:var(--text-dim);line-height:1.6;">
+            Off day aldığın günleri buradan görebilirsin. Her off day, o günden sonraki tüm görevlerin tarihini 1 gün öteliyor.
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:20px;">
+          <div class="stat-card">
+            <div class="stat-label">TOPLAM OFF DAY</div>
+            <div class="stat-value" id="od-total">0</div>
+            <div class="stat-sub">gün izin</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">BU AY OFF DAY</div>
+            <div class="stat-value" id="od-month">0</div>
+            <div class="stat-sub">bu ay</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">TAKVİM KAYIŞI</div>
+            <div class="stat-value" id="od-shift">0</div>
+            <div class="stat-sub">gün ötelendi</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">YENİ BİTİŞ</div>
+            <div class="stat-value" id="od-enddate" style="font-size:1rem;">—</div>
+            <div class="stat-sub">tahmini</div>
+          </div>
+        </div>
+        <div class="chart-area">
+          <div class="chart-title">// OFF DAY LİSTESİ</div>
+          <div id="offday-list" style="font-size:0.72rem;color:var(--text-dim);">Henüz off day işaretlemedin. Gün kartlarındaki OFF butonunu kullan.</div>
+        </div>
+      </div>
+
+      <!-- PROFİL / SEVİYE / ROZET PAGE -->
+      <div class="page" id="page-profil">
+        <div id="level-display-area"></div>
+        <div style="margin-bottom:16px;">
+          <div style="font-family:'Orbitron',monospace;font-size:0.75rem;color:var(--green);letter-spacing:2px;margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid var(--border);">// KAZANILAN ROZETLER</div>
+          <div class="badge-showcase" id="rozet-showcase"></div>
+        </div>
+      </div>
+
+      <!-- HAFTALIK RAPOR PAGE -->
+      <div class="page" id="page-haftalik">
+        <div style="font-family:'Orbitron',monospace;font-size:1rem;color:var(--green);margin-bottom:6px;text-shadow:0 0 15px var(--green-glow2);">// HAFTALIK PERFORMANS RAPORU</div>
+        <div style="font-size:0.72rem;color:var(--text-dim);margin-bottom:20px;">Son 8 haftanın gerçek aktivite verisi — tarihlere göre hesaplanır.</div>
+        <div class="chart-area" style="margin-bottom:16px;">
+          <div class="chart-title">// MEVCUT HAFTA (SON 7 GÜN)</div>
+          <div class="week-grid" id="current-week-grid"></div>
+          <div id="week-summary" style="font-size:0.7rem;color:var(--text-dim);margin-top:8px;"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div class="chart-area">
+            <div class="chart-title">// TREND ANALİZİ</div>
+            <div id="trend-data"></div>
+          </div>
+          <div class="chart-area">
+            <div class="chart-title">// SON 8 HAFTA AKTİVİTESİ</div>
+            <div style="display:flex;align-items:flex-end;gap:4px;height:100px;" id="weekly-bar-chart"></div>
+          </div>
+        </div>
+        <div class="chart-area">
+          <div class="chart-title">// GERÇEK STREAK ANALİZİ</div>
+          <div id="streak-analysis"></div>
+        </div>
+      </div>
+
+      <!-- SNİPPET DEPOSU PAGE -->
+      <div class="page" id="page-snippets">
+        <div style="font-family:'Orbitron',monospace;font-size:1rem;color:var(--green);margin-bottom:6px;text-shadow:0 0 15px var(--green-glow2);">// KOD SNİPPET DEPOSU</div>
+        <div style="font-size:0.72rem;color:var(--text-dim);margin-bottom:16px;">Öğrendiğin kod parçalarını buraya kaydet. Arayabilir, kopyalayabilirsin.</div>
+        <div class="snippet-form">
+          <div class="chart-title" style="margin-bottom:12px;">// YENİ SNİPPET EKLE</div>
+          <div class="snippet-input-row">
+            <input class="snip-input" id="snip-title" placeholder="Başlık (örn: DataFrame merge işlemi)">
+            <input class="snip-input" id="snip-topic" placeholder="Konu (örn: Pandas, PyTorch...)">
+            <select class="snip-select" id="snip-lang">
+              <option value="python">Python</option>
+              <option value="bash">Bash</option>
+              <option value="javascript">JS</option>
+              <option value="sql">SQL</option>
+              <option value="yaml">YAML</option>
+              <option value="other">Diğer</option>
+            </select>
+          </div>
+          <textarea class="snip-code" id="snip-code" placeholder="# Kodunu buraya yapıştır..."></textarea>
+          <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+            <button class="snip-add-btn" onclick="addSnippet()">+ SNİPPET EKLE</button>
+          </div>
+        </div>
+        <input class="snip-search" id="snip-search" placeholder="🔍 Snippet ara... (başlık veya konu)" oninput="renderSnippets()">
+        <div class="snippet-list" id="snippet-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title"></div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- Achievement popup -->
+<div class="achievement-popup" id="ach-popup">
+  <div class="ach-title">// BAŞARIM KAZANILDI</div>
+  <div id="ach-text"></div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const ROADMAP_DATA = [
+  {s:"W1 Pzt — Python Kurulum + İlk Commit",d:"2026-04-27",desc:"AY1 | Python+VSCode kurulum; venv; GitHub repo; hello.py+README; 1 commit | Araçlar: Python 3.12, VS Code, Git"},
+  {s:"W1 Sal — Değişkenler + List/Dict",d:"2026-04-28",desc:"AY1 | 10 mini alıştırma (list/dict); not ekle/sil script; commit"},
+  {s:"W1 Çar — If/Loop + Mini Uygulama",d:"2026-04-29",desc:"AY1 | if/for/while pratik; quiz veya tahmin oyunu; commit"},
+  {s:"W1 Per — Fonksiyonlar",d:"2026-04-30",desc:"AY1 | 5 fonksiyon yaz; refactor et; commit"},
+  {s:"W1 Paz — Proje 1: Study Tracker",d:"2026-05-03",desc:"AY1 PROJE | Study Tracker temel sürüm. JSON kaydet. README. commit/push"},
+  {s:"W2 Pzt — CSV/JSON Dosya İşlemleri",d:"2026-05-04",desc:"AY1 | CSV/JSON oku-yaz; Study Tracker export; commit"},
+  {s:"W2 Sal — Hata Yakalama try/except",d:"2026-05-05",desc:"AY1 | try/except pratik; dayanıklı kod; commit"},
+  {s:"W2 Çar — requests ile API",d:"2026-05-06",desc:"AY1 | requests ile 1 API den veri çek; dosyaya yaz; commit | Araç: requests"},
+  {s:"W2 Per — Kod Düzeni + README",d:"2026-05-07",desc:"AY1 | klasör yapısı /src; README kurulum+kullanım; commit"},
+  {s:"W2 Paz — Proje 2: To-do CLI",d:"2026-05-10",desc:"AY1 PROJE | To-do CLI. Dosyaya kaydet. Örnek çıktı. commit/push"},
+  {s:"W3 Pzt — pytest 2 Test",d:"2026-05-11",desc:"AY1 | pytest kur; 2 test yaz; commit | Araç: pytest"},
+  {s:"W3 Sal — pytest 3 Test Daha",d:"2026-05-12",desc:"AY1 | 3 test daha; edge case ekle; commit"},
+  {s:"W3 Çar — ruff/black Formatter",d:"2026-05-13",desc:"AY1 | ruff/black kur; projeye uygula; commit | Araçlar: ruff, black"},
+  {s:"W3 Per — pre-commit Hook",d:"2026-05-14",desc:"AY1 | pre-commit kur; lint/test hook; commit | Araç: pre-commit"},
+  {s:"W3 Paz — Study Tracker İyileştirme",d:"2026-05-17",desc:"AY1 PROJE | haftalık toplam özelliği; çıktı güzelleştir; README güncelle; push"},
+  {s:"W4 Pzt — Proje Sayfası Düzenle",d:"2026-05-18",desc:"AY1 | README: Problem/Çözüm/Kullanım formatı; ekran görüntüsü; commit"},
+  {s:"W4 Sal — Demo Video 60 sn",d:"2026-05-19",desc:"AY1 | 60 sn demo video kaydı; repo ya link; commit"},
+  {s:"W4 Çar — Refactor + Son Kontrol",d:"2026-05-20",desc:"AY1 | tekrar eden kodu sadeleştir; testleri çalıştır; commit"},
+  {s:"W4 Per — Ay 1 Değerlendirme",d:"2026-05-21",desc:"AY1 KAPANIŞ | 10 madde öğrendim listesi; Ay2 dataset seç; PLAN.md ekle; commit"},
+  {s:"W4 Paz — Bonus: Eksik Tamamlama",d:"2026-05-24",desc:"AY1 BONUS | eksik kalanları bitir; küçük ek özellik; commit"},
+  {s:"W5 Pzt — Pandas DataFrame Temelleri",d:"2026-05-25",desc:"AY2 | pip install pandas; CSV yükle; df.head/describe/info; commit | Araç: pandas"},
+  {s:"W5 Sal — Pandas Filtreleme + Gruplama",d:"2026-05-26",desc:"AY2 | loc/iloc; groupby; sort_values; commit"},
+  {s:"W5 Çar — Pandas Eksik Veri Temizleme",d:"2026-05-27",desc:"AY2 | isnull/dropna/fillna; dtype düzeltme; commit"},
+  {s:"W5 Per — NumPy Temelleri",d:"2026-05-28",desc:"AY2 | array/shape/reshape; mean/std/sum; commit | Araç: numpy"},
+  {s:"W5 Paz — Proje: Kaggle CSV Analizi",d:"2026-05-31",desc:"AY2 PROJE | Kaggle dan 1 dataset; Pandas analiz; 5 insight; README; push"},
+  {s:"W6 Pzt — Matplotlib Temelleri",d:"2026-06-01",desc:"AY2 | line/bar/scatter plot; başlık/etiket; commit | Araç: matplotlib"},
+  {s:"W6 Sal — Seaborn Görselleştirme",d:"2026-06-02",desc:"AY2 | heatmap; pairplot; histplot; commit | Araç: seaborn"},
+  {s:"W6 Çar — Veri Temizleme Projesi",d:"2026-06-03",desc:"AY2 | 1 kirli dataset al; temizle; görselleştir; commit"},
+  {s:"W6 Per — Pandas Merge + Pivot",d:"2026-06-04",desc:"AY2 | merge/join; pivot_table; commit"},
+  {s:"W6 Paz — Proje: EDA Notebook",d:"2026-06-07",desc:"AY2 PROJE | Jupyter Notebook EDA. 10 grafik. Sonuç yorumu. commit/push | Araç: jupyter"},
+  {s:"W7 Pzt — Jupyter Notebook Workflow",d:"2026-06-08",desc:"AY2 | Jupyter kur; markdown+kod hücreleri; EDA şablonu; commit"},
+  {s:"W7 Sal — Titanic Dataset Keşfi",d:"2026-06-09",desc:"AY2 | Titanic CSV; eksik veri analizi; yaş/cinsiyet/hayatta kalma grafikleri; commit"},
+  {s:"W7 Çar — Feature Engineering Temelleri",d:"2026-06-10",desc:"AY2 | yeni sütun oluştur; kategorik sayısala; commit"},
+  {s:"W7 Per — Veri Normalleştirme",d:"2026-06-11",desc:"AY2 | MinMaxScaler; StandardScaler; ne zaman hangisi; commit | Araç: sklearn.preprocessing"},
+  {s:"W7 Paz — Proje: Titanic EDA Raporu",d:"2026-06-14",desc:"AY2 PROJE | Titanic EDA tamamla. 15 grafik + yorumlar. README. GitHub push"},
+  {s:"W8 Pzt — GitHub Profile + Portfolio",d:"2026-06-15",desc:"AY2 | Ay2 öğrendiklerini listele; GitHub profile README güncelle; commit"},
+  {s:"W8 Sal — SQL Temelleri sqlite3",d:"2026-06-16",desc:"AY2 | sqlite3 DB oluştur; SELECT/WHERE/JOIN; pandas+SQL entegre; commit"},
+  {s:"W8 Çar — SQL Pratik 10 Sorgu",d:"2026-06-17",desc:"AY2 | 10 sorgu yaz; gruplama sorguları; commit"},
+  {s:"W8 Per — Ay 2 Değerlendirme",d:"2026-06-18",desc:"AY2 KAPANIŞ | portfolio reposu düzenle; Ay3 hazırlık notları; commit"},
+  {s:"W8 Paz — Bonus: İleri Pandas",d:"2026-06-21",desc:"AY2 BONUS | eksik konuları tamamla; pandas cheat sheet yaz; commit"},
+  {s:"W9 Pzt — scikit-learn İlk Model",d:"2026-06-22",desc:"AY3 | pip install scikit-learn; LinearRegression; fit/predict; commit | Araç: scikit-learn"},
+  {s:"W9 Sal — Train/Test Split + Metrikler",d:"2026-06-23",desc:"AY3 | train_test_split; MSE/R2/accuracy; commit"},
+  {s:"W9 Çar — Lojistik Regresyon",d:"2026-06-24",desc:"AY3 | binary classification; confusion matrix; commit"},
+  {s:"W9 Per — K-NN + Decision Tree",d:"2026-06-25",desc:"AY3 | KNeighborsClassifier; DecisionTreeClassifier; karşılaştır; commit"},
+  {s:"W9 Paz — Proje: Iris Sınıflandırma",d:"2026-06-28",desc:"AY3 PROJE | Iris dataset. 3 model dene. En iyi seç. README. push"},
+  {s:"W10 Pzt — Random Forest",d:"2026-06-29",desc:"AY3 | RandomForestClassifier; feature_importances_; commit"},
+  {s:"W10 Sal — Cross-Validation",d:"2026-06-30",desc:"AY3 | KFold; cross_val_score; overfitting kavramı; commit"},
+  {s:"W10 Çar — Hyperparameter Tuning",d:"2026-07-01",desc:"AY3 | GridSearchCV; en iyi parametre; commit"},
+  {s:"W10 Per — sklearn Pipeline",d:"2026-07-02",desc:"AY3 | sklearn Pipeline; preprocessing+model; commit"},
+  {s:"W10 Paz — Proje: House Price Tahmini",d:"2026-07-05",desc:"AY3 PROJE | Kaggle House Price. Pipeline ile model. R2>0.80 hedef. README. push"},
+  {s:"W11 Pzt — K-Means Kümeleme",d:"2026-07-06",desc:"AY3 | KMeans; elbow method; cluster görselleştir; commit"},
+  {s:"W11 Sal — PCA Boyut İndirgeme",d:"2026-07-07",desc:"AY3 | PCA(n_components=2); scatter plot; commit"},
+  {s:"W11 Çar — Model Kaydetme joblib",d:"2026-07-08",desc:"AY3 | joblib.dump/load; kayıtlı modeli test et; commit"},
+  {s:"W11 Per — ML Proje Klasör Yapısı",d:"2026-07-09",desc:"AY3 | src/models/data/ yapısı; config.py; commit"},
+  {s:"W11 Paz — Proje: Müşteri Segmentasyonu",d:"2026-07-12",desc:"AY3 PROJE | E-ticaret dataset. KMeans segmentasyon. Görselleştir. README. push"},
+  {s:"W12 Pzt — ML Portfolio Düzenleme",d:"2026-07-13",desc:"AY3 | 3 ML projesini düzenle; README güncelle; commit"},
+  {s:"W12 Sal — Kaggle Hesabı + Notebook",d:"2026-07-14",desc:"AY3 | Kaggle hesabı; ilk public notebook; upvote hedefi | Platform: Kaggle"},
+  {s:"W12 Çar — Ay 3 Değerlendirme",d:"2026-07-15",desc:"AY3 KAPANIŞ | öğrendiklerini listele; en güçlü proje; Ay4 hazırlık"},
+  {s:"W12 Per — Deep Learning Hazırlık",d:"2026-07-16",desc:"AY3 | numpy ile nöron matematiği; aktivasyon fonksiyonları teorisi; commit"},
+  {s:"W12 Paz — Bonus: Kaggle Competition",d:"2026-07-19",desc:"AY3 BONUS | Kaggle beginner comp. Notebook yaz. public. push"},
+  {s:"W13 Pzt — PyTorch Kurulum + Tensor",d:"2026-07-20",desc:"AY4 | pip install torch; tensor oluştur; GPU kontrol; commit | Araç: PyTorch"},
+  {s:"W13 Sal — İlk Neural Network",d:"2026-07-21",desc:"AY4 | nn.Linear; forward pass; loss hesapla; commit"},
+  {s:"W13 Çar — Eğitim Döngüsü",d:"2026-07-22",desc:"AY4 | optimizer; backward pass; epoch döngüsü; commit"},
+  {s:"W13 Per — MNIST Sınıflandırma",d:"2026-07-23",desc:"AY4 | MNIST yükle; FC network; %95+ accuracy; commit"},
+  {s:"W13 Paz — Proje: El Yazısı Rakam Tanıma",d:"2026-07-26",desc:"AY4 PROJE | MNIST tam pipeline. Model kaydet. README. push"},
+  {s:"W14 Pzt — CNN Temelleri",d:"2026-07-27",desc:"AY4 | Conv2d/MaxPool2d; CIFAR-10 dene; commit"},
+  {s:"W14 Sal — Transfer Learning",d:"2026-07-28",desc:"AY4 | torchvision pretrained; ResNet fine-tune; commit"},
+  {s:"W14 Çar — Dropout + BatchNorm",d:"2026-07-29",desc:"AY4 | Dropout ekle; BatchNorm ekle; accuracy karşılaştır; commit"},
+  {s:"W14 Per — TensorBoard Loss Takibi",d:"2026-07-30",desc:"AY4 | TensorBoard kur; training loss grafiği; commit"},
+  {s:"W14 Paz — Proje: Görüntü Sınıflandırıcı",d:"2026-08-02",desc:"AY4 PROJE | 2 sınıflı dataset (kedi/köpek). Transfer Learning. README. push"},
+  {s:"W15 Pzt — NLP Temelleri Metin İşleme",d:"2026-08-03",desc:"AY4 | tokenization; stopwords; TF-IDF; commit"},
+  {s:"W15 Sal — Metin Sınıflandırma IMDB",d:"2026-08-04",desc:"AY4 | IMDB sentiment; TF-IDF+LogReg; %85+ accuracy; commit"},
+  {s:"W15 Çar — Word Embeddings gensim",d:"2026-08-05",desc:"AY4 | Word2Vec kavramı; gensim kur; benzer kelime bul; commit"},
+  {s:"W15 Per — Sentiment Analysis API Planı",d:"2026-08-06",desc:"AY4 | Flask/FastAPI ile model serve planı; klasör yapısı; commit"},
+  {s:"W15 Paz — Proje: Sentiment Analysis API",d:"2026-08-09",desc:"AY4 PROJE | FastAPI ile model serve. /predict endpoint. README. push"},
+  {s:"W16 Pzt — FastAPI Temelleri",d:"2026-08-10",desc:"AY4 | pip install fastapi uvicorn; ilk endpoint; Swagger UI; commit | Araç: FastAPI"},
+  {s:"W16 Sal — Model → API Entegrasyonu",d:"2026-08-11",desc:"AY4 | ML modelini FastAPI ye bağla; POST /predict; commit"},
+  {s:"W16 Çar — Docker Temelleri",d:"2026-08-12",desc:"AY4 | Dockerfile yaz; image build; container çalıştır; commit | Araç: Docker"},
+  {s:"W16 Per — Ay 4 Değerlendirme",d:"2026-08-13",desc:"AY4 KAPANIŞ | DL/NLP öğrendiklerini listele; portfolio güncelle; Ay5 hazırlık"},
+  {s:"W16 Paz — Bonus: Kaggle NLP",d:"2026-08-16",desc:"AY4 BONUS | Kaggle NLP comp dene. Notebook public yap. push"},
+  {s:"W17 Pzt — HuggingFace Pipeline",d:"2026-08-17",desc:"AY5 | pip install transformers; pipeline sentiment-analysis; commit | Araç: HuggingFace Transformers"},
+  {s:"W17 Sal — HuggingFace Hub Keşfi",d:"2026-08-18",desc:"AY5 | model kartları incele; 3 farklı task dene; commit"},
+  {s:"W17 Çar — Tokenizer Derinlemesine",d:"2026-08-19",desc:"AY5 | AutoTokenizer; encoding/decoding; commit"},
+  {s:"W17 Per — BERT ile Text Classification",d:"2026-08-20",desc:"AY5 | BertForSequenceClassification; fine-tune başlangıç; commit"},
+  {s:"W17 Paz — Proje: HuggingFace QA Sistemi",d:"2026-08-23",desc:"AY5 PROJE | extractive QA pipeline. Kendi sorularını test et. README. push"},
+  {s:"W18 Pzt — OpenAI API Kurulum",d:"2026-08-24",desc:"AY5 | openai kur; API key .env de sakla; ilk completion; commit | Araç: OpenAI API"},
+  {s:"W18 Sal — OpenAI Chat Completion",d:"2026-08-25",desc:"AY5 | GPT-4o-mini ile chat; system/user/assistant rolleri; commit"},
+  {s:"W18 Çar — Prompt Engineering",d:"2026-08-26",desc:"AY5 | zero-shot; few-shot; chain-of-thought; commit"},
+  {s:"W18 Per — OpenAI Function Calling",d:"2026-08-27",desc:"AY5 | function calling; JSON schema; commit"},
+  {s:"W18 Paz — Proje: İçerik Özetleyici",d:"2026-08-30",desc:"AY5 PROJE | URL gir, makale özetle, dosyaya kaydet. GPT-4o-mini. README. push"},
+  {s:"W19 Pzt — LangChain Temelleri",d:"2026-08-31",desc:"AY5 | pip install langchain; LLMChain; PromptTemplate; commit | Araç: LangChain"},
+  {s:"W19 Sal — LangChain Memory",d:"2026-09-01",desc:"AY5 | ConversationBufferMemory; multi-turn chat; commit"},
+  {s:"W19 Çar — LangChain Tools + Agents",d:"2026-09-02",desc:"AY5 | Tool tanımla; AgentExecutor; commit"},
+  {s:"W19 Per — RAG Kavramı + FAISS",d:"2026-09-03",desc:"AY5 | RAG nedir; FAISS kurulum; commit | Araç: FAISS"},
+  {s:"W19 Paz — Proje: RAG Chatbot v1",d:"2026-09-06",desc:"AY5 PROJE | PDF yukle, chunk, embed, FAISS, GPT cevapla. README. push"},
+  {s:"W20 Pzt — ChromaDB + FAISS",d:"2026-09-07",desc:"AY5 | ChromaDB kur; persist; similarity search; commit | Araç: ChromaDB"},
+  {s:"W20 Sal — Embedding Modelleri",d:"2026-09-08",desc:"AY5 | OpenAI embeddings; sentence-transformers; karşılaştır; commit"},
+  {s:"W20 Çar — Streamlit Chat UI",d:"2026-09-09",desc:"AY5 | pip install streamlit; chat UI; session_state; commit | Araç: Streamlit"},
+  {s:"W20 Per — Ay 5 Değerlendirme",d:"2026-09-10",desc:"AY5 KAPANIŞ | LLM öğrendiklerini listele; RAG projesini portfolio ya ekle; commit"},
+  {s:"W20 Paz — Bonus: RAG İyileştirme",d:"2026-09-13",desc:"AY5 BONUS | chunking stratejisi değiştir; re-ranking ekle; test et; push"},
+  {s:"W21 Pzt — Chatbot Mimarisi Tasarımı",d:"2026-09-14",desc:"AY6 | sistem tasarımı çiz; stack seç; DESIGN.md; commit"},
+  {s:"W21 Sal — Telegram Bot Temelleri",d:"2026-09-15",desc:"AY6 | python-telegram-bot kur; /start /help; commit | Araç: python-telegram-bot"},
+  {s:"W21 Çar — Bot + GPT Entegrasyonu",d:"2026-09-16",desc:"AY6 | mesaj al, GPT ye gönder, cevap döndür; commit"},
+  {s:"W21 Per — Bot a Memory Ekle",d:"2026-09-17",desc:"AY6 | conversation history; context penceresi; commit"},
+  {s:"W21 Paz — Proje: GPT Telegram Botu",d:"2026-09-20",desc:"AY6 PROJE | Tam çalışan Telegram botu. Canlı test. Video kaydı. push"},
+  {s:"W22 Pzt — Streamlit Chatbot UI",d:"2026-09-21",desc:"AY6 | st.chat_message; session_state ile memory; commit"},
+  {s:"W22 Sal — FastAPI Chatbot Backend",d:"2026-09-22",desc:"AY6 | /chat endpoint; streaming response; commit"},
+  {s:"W22 Çar — Railway/Render Deploy",d:"2026-09-23",desc:"AY6 | hesap aç; repo bağla; deploy et; canlı URL; commit | Platform: Railway/Render"},
+  {s:"W22 Per — Ortam Değişkenleri Güvenlik",d:"2026-09-24",desc:"AY6 | .env; .gitignore; secrets yönetimi; commit"},
+  {s:"W22 Paz — Proje: Canlı Chatbot Deploy",d:"2026-09-27",desc:"AY6 PROJE | Chatbot deploy. Canlı URL. Demo video. README. push"},
+  {s:"W23 Pzt — Chatbot Kalite İyileştirme",d:"2026-09-28",desc:"AY6 | hallucination azalt; system prompt optimize; commit"},
+  {s:"W23 Sal — Streaming Response",d:"2026-09-29",desc:"AY6 | FastAPI StreamingResponse; akışlı gösterim; commit"},
+  {s:"W23 Çar — Kullanıcı Feedback Toplama",d:"2026-09-30",desc:"AY6 | thumbs up/down; logla; commit"},
+  {s:"W23 Per — Ay 6 Değerlendirme",d:"2026-10-01",desc:"AY6 KAPANIŞ | chatbot projesini portfolio ya ekle; LinkedIn güncelle; commit"},
+  {s:"W23 Paz — Bonus: Chatbot + RAG",d:"2026-10-04",desc:"AY6 BONUS | RAG ı chatbot a ekle; dokumanlara özel cevap; test; push"},
+  {s:"W24 Pzt — Proje Finalizasyon",d:"2026-10-05",desc:"AY6 | Chatbot tamamla; README Problem/Çözüm/Demo formatı; push"},
+  {s:"W24 Sal — Portfolio Site Planı",d:"2026-10-06",desc:"AY6 | hangi projeler; GitHub Pages veya Vercel; wireframe; commit"},
+  {s:"W24 Çar — GitHub Profile README",d:"2026-10-07",desc:"AY6 | Profil README yaz; projeler+skills+iletişim; push"},
+  {s:"W24 Per — Ay 6 Kapanış + Ay 7 Hazırlık",d:"2026-10-08",desc:"AY6 | 6 ay özet; fine-tuning konuları araştır; commit"},
+  {s:"W24 Paz — Bonus: Açık Kaynak Katkı",d:"2026-10-11",desc:"AY6 BONUS | HuggingFace/LangChain issue bul; yorum yaz; PR hazırla"},
+  {s:"W25 Pzt — Fine-Tuning Kavramı",d:"2026-10-12",desc:"AY7 | ne zaman fine-tune; LoRA/QLoRA nedir; commit"},
+  {s:"W25 Sal — Unsloth + LoRA Kurulum",d:"2026-10-13",desc:"AY7 | pip install unsloth; Llama-3 yükle; commit | Araç: Unsloth, LoRA"},
+  {s:"W25 Çar — Dataset Hazırlama JSONL",d:"2026-10-14",desc:"AY7 | instruction format; 50 örnek yaz; commit"},
+  {s:"W25 Per — İlk LoRA Fine-Tune",d:"2026-10-15",desc:"AY7 | training script çalıştır; loss takip; commit"},
+  {s:"W25 Paz — Proje: Kişisel Asistan Fine-Tune",d:"2026-10-18",desc:"AY7 PROJE | Kendi alanında 100 örnek dataset. Fine-tune. Test. push"},
+  {s:"W26 Pzt — Model Değerlendirme BLEU/ROUGE",d:"2026-10-19",desc:"AY7 | BLEU/ROUGE; manual eval; commit"},
+  {s:"W26 Sal — Ollama Lokal LLM",d:"2026-10-20",desc:"AY7 | ollama kur; llama3 çalıştır; API bağla; commit | Araç: Ollama"},
+  {s:"W26 Çar — OpenRouter Çoklu Model",d:"2026-10-21",desc:"AY7 | openrouter.ai; Mistral/Claude/GPT karşılaştır; commit | Platform: OpenRouter"},
+  {s:"W26 Per — Function Calling İleri",d:"2026-10-22",desc:"AY7 | çoklu tool; parallel function call; commit"},
+  {s:"W26 Paz — Proje: Çok Araçlı AI Agent",d:"2026-10-25",desc:"AY7 PROJE | web search+calculator+file reader tool. LangChain Agent. README. push"},
+  {s:"W27 Pzt — LangGraph Temelleri",d:"2026-10-26",desc:"AY7 | pip install langgraph; StateGraph; basit workflow; commit | Araç: LangGraph"},
+  {s:"W27 Sal — LangGraph Koşullu Akış",d:"2026-10-27",desc:"AY7 | conditional edge; branching; commit"},
+  {s:"W27 Çar — Multi-Agent Sistemler",d:"2026-10-28",desc:"AY7 | supervisor agent; worker agents; commit"},
+  {s:"W27 Per — Ay 7 Değerlendirme",d:"2026-10-29",desc:"AY7 KAPANIŞ | fine-tune ve agent öğrendiklerini listele; portfolio güncelle; commit"},
+  {s:"W27 Paz — Bonus: Açık Kaynak PR",d:"2026-11-01",desc:"AY7 BONUS | LangChain/HuggingFace e küçük katkı; issue düzelt; PR merge"},
+  {s:"W28 Pzt — Agent Proje Finalizasyon",d:"2026-11-02",desc:"AY7 | Agent projesini bitir; demo video; README; push"},
+  {s:"W28 Sal — Pinecone Vektör DB",d:"2026-11-03",desc:"AY7 | Pinecone hesabı; index oluştur; upsert/query; commit | Araç: Pinecone"},
+  {s:"W28 Çar — RAG İleri Hybrid Search",d:"2026-11-04",desc:"AY7 | keyword+semantic; re-ranking; commit"},
+  {s:"W28 Per — Ay 7 Kapanış + Ay 8 Hazırlık",d:"2026-11-05",desc:"AY7 | 7 ay özet; MLOps konuları araştır; commit"},
+  {s:"W28 Paz — Bonus: Kaggle LLM Comp",d:"2026-11-08",desc:"AY7 BONUS | Kaggle LLM comp. Notebook yaz. public yap"},
+  {s:"W29 Pzt — MLOps Kavramı + CI/CD",d:"2026-11-09",desc:"AY8 | MLOps nedir; GitHub Actions test otomasyonu; commit | Araç: GitHub Actions"},
+  {s:"W29 Sal — GitHub Actions Workflow",d:"2026-11-10",desc:"AY8 | .github/workflows/test.yml; pytest otomatik; commit"},
+  {s:"W29 Çar — Docker Multi-Stage Build",d:"2026-11-11",desc:"AY8 | production Dockerfile; image boyutu küçült; commit"},
+  {s:"W29 Per — Docker Compose",d:"2026-11-12",desc:"AY8 | docker-compose.yml; app+db servisleri; commit"},
+  {s:"W29 Paz — Proje: Dockerized ML API",d:"2026-11-15",desc:"AY8 PROJE | ML model+FastAPI+Docker. docker-compose up çalışsın. README. push"},
+  {s:"W30 Pzt — Evidently Model Monitoring",d:"2026-11-16",desc:"AY8 | pip install evidently; data drift raporu; commit | Araç: Evidently"},
+  {s:"W30 Sal — MLflow Experiment Tracking",d:"2026-11-17",desc:"AY8 | mlflow kur; run logla; UI aç; commit | Araç: MLflow"},
+  {s:"W30 Çar — HuggingFace Spaces Deploy",d:"2026-11-18",desc:"AY8 | HF Spaces hesabı; Gradio app deploy; canlı URL; commit | Araç: Gradio"},
+  {s:"W30 Per — AWS/GCP Ücretsiz Tier",d:"2026-11-19",desc:"AY8 | hesap aç; S3/GCS e dosya yükle; commit | Platform: AWS veya GCP"},
+  {s:"W30 Paz — Proje: Production-Ready AI API",d:"2026-11-22",desc:"AY8 PROJE | FastAPI+Docker+HF Spaces deploy. Monitoring. README. push"},
+  {s:"W31 Pzt — Logging + Loguru",d:"2026-11-23",desc:"AY8 | Python logging; Loguru; structured logs; commit"},
+  {s:"W31 Sal — Rate Limiting + API Güvenlik",d:"2026-11-24",desc:"AY8 | slowapi; API key auth; commit"},
+  {s:"W31 Çar — Load Testing locust",d:"2026-11-25",desc:"AY8 | locust kur; API test; darboğaz bul; commit | Araç: locust"},
+  {s:"W31 Per — Ay 8 Değerlendirme",d:"2026-11-26",desc:"AY8 KAPANIŞ | MLOps öğrendiklerini listele; portfolio güncelle; commit"},
+  {s:"W31 Paz — Bonus: Portfolio Site Deploy",d:"2026-11-29",desc:"AY8 BONUS | GitHub Pages veya Vercel de portfolio sitesi deploy"},
+  {s:"W32 Pzt — Production API Finalizasyon",d:"2026-11-30",desc:"AY8 | Production API projesini bitir; demo; push"},
+  {s:"W32 Sal — Kubernetes Temelleri (Opsiyonel)",d:"2026-12-01",desc:"AY8 | minikube kur; pod/deployment; commit"},
+  {s:"W32 Çar — Tekrar + Eksik Tamamlama",d:"2026-12-02",desc:"AY8 | Ay8 eksik konuları bitir; commit"},
+  {s:"W32 Per — Ay 8 Kapanış + Ay 9 Hazırlık",d:"2026-12-03",desc:"AY8 | 8 ay özet; iş arama stratejisi araştır; commit"},
+  {s:"W32 Paz — Bonus: Blog Yazısı",d:"2026-12-06",desc:"AY8 BONUS | Medium/Dev.to da 1 teknik yazı yayınla. LinkedIn paylaş"},
+  {s:"W33 Pzt — Flagship Proje Planlama",d:"2026-12-07",desc:"AY9 | flagship project seç; PRD yaz (problem/çözüm/stack); commit"},
+  {s:"W33 Sal — Proje Backend Başlangıcı",d:"2026-12-08",desc:"AY9 | FastAPI skeleton; DB modeli; commit"},
+  {s:"W33 Çar — Proje LLM Entegrasyonu",d:"2026-12-09",desc:"AY9 | AI core module; unit testler; commit"},
+  {s:"W33 Per — Proje Streamlit Frontend",d:"2026-12-10",desc:"AY9 | chat UI; file upload; commit"},
+  {s:"W33 Paz — Proje v1 Çalışan Versiyon",d:"2026-12-13",desc:"AY9 PROJE | End-to-end test. Bug fix. Demo video v1. push"},
+  {s:"W34 Pzt — CV Hazırlama",d:"2026-12-14",desc:"AY9 | AI developer CV; projeler+GitHub linkleri; PDF kaydet"},
+  {s:"W34 Sal — LinkedIn Profili Optimize",d:"2026-12-15",desc:"AY9 | başlık: Junior AI Developer; projeler bölümü; skills ekle"},
+  {s:"W34 Çar — Proje İyileştirme",d:"2026-12-16",desc:"AY9 | UX iyileştir; error handling; commit"},
+  {s:"W34 Per — Teknik Mülakat Hazırlık",d:"2026-12-17",desc:"AY9 | 10 Python sorusu çöz; ML soruları tekrar; commit"},
+  {s:"W34 Paz — Proje Production Deploy",d:"2026-12-20",desc:"AY9 PROJE | Projeyi production a deploy et. Canlı URL. Demo video. push"},
+  {s:"W35 Pzt — LeetCode Easy 5 Problem",d:"2026-12-21",desc:"AY9 | 5 easy problem; pattern öğren; commit | Platform: LeetCode"},
+  {s:"W35 Sal — Sistem Tasarımı Temelleri",d:"2026-12-22",desc:"AY9 | API tasarımı; cache; load balancer; not al"},
+  {s:"W35 Çar — Proje README Finalizasyon",d:"2026-12-23",desc:"AY9 | Problem/Çözüm/Demo/Kurulum/Katkı formatı; push"},
+  {s:"W36 Pzt — Proje Elevator Pitch",d:"2027-01-05",desc:"AY9 | 60 sn proje anlatımı yaz; pratik yap; LinkedIn e yaz"},
+  {s:"W36 Sal — GitHub Actions Deploy Otomasyonu",d:"2027-01-06",desc:"AY9 | push, test, deploy pipeline; commit"},
+  {s:"W36 Per — Ay 9 Kapanış + Ay 10 Hazırlık",d:"2027-01-08",desc:"AY9 | 9 ay özet; iş başvuru listesi; commit"},
+  {s:"W36 Paz — Bonus: Hackathon Araştırması",d:"2027-01-11",desc:"AY9 BONUS | Online AI hackathon bul; kayıt ol; takım kur"},
+  {s:"W37 Pzt — LLM Security Prompt Injection",d:"2027-01-12",desc:"AY10 | prompt injection nedir; savunma teknikleri; commit"},
+  {s:"W37 Sal — AI Ethics + Bias",d:"2027-01-13",desc:"AY10 | model bias test; fairness metrikleri; commit"},
+  {s:"W37 Çar — Multimodal GPT-4o Vision",d:"2027-01-14",desc:"AY10 | image input; vision pipeline; commit | Araç: GPT-4o"},
+  {s:"W37 Per — Whisper Ses Tanıma",d:"2027-01-15",desc:"AY10 | pip install openai-whisper; ses metine; commit | Araç: Whisper"},
+  {s:"W37 Paz — Proje: Voice + GPT Asistan",d:"2027-01-18",desc:"AY10 PROJE | Ses al, Whisper, GPT, TTS. End-to-end. README. push"},
+  {s:"W38 Pzt — İş Başvurusu Stratejisi",d:"2027-01-19",desc:"AY10 | 10 şirket listesi; başvuru takip tablosu; commit"},
+  {s:"W38 Sal — İlk 3 Başvuru",d:"2027-01-20",desc:"AY10 | CV+cover letter; başvuru yap; kaydet"},
+  {s:"W38 Çar — Portfolio Final Kontrolü",d:"2027-01-21",desc:"AY10 | tüm projeler çalışıyor mu; README ler güncel mi; commit"},
+  {s:"W38 Per — Teknik Mülakat ML Soruları",d:"2027-01-22",desc:"AY10 | bias/variance; overfitting; 20 soru-cevap; commit"},
+  {s:"W38 Paz — Proje: AI Powered Web App",d:"2027-01-25",desc:"AY10 PROJE | Streamlit+OpenAI+deploy. Gerçek kullanıcıya göster. push"},
+  {s:"W39 Pzt — LinkedIn Aktif Networking",d:"2027-01-26",desc:"AY10 | 5 AI profesyoneline bağlantı isteği; yorumla etkileşim"},
+  {s:"W39 Sal — Blog Yazısı Proje Hikayesi",d:"2027-01-27",desc:"AY10 | Medium/Dev.to da proje hikayesi yaz; LinkedIn paylaş"},
+  {s:"W39 Çar — Freelance Profil Upwork",d:"2027-01-28",desc:"AY10 | profil oluştur; AI chatbot hizmeti ekle; ilk gig | Platform: Upwork/Fiverr"},
+  {s:"W39 Per — Ay 10 Değerlendirme",d:"2027-01-29",desc:"AY10 KAPANIŞ | kaç başvuru yapıldı; geri dönüşler; commit"},
+  {s:"W39 Paz — Bonus: LeetCode Medium",d:"2027-02-01",desc:"AY10 BONUS | 5 medium problem. Zaman karmaşıklığı analiz et"},
+  {s:"W40 Pzt — Mock Mülakat Simülasyonu",d:"2027-02-02",desc:"AY10 | GPT ile 30 dk mock teknik mülakat; kaydet; iyileştir"},
+  {s:"W40 Sal — Proje Sunum Videosu 3 dk",d:"2027-02-03",desc:"AY10 | Ana portföy projesi 3 dk tanıtım videosu; YouTube/LinkedIn"},
+  {s:"W40 Çar — 3 Yeni Başvuru",d:"2027-02-04",desc:"AY10 | 3 yeni şirkete başvur; kişiselleştirilmiş cover letter"},
+  {s:"W40 Per — Ay 10 Kapanış + Ay 11 Hazırlık",d:"2027-02-05",desc:"AY10 | 10 ay özet; mülakat takvimi; commit"},
+  {s:"W40 Paz — Bonus: Açık Kaynak Büyük PR",d:"2027-02-08",desc:"AY10 BONUS | Anlamlı PR merge ettir; portfolio ya ekle"},
+  {s:"W41 Pzt — System Design Mülakat",d:"2027-02-09",desc:"AY11 | AI sistemi tasarla (YouTube öneri); diyagram çiz; commit"},
+  {s:"W41 Sal — Behavioral STAR Mülakat",d:"2027-02-10",desc:"AY11 | 5 STAR hikayesi yaz; pratik yap; commit"},
+  {s:"W41 Çar — GitHub Collab + Code Review",d:"2027-02-11",desc:"AY11 | açık kaynak projeye review yaz; PR yorumu ekle"},
+  {s:"W41 Per — Agentic RAG Başlangıcı",d:"2027-02-12",desc:"AY11 | LangGraph+RAG birleştir; planlama; commit"},
+  {s:"W41 Paz — Proje: Agentic RAG v1",d:"2027-02-15",desc:"AY11 PROJE | Planlama agent+RAG search+cevap agent. Çalıştır. push"},
+  {s:"W42 Pzt — WebSocket Streaming",d:"2027-02-16",desc:"AY11 | FastAPI WebSocket; gerçek zamanlı chat; commit"},
+  {s:"W42 Sal — Redis Caching",d:"2027-02-17",desc:"AY11 | pip install redis; LLM yanıtları cache le; commit | Araç: Redis"},
+  {s:"W42 Çar — PostgreSQL Entegrasyon",d:"2027-02-18",desc:"AY11 | asyncpg; konuşma geçmişini sakla; commit"},
+  {s:"W42 Per — Agentic RAG Deploy",d:"2027-02-19",desc:"AY11 | Agentic RAG tamamla; deploy et; demo; push"},
+  {s:"W42 Paz — Portfolio Final Hazırlık",d:"2027-02-22",desc:"AY11 | Tüm projeler: README+Demo video+Deploy URL. push"},
+  {s:"W43 Pzt — Başvuru Yoğunlaştırma",d:"2027-02-23",desc:"AY11 | haftada 5 başvuru hedefi; LinkedIn Easy Apply; takip et"},
+  {s:"W43 Sal — Şirket Araştırması",d:"2027-02-24",desc:"AY11 | 10 hedef şirket: ürünleri+tech stack+iş ilanları; not al"},
+  {s:"W43 Çar — Referans Ağı Networking",d:"2027-02-25",desc:"AY11 | LinkedIn de 3 AI çalışanına DM; coffee chat iste"},
+  {s:"W43 Per — Teknik Test Pratik",d:"2027-02-26",desc:"AY11 | HackerRank/Codility benzeri 2 test simülasyonu"},
+  {s:"W43 Paz — Bonus: Hackathon",d:"2027-03-01",desc:"AY11 BONUS | 48 saatlik AI hackathon. Proje üret. Portfolio ya ekle"},
+  {s:"W44 Pzt — Ay 11 Değerlendirme",d:"2027-03-02",desc:"AY11 | toplam başvuru sayısı; geri dönüşler; istatistik tut"},
+  {s:"W44 Sal — Zayıf Nokta Analizi",d:"2027-03-03",desc:"AY11 | mülakatta takıldığın konuları listele; çalış"},
+  {s:"W44 Çar — Ensemble Methods",d:"2027-03-04",desc:"AY11 | VotingClassifier; StackingClassifier; commit"},
+  {s:"W44 Per — Ay 11 Kapanış + Ay 12 Hazırlık",d:"2027-03-05",desc:"AY11 | son ay hedefleri; teklif almak için eksikler; commit"},
+  {s:"W44 Paz — Bonus: Blog/Video İçerik",d:"2027-03-08",desc:"AY11 BONUS | Öğrendiğin konuyu anlat; 1 blog veya 5 dk video"},
+  {s:"W45 Pzt — Flagship Proje Final Rötuş",d:"2027-03-09",desc:"AY12 | tüm bug ları düzelt; performans optimize; commit"},
+  {s:"W45 Sal — Portfolio Website Final",d:"2027-03-10",desc:"AY12 | tüm projeler gösteriliyor; CV PDF linki; deploy"},
+  {s:"W45 Çar — LinkedIn Son Güncelleme",d:"2027-03-11",desc:"AY12 | 1 yıllık öğrenme yolculuğunu paylaş; projeler; ulaşılabilir ol"},
+  {s:"W45 Per — Son Teknik Hazırlık Turu",d:"2027-03-12",desc:"AY12 | 10 ML sorusu; 5 LLM sorusu; sistem tasarımı tekrar"},
+  {s:"W45 Paz — 10 Yeni Başvuru",d:"2027-03-15",desc:"AY12 | 10 şirkete aynı anda başvur; takip tablosu güncelle"},
+  {s:"W46 Pzt — Mülakat Geri Bildirim Analizi",d:"2027-03-16",desc:"AY12 | geçmiş mülakatlardan öğren; tekrar et; commit"},
+  {s:"W46 Sal — AI Trendleri 2027",d:"2027-03-17",desc:"AY12 | yeni modeller; yeni framework ler; not al"},
+  {s:"W46 Çar — Üniversite Başvurusu Hazırlık",d:"2027-03-18",desc:"AY12 | AI/CS bölümleri araştır; motivasyon mektubu taslağı yaz"},
+  {s:"W46 Per — Freelance İlk Proje",d:"2027-03-19",desc:"AY12 | Upwork/Fiverr dan 1 küçük proje al veya teklif ver"},
+  {s:"W46 Paz — Final Projesi: E2E AI Ürün",d:"2027-03-22",desc:"AY12 PROJE | Tam kullanıcıya yönelik AI ürünü: auth+chat+history+deploy"},
+  {s:"W47 Pzt — 12 Ay Özeti Ne Öğrendim",d:"2027-03-23",desc:"AY12 | 1 yıllık öğrenme yolculuğunu yaz; LinkedIn+GitHub; push"},
+  {s:"W47 Sal — Junior AI Engineer Seviye Testi",d:"2027-03-24",desc:"AY12 | Kendini test et: 20 teknik soru. %80+ hedefi"},
+  {s:"W47 Çar — Başvuru Takip Network",d:"2027-03-25",desc:"AY12 | bekleyen başvuruları takip et; referans iste"},
+  {s:"W47 Per — Portfolio Sunum Pratiği",d:"2027-03-26",desc:"AY12 | 10 dk portfolio sunumu yap; kaydet; izle; iyileştir"},
+  {s:"W47 Paz — Bonus: 2027 Teknoloji Keşfi",d:"2027-03-29",desc:"AY12 BONUS | Agents/Reasoning Models/Multimodal araştır; not al"},
+  {s:"W48 Pzt — Son Başvurular + Follow-up",d:"2027-03-30",desc:"AY12 | cevap gelmeyen 5 başvuruya follow-up e-postası yaz"},
+  {s:"W48 Sal — Teklif Değerlendirme Hazırlık",d:"2027-03-31",desc:"AY12 | maaş araştır (glassdoor/levels.fyi); müzakere taktikleri öğren"},
+  {s:"W48 Çar — Sürekli Öğrenme Planı",d:"2027-04-01",desc:"AY12 | teklif sonrası: 6 aylık öğrenme planı yaz"},
+  {s:"W48 Per — 12 Ay Kapanış JOURNEY.md",d:"2027-04-02",desc:"AY12 KAPANIŞ | GitHub a 12 ay özet JOURNEY.md ekle; LinkedIn paylaş; kutla!"},
+  {s:"W48 Paz — Final Bonus: Community",d:"2027-04-05",desc:"AY12 BONUS | Dev.to veya AI topluluğuna katıl; yeni öğrenenlere yardım et"}
+];
+
+// Month groupings (0-indexed: 0=AY1, ..., 11=AY12)
+const MONTH_RANGES = [
+  {name:"AY 1 — Python Temelleri",label:"Python + Git + CLI",start:0,end:19},
+  {name:"AY 2 — Veri Analizi",label:"Pandas + NumPy + SQL + EDA",start:20,end:39},
+  {name:"AY 3 — Makine Öğrenmesi",label:"scikit-learn + ML Pipeline",start:40,end:59},
+  {name:"AY 4 — Derin Öğrenme & NLP",label:"PyTorch + CNN + NLP + FastAPI",start:60,end:79},
+  {name:"AY 5 — LLM & RAG",label:"HuggingFace + OpenAI + LangChain",start:80,end:99},
+  {name:"AY 6 — Chatbot & Deploy",label:"Telegram Bot + Streamlit + Railway",start:100,end:119},
+  {name:"AY 7 — Fine-Tuning & Agents",label:"LoRA + LangGraph + Multi-Agent",start:120,end:139},
+  {name:"AY 8 — MLOps",label:"Docker + CI/CD + MLflow + Cloud",start:140,end:159},
+  {name:"AY 9 — Flagship Proje",label:"End-to-End AI Ürünü + CV",start:160,end:175},
+  {name:"AY 10 — İş Arama & Portfolio",label:"Başvuru + Mülakat + Networking",start:176,end:195},
+  {name:"AY 11 — İleri Teknikler",label:"Agentic RAG + System Design",start:196,end:215},
+  {name:"AY 12 — Son Rötuş & Kariyer",label:"Portfolio Final + İş Teklifi",start:216,end:236}
+];
+
+// Tips & resources per day (sampled for key topics)
+const TIPS_DB = {
+  "Python Kurulum": {
+    tips:["Python 3.12 + VSCode kurulumu için resmi dokümanlara bak","venv kullanmayı alışkanlık haline getir — her proje için ayrı env"],
+    links:[
+      {label:"Python.org İndir",url:"https://python.org/downloads"},
+      {label:"VSCode Python Extension",url:"https://marketplace.visualstudio.com/items?itemName=ms-python.python"},
+      {label:"CS50P — Python ile Programlama (Ücretsiz)",url:"https://cs50.harvard.edu/python/"}
+    ]
+  },
+  "Pandas": {
+    tips:["df.info() ve df.describe() her zaman ilk adım","Pandas cheat sheet'i masaüstüne koy"],
+    links:[
+      {label:"Pandas Resmi Dokümantasyon",url:"https://pandas.pydata.org/docs/"},
+      {label:"Kaggle Pandas Kursu (Ücretsiz)",url:"https://www.kaggle.com/learn/pandas"},
+      {label:"YouTube: Corey Schafer Pandas Serisi",url:"https://www.youtube.com/watch?v=ZyhVh-qRZPA"}
+    ]
+  },
+  "scikit": {
+    tips:["Sklearn Pipeline kullanmayı öğren — veri hazırlama + model tek adımda","Cross-validation olmadan model değerlendirme yapmak yanıltıcı olur"],
+    links:[
+      {label:"Sklearn Kullanıcı Kılavuzu",url:"https://scikit-learn.org/stable/user_guide.html"},
+      {label:"Kaggle ML Kursu (Ücretsiz)",url:"https://www.kaggle.com/learn/intro-to-machine-learning"},
+      {label:"YouTube: StatQuest ML Videoları",url:"https://www.youtube.com/@statquest"}
+    ]
+  },
+  "PyTorch": {
+    tips:["Tensor işlemlerini NumPy'dan önce anlamaya çalış","GPU var mı yok mu: torch.cuda.is_available() ile kontrol et"],
+    links:[
+      {label:"PyTorch Resmi Tutorial",url:"https://pytorch.org/tutorials/"},
+      {label:"Fast.ai Kursları (Ücretsiz)",url:"https://course.fast.ai/"},
+      {label:"YouTube: Andrej Karpathy Neural Networks",url:"https://www.youtube.com/@AndrejKarpathy"}
+    ]
+  },
+  "OpenAI": {
+    tips:["API anahtarını ASLA koda yazma — .env dosyası kullan","GPT-4o-mini maliyet açısından başlamak için idealdir"],
+    links:[
+      {label:"OpenAI API Dokümantasyon",url:"https://platform.openai.com/docs"},
+      {label:"OpenAI Cookbook (Örnekler)",url:"https://cookbook.openai.com/"},
+      {label:"YouTube: AI Makerspace OpenAI Tutorials",url:"https://www.youtube.com/@AIMakerspace"}
+    ]
+  },
+  "LangChain": {
+    tips:["LangSmith ile chain'lerini trace et — debug için çok değerli","İlk önce basit LLMChain yap, sonra agent'lara geç"],
+    links:[
+      {label:"LangChain Python Docs",url:"https://python.langchain.com/docs/"},
+      {label:"LangChain Crash Course",url:"https://www.youtube.com/watch?v=LbT1yp6quS8"},
+      {label:"LangSmith (Tracing)",url:"https://smith.langchain.com/"}
+    ]
+  },
+  "RAG": {
+    tips:["Chunk size ve overlap parametrelerini deneyle bul","Embedding kalitesi retrieval kalitesini belirler — iyi model seç"],
+    links:[
+      {label:"RAG nedir — Weaviate Blog",url:"https://weaviate.io/blog/rag"},
+      {label:"YouTube: LangChain RAG Tutorial",url:"https://www.youtube.com/watch?v=tcqEUSNCn8I"},
+      {label:"FAISS GitHub",url:"https://github.com/facebookresearch/faiss"}
+    ]
+  },
+  "Docker": {
+    tips:["Dockerfile'da her RUN komutunu birleştir — layer sayısını azaltır","docker-compose ile local geliştirme çok daha kolay"],
+    links:[
+      {label:"Docker Resmi Döküman",url:"https://docs.docker.com/"},
+      {label:"YouTube: TechWorld with Nana Docker",url:"https://www.youtube.com/watch?v=3c-iBn73dDE"},
+      {label:"Play with Docker (Ücretsiz Ortam)",url:"https://labs.play-with-docker.com/"}
+    ]
+  },
+  "Fine-Tuning": {
+    tips:["LoRA ile full fine-tuning'den 10x daha az RAM harcarsın","100 örnek dataset ile başla, kalite düşükse artır"],
+    links:[
+      {label:"Unsloth GitHub (Hızlı Fine-Tuning)",url:"https://github.com/unslothai/unsloth"},
+      {label:"HuggingFace Fine-Tuning Guide",url:"https://huggingface.co/docs/transformers/training"},
+      {label:"YouTube: Axolotl LoRA Tutorial",url:"https://www.youtube.com/watch?v=eC6Hd1hFvos"}
+    ]
+  },
+  "default": {
+    tips:["Her görevi commit'le bitir — Git geçmişin bir portfolyo","README olmayan proje, yok hükmündedir"],
+    links:[
+      {label:"GitHub Skills (Ücretsiz Kurslar)",url:"https://skills.github.com/"},
+      {label:"roadmap.sh — AI Engineer Yolu",url:"https://roadmap.sh/ai-engineer"},
+      {label:"ArXiv — Son AI Makaleleri",url:"https://arxiv.org/list/cs.AI/recent"}
+    ]
+  }
+};
+
+const MOTIVATIONS = [
+  "Bugün çalışmayacaksan ne zaman çalışacaksın? Yarın daha iyi hissedeceğini sanıyorsan kendini kandırıyorsun.",
+  "Seninle aynı anda başlayan biri şu an çalışıyor. Sen bu mesajı okuyorsun. Farkı hissediyor musun?",
+  "Motivasyon bekliyorsan hiçbir şey yapamazsın. Profesyoneller hissetmeden yapar. Sen ne zaman profesyonel olacaksın?",
+  "Zor olduğu için yapmıyorsan, zaten hak etmiyorsun. Basit.",
+  "Bugün atladığın her şey yarın üstüne yığılacak. Birikimi seviyorsan devam et.",
+  "Hayallerin var ama eylem yok. Bu sadece hayal görme — uykuda da yapılır.",
+  "Kimse seni zorlamıyor çünkü kimse sana inanmıyor. Kendini ispat etmenin tek yolu ekranın karşısına geçmek.",
+  "Rahat hissetmek istiyorsun ama rahat insanlar orta yerde sıkışır. Devam et ya da bırak — ikisi de karar.",
+  "Git geçmişin boşsa karakterin boştur. Commit yok, ilerleme yok, mazeret var.",
+  "Bu yol herkes için değil. Zaten öyle olsaydı değeri olmazdı. Hâlâ buradasın çünkü bırakmak daha kötü hissettiriyor.",
+  "Bir gün atlamak iki gün atlamayı kolaylaştırır. Bir hafta atlamak bırakmayı kolaylaştırır. İlk adım bu.",
+  "Seni izleyen kimse yok. Bu iyi haber değil — disiplinin yoksa hiçbir şeyin yok demek.",
+  "Şu an yapmak istemiyorsun. Tamam. Yine de yap. Duygu geçer, alışkanlık kalır.",
+  "Başkası senin yerine öğrenemez. Başkası senin yerine iş bulamaz. Başkası senin yerine mülakat veremez. Anladın mı?",
+  "Harika fikirler ucuz. Çalışma saatleri değerli. Hangisinden daha çok üretiyorsun?",
+  "Yorgunum demek bir şey ifade etmiyor. Rekabet ettiğin insanlar da yorgun.",
+  "Bu roadmap'i bitirenlerin sayısı başlayanların yüzde birinden azdır. Neden? Çünkü bugün gibi günlerde bıraktılar.",
+  "Kendi kendine verdiğin sözleri tutmuyorsun. Bu küçük bir sorun değil — bu karakter meselesi.",
+  "Junior pozisyon için bile 50 kişi yarışıyor. Bugünü boş geçen hangisi kazanır?",
+  "İki yıl sonra iş bulamamışsın ve neden diye soruyorsun. Cevap bu anlar.",
+];
+
+const BRUTAL_OFFDAY_MSGS = [
+  "Off day aldın. Takvim kaydı. Hedef tarihin de kaydı. Bedeli var her şeyin.",
+  "Dinleniyorsun. Rakibin çalışıyor. Bu bilgiyle rahat uyu.",
+  "Off day = erteleme. Erteleme = birikim. Birikim = panik. Seçim senin.",
+  "Bugün duruyorsun. Momentum kırıldı. Yarın iki kat zor olacak — hazır ol.",
+  "Off day hakkın var. Ama hak kullandıkça hedef uzuyor. Matematikten kaçış yok.",
+];
+
+const QUIZ_QUESTIONS = [
+  {q:"Python'da `venv` ne için kullanılır?",opts:["Video düzenleme aracı","Sanal ortam oluşturma","Veri görselleştirme","Veritabanı bağlantısı"],a:1,exp:"venv, proje bağımlılıklarını izole etmek için sanal ortam oluşturur. Her proje için ayrı bir Python ortamı sağlar."},
+  {q:"Pandas'ta `df.dropna()` ne yapar?",opts:["Tüm veriyi siler","Eksik değerleri olan satırları siler","Boş kolonları doldurur","DataFrame'i sıralar"],a:1,exp:"dropna() NaN (Not a Number) değerleri içeren satır veya sütunları silerek temiz bir dataset elde etmeni sağlar."},
+  {q:"scikit-learn'de overfitting'i tespit etmek için ne kullanırsın?",opts:["confusion_matrix","cross_val_score","fit_transform","GridSearchCV"],a:1,exp:"cross_val_score farklı veri bölümlerinde modeli test ederek train ve test performansı arasındaki farkı gösterir."},
+  {q:"RAG (Retrieval-Augmented Generation) ne anlama gelir?",opts:["Robot Automated Generator","Retrieval-Augmented Generation","Recursive AI Graph","Random Auto Grad"],a:1,exp:"RAG, LLM'in kendi bilgisine ek olarak dış kaynaklardan (veritabanı, PDF vb.) bilgi çekerek daha doğru yanıtlar üretmesini sağlar."},
+  {q:"Docker'da `docker-compose up` komutu ne yapar?",opts:["Sadece image indirir","docker-compose.yml'deki tüm servisleri başlatır","Container'ı siler","Dockerfile'ı derler"],a:1,exp:"docker-compose up, docker-compose.yml dosyasında tanımlanan tüm servisleri build edip başlatır."},
+  {q:"LoRA (Low-Rank Adaptation) nedir?",opts:["Bir Python kütüphanesi","Büyük dil modellerini verimli fine-tune etme tekniği","Veri augmentation yöntemi","Loss fonksiyonu"],a:1,exp:"LoRA, modelin tüm parametrelerini güncellemek yerine küçük rank matrisler ekleyerek çok daha az GPU belleği ile fine-tuning yapmanı sağlar."},
+  {q:"FastAPI'de `/predict` endpoint'i oluşturmak için hangi decorator kullanılır?",opts:["@app.get('/predict')","@app.post('/predict')","@route('/predict')","@endpoint('/predict')"],a:1,exp:"POST isteği ile veri gönderip tahmin almak için @app.post('/predict') kullanılır. GET ile de yapılabilir ama POST best practice'dir."},
+  {q:"LangChain'de 'Agent' kavramı ne demektir?",opts:["Kullanıcı arayüzü bileşeni","LLM'in araçlar kullanarak karar aldığı sistem","Veri temizleme pipeline'ı","Model deployment aracı"],a:1,exp:"LangChain Agent, LLM'in mevcut araçları (web arama, calculator vb.) kullanıp adım adım kararlar alarak kompleks görevleri çözmesini sağlar."},
+  {q:"PyTorch'ta `model.eval()` neden kullanılır?",opts:["Modeli tamamen kapatmak için","Dropout ve BatchNorm'u inference moduna almak için","Modeli GPU'ya taşımak için","Loss'u hesaplamak için"],a:1,exp:"model.eval(), Dropout katmanlarını devre dışı bırakır ve BatchNorm'un running statistics kullanmasını sağlar — inference sırasında önemlidir."},
+  {q:"Embedding nedir?",opts:["Veriyi şifrelemek","Metni sayısal vektöre dönüştürmek","Model kaydetmek","API endpoint oluşturmak"],a:1,exp:"Embedding, kelime veya cümleleri semantik anlamı koruyan sayısal vektörlere çevirir. Benzer anlamlı metinler vektör uzayında birbirine yakın olur."}
+];
+
+// State
+let completed = JSON.parse(localStorage.getItem('rm_completed') || '[]');
+let notes = JSON.parse(localStorage.getItem('rm_notes') || '{}');
+let offDays = JSON.parse(localStorage.getItem('rm_offdays') || '[]');
+let dayNotes = JSON.parse(localStorage.getItem('rm_daynotes') || '{}');
+let currentMonth = 0;
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+let chatHistory = [];
+
+// ============================================================
+// MATRIX RAIN
+// ============================================================
+(function initMatrix(){
+  const canvas = document.getElementById('matrix-bg');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
+  const cols = Math.floor(canvas.width/20);
+  const drops = Array(cols).fill(1);
+  const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホABCDEF{}[]<>';
+  function draw(){
+    ctx.fillStyle='rgba(1,12,3,0.05)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='#00ff41';
+    ctx.font='14px monospace';
+    drops.forEach((y,i)=>{
+      const c=chars[Math.floor(Math.random()*chars.length)];
+      ctx.fillText(c,i*20,y*20);
+      if(y*20>canvas.height&&Math.random()>0.975) drops[i]=0;
+      drops[i]++;
+    });
+  }
+  setInterval(draw,50);
+})();
+
+// ============================================================
+// INIT
+// ============================================================
+function init(){
+  renderMonthList();
+  renderMonthContent(0);
+  renderStats();
+  initQuiz();
+  loadNotes();
+  renderSnippets();
+  checkBadges();
+}
+
+function renderMonthList(){
+  const el = document.getElementById('month-list');
+  const monthLabel = norwayMode ? 'MÅNED' : 'AY';
+  el.innerHTML = MONTH_RANGES.map((m,i)=>{
+    const total = m.end - m.start + 1;
+    const done = completed.filter(c=>c>=m.start&&c<=m.end).length;
+    const pct = Math.round(done/total*100);
+    return `<button class="month-btn${i===0?' active':''}" onclick="selectMonth(${i},this)">
+      <span>${monthLabel} ${i+1}</span>
+      <span class="m-progress">${pct}%</span>
+      <div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%"></div></div>
+    </button>`;
+  }).join('');
+}
+
+function selectMonth(idx, btn){
+  document.querySelectorAll('.month-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentMonth = idx;
+  renderMonthContent(idx);
+  showPage('roadmap');
+}
+
+function renderMonthContent(idx){
+  const m = MONTH_RANGES[idx];
+  const days = ROADMAP_DATA.slice(m.start, m.end+1);
+  const done = completed.filter(c=>c>=m.start&&c<=m.end).length;
+  const total = days.length;
+  
+  // Norveçce çeviriler
+  const completedLabel = norwayMode ? 'FULLFØRT' : 'TAMAMLANDI';
+  const monthName = norwayMode ? (TRANSLATIONS[m.name] || m.name) : m.name;
+  const projectLabel = norwayMode ? 'PROSJEKT' : 'PROJE';
+  const bonusLabel = norwayMode ? 'BONUS' : 'BONUS';
+  const closingLabel = norwayMode ? 'AVSLUTNING' : 'KAPANIŞ';
+  const taskLabel = norwayMode ? 'OPPGAVE' : 'GÖREV';
+  const offDayLabel = norwayMode ? '✈ FRIDAG' : '✈ OFF DAY';
+  const completeBtn = norwayMode ? '◯ FULLFØR' : '◯ TAMAMLA';
+  const completedBtn = norwayMode ? '✓ FULLFØRT' : '✓ TAMAMLANDI';
+  const detailBtn = norwayMode ? 'DETALJER & NOTAT' : 'DETAY &amp; NOT';
+  const noteTitle = norwayMode ? 'Notat finnes' : 'Not var';
+  const shiftTitle = norwayMode ? 'fridag forskyvning' : 'off day nedeniyle kaydı';
+
+  let html = `<div class="month-header">
+    ${monthName}
+    <span class="month-tag">${done}/${total} ${completedLabel}</span>
+  </div>
+  <div class="days-grid">`;
+
+  days.forEach((day, localIdx)=>{
+    const globalIdx = m.start + localIdx;
+    const isProj = day.desc.includes('PROJE') || day.desc.includes('BONUS') || day.desc.includes('KAPANIŞ');
+    const isDone = completed.includes(globalIdx);
+    const badge = day.desc.includes('PROJE') ? `<span class="day-type-badge badge-proje">${projectLabel}</span>`
+      : day.desc.includes('BONUS') ? `<span class="day-type-badge badge-bonus">${bonusLabel}</span>`
+      : day.desc.includes('KAPANIŞ') ? `<span class="day-type-badge badge-kapanis">${closingLabel}</span>`
+      : `<span class="day-type-badge badge-normal">${taskLabel}</span>`;
+
+    const shortDesc = day.desc.split('|').slice(1).join('|').trim().split(';').slice(0,2).join(' · ');
+    const isOff = offDays.includes(globalIdx);
+    const hasNote = dayNotes[globalIdx] && dayNotes[globalIdx].trim().length > 0;
+    const displayDate = getShiftedDate(day.d, globalIdx);
+    const dayName = formatDate(displayDate);
+    const shiftCount = offDays.filter(o => o < globalIdx).length;
+    const shiftLabel = shiftCount > 0 ? ` <span style="color:var(--amber);font-size:0.58rem;" title="${shiftCount} ${shiftTitle}">+${shiftCount}${norwayMode?'d':'g'}</span>` : '';
+
+    html += `<div class="day-card${isDone?' completed':''}${isProj?' project-day':''}${isOff?' offday':''}" id="card-${globalIdx}">
+      <div class="day-header">
+        <div class="day-date">${dayName}${shiftLabel} · ${displayDate}</div>
+        ${isOff ? `<span class="day-type-badge badge-offday">${offDayLabel}</span>` : badge}
+      </div>
+      <div class="day-title">${isDone?'✓ ':''} ${day.s}${hasNote?`<span class="day-note-indicator" title="${noteTitle}"></span>`:''}</div>
+      <div class="day-desc">${shortDesc || day.desc.slice(0,80)+'...'}</div>
+      <div class="day-actions">
+        <button class="check-btn" onclick="toggleComplete(${globalIdx})">${isDone?completedBtn:completeBtn}</button>
+        <button class="detail-btn" onclick="openDetail(${globalIdx})">${detailBtn}</button>
+      </div>
+    </div>`;
+  });
+
+  html += '</div>';
+  document.getElementById('month-content').innerHTML = html;
+}
+
+// ============================================================
+// CALENDAR SHIFT — off day aldığında sonraki günler 1 gün kayar
+// ============================================================
+function getShiftedDate(originalDate, dayIdx) {
+  // Count how many off days exist BEFORE this day index
+  const offsBefore = offDays.filter(o => o < dayIdx).length;
+  if (offsBefore === 0) return originalDate;
+  const dt = new Date(originalDate);
+  dt.setDate(dt.getDate() + offsBefore);
+  return dt.toISOString().split('T')[0];
+}
+
+function formatShiftedDate(originalDate, dayIdx) {
+  const shifted = getShiftedDate(originalDate, dayIdx);
+  const days = ['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'];
+  const dt = new Date(shifted);
+  const shifted_label = offDays.filter(o => o < dayIdx).length > 0 
+    ? `<span style="color:var(--amber);font-size:0.6rem;">+${offDays.filter(o=>o<dayIdx).length}g ↕</span> ` 
+    : '';
+  return `${days[dt.getDay()]} ${shifted_label}`;
+}
+
+function getDisplayDate(originalDate, dayIdx) {
+  return getShiftedDate(originalDate, dayIdx);
+}
+
+function formatDate(d){
+  const daysTR=['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'];
+  const daysNO=['Søn','Man','Tir','Ons','Tor','Fre','Lør'];
+  const days = norwayMode ? daysNO : daysTR;
+  const dt = new Date(d);
+  return days[dt.getDay()];
+}
+
+
+// ============================================================
+// UNDO SYSTEM
+// ============================================================
+let lastAction = null;
+let undoTimeout = null;
+
+function showUndoToast(text) {
+  const toast = document.getElementById('undo-toast');
+  const textEl = document.getElementById('undo-toast-text');
+  if (!toast || !textEl) return;
+  
+  textEl.textContent = text;
+  toast.classList.add('show');
+  
+  if (undoTimeout) clearTimeout(undoTimeout);
+  undoTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+    lastAction = null;
+  }, 5000);
+}
+
+function performUndo() {
+  if (!lastAction) return;
+  
+  if (lastAction.type === 'complete') {
+    completed = completed.filter(c => c !== lastAction.idx);
+    localStorage.setItem('rm_completed', JSON.stringify(completed));
+    renderMonthContent(currentMonth);
+    renderMonthList();
+    renderStats();
+    updateIstatistik();
+    showAchievement(norwayMode ? 'Angret!' : 'Geri alindi!');
+  } else if (lastAction.type === 'uncomplete') {
+    completed.push(lastAction.idx);
+    localStorage.setItem('rm_completed', JSON.stringify(completed));
+    renderMonthContent(currentMonth);
+    renderMonthList();
+    renderStats();
+    updateIstatistik();
+    showAchievement(norwayMode ? 'Gjenopprettet!' : 'Geri yuklendi!');
+  }
+  
+  lastAction = null;
+  document.getElementById('undo-toast').classList.remove('show');
+  if (undoTimeout) clearTimeout(undoTimeout);
+}
+
+// ============================================================
+// CONFETTI SYSTEM
+// ============================================================
+function createConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  
+  const colors = ['#00ff41', '#ffaa00', '#ff3366', '#00aaff', '#aa44ff', '#ff6600'];
+  const confetti = [];
+  
+  for (let i = 0; i < 150; i++) {
+    confetti.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      w: Math.random() * 10 + 5,
+      h: Math.random() * 6 + 3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      speed: Math.random() * 3 + 2,
+      angle: Math.random() * 360,
+      spin: Math.random() * 10 - 5
+    });
+  }
+  
+  let frame = 0;
+  const maxFrames = 180;
+  
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    confetti.forEach(c => {
+      ctx.save();
+      ctx.translate(c.x, c.y);
+      ctx.rotate(c.angle * Math.PI / 180);
+      ctx.fillStyle = c.color;
+      ctx.fillRect(-c.w/2, -c.h/2, c.w, c.h);
+      ctx.restore();
+      
+      c.y += c.speed;
+      c.angle += c.spin;
+      c.x += Math.sin(c.angle * 0.1) * 0.5;
+    });
+    
+    frame++;
+    if (frame < maxFrames) {
+      requestAnimationFrame(animate);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+  
+  animate();
+}
+
+// ============================================================
+// MILESTONE SYSTEM
+// ============================================================
+const MILESTONES = [
+  { count: 1, icon: '🚀', title: 'ILK ADIM!', desc: 'Yolculugun basladi. Her usta bir zamanlar acemiydi.', sub: '236 gorev kaldi' },
+  { count: 10, icon: '🔟', title: 'ON GOREV!', desc: 'Harika bir baslangic! Momentum kazaniyorsun.', sub: '227 gorev kaldi' },
+  { count: 25, icon: '💪', title: 'CEYREK YOL!', desc: 'Ilk 25 gorevi tamamladin. Disiplinini gosterdin!', sub: '212 gorev kaldi' },
+  { count: 50, icon: '🎯', title: 'YARI YOLDA!', desc: '50 gorev! Artik geri donusu yok, sadece ileri.', sub: '187 gorev kaldi' },
+  { count: 75, icon: '⚡', title: '75 GOREV!', desc: 'Ucte birden fazlasini tamamladin. Muhtesemsin!', sub: '162 gorev kaldi' },
+  { count: 100, icon: '💯', title: 'YUZ GOREV!', desc: 'Inanilmaz! 100 gorevi geride biraktin.', sub: '137 gorev kaldi' },
+  { count: 150, icon: '🔥', title: '150 GOREV!', desc: 'Durdurulamaz bir guc haline geldin!', sub: '87 gorev kaldi' },
+  { count: 200, icon: '🏆', title: '200 GOREV!', desc: 'Neredeyse bitti! Son sprinte gectin.', sub: 'Sadece 37 gorev kaldi!' },
+  { count: 237, icon: '👑', title: 'ROADMAP TAMAMLANDI!', desc: 'Basardin! Artik bir AI Developer\'sin. Bu yolculuk seni donusturdu.', sub: 'Tum 237 gorev tamamlandi!' }
+];
+
+function showMilestone(milestone) {
+  const overlay = document.getElementById('milestone-overlay');
+  document.getElementById('milestone-icon').textContent = milestone.icon;
+  document.getElementById('milestone-title').textContent = milestone.title;
+  document.getElementById('milestone-desc').textContent = milestone.desc;
+  document.getElementById('milestone-sub').textContent = milestone.sub;
+  
+  overlay.classList.add('show');
+  createConfetti();
+}
+
+function closeMilestone() {
+  document.getElementById('milestone-overlay').classList.remove('show');
+}
+
+// ============================================================
+// THEME SYSTEM
+// ============================================================
+let lightMode = localStorage.getItem('rm_lightmode') === 'true';
+
+function toggleTheme() {
+  lightMode = !lightMode;
+  document.body.classList.toggle('light-mode', lightMode);
+  localStorage.setItem('rm_lightmode', lightMode);
+  
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) btn.textContent = lightMode ? '☀️' : '🌙';
+  
+  showAchievement(lightMode ? (norwayMode ? 'Lys modus aktivert' : 'Acik mod aktif') : (norwayMode ? 'Mork modus aktivert' : 'Koyu mod aktif'));
+}
+
+function initTheme() {
+  if (lightMode) {
+    document.body.classList.add('light-mode');
+    const btn = document.getElementById('theme-toggle-btn');
+    if (btn) btn.textContent = '☀️';
+  }
+}
+
+// ============================================================
+// DAILY MOTIVATION
+// ============================================================
+const motivation= [
+  '"Basarinin sirri, her gun kucuk adimlar atmaktir." — Unknown',
+  '"Bugunku cabalarin, yarinki basarilarin temelidir."',
+  '"Kod yazmak, dusunceleri gercege donusturmektir."',
+  '"Her bug, bir ogrenme firsatidir."',
+  '"Mukemmellik bir hedef degil, bir yolculuktur."',
+  '"AI cogunu ogrenmek, gelecegi insa etmektir."',
+  '"Disiplin, motivasyonun bittiginde devam etmektir."',
+  '"Her satir kod, bir adim ileriye."',
+  '"Zorluklar, ustesinden gelinmek icin vardir."',
+  '"Ogrenme asla bitmez, sadece yeni kapılar acilir."',
+  '"Bugün yazdığın kod, yarının teknolojisidir."',
+  '"Basarisizlik, basariya giden yolun parcasidir."',
+  '"Bir problem cozmek, on problem cozmekten degerlidir."',
+  '"Sabir ve sebat, basarinin anahtaridir."',
+  '"Her gun biraz daha iyi ol."',
+  '"Kod, dusuncelerin dijital ifadesidir."',
+  '"Ogrenmek zor, ama bilmemek daha zor."',
+  '"Kucuk zaferler, buyuk basarilara goturen basamaklardir."',
+  '"Hata yapmaktan korkma, hiçbir şey yapmamaktan kork."',
+  '"Gelecek, bugün hazırlananlarındır."'
+];
+
+const MOTIVATIONS_NO = [
+  '"Hemmeligheten bak suksess er å ta små skritt hver dag." — Ukjent',
+  '"Dagens innsats er grunnlaget for morgendagens suksess."',
+  '"Å skrive kode er å gjøre tanker til virkelighet."',
+  '"Hver feil er en læringsmulighet."',
+  '"Perfeksjon er ikke et mål, men en reise."',
+  '"Å lære AI er å bygge fremtiden."',
+  '"Disiplin er å fortsette når motivasjonen tar slutt."',
+  '"Hver kodelinje er et skritt fremover."',
+  '"Utfordringer eksisterer for å overvinnes."',
+  '"Læring slutter aldri, nye dører åpner seg bare."'
+];
+
+function getDailyMotivation() {
+  const today = new Date().toDateString();
+  const seed = today.split('').reduce((a,b) => a + b.charCodeAt(0), 0);
+  const motivations = norwayMode ? MOTIVATIONS_NO : MOTIVATIONS;
+  return motivations[seed % motivations.length];
+}
+
+function renderDailyMotivation() {
+  const el = document.getElementById('daily-motivation-text');
+  if (el) el.textContent = getDailyMotivation();
+}
+
+// ============================================================
+// STREAK WARNING SYSTEM
+// ============================================================
+function checkStreakWarning() {
+  const streak = calcRealStreak();
+  const today = new Date().toISOString().split('T')[0];
+  const todayDone = ROADMAP_DATA.some((rd, i) => rd.d === today && completed.includes(i));
+  
+  // Eger streak > 0 ve bugun hicbir sey tamamlanmadiysa uyar
+  if (streak >= 3 && !todayDone) {
+    const warning = document.getElementById('streak-warning');
+    const title = document.getElementById('streak-warning-title');
+    const text = document.getElementById('streak-warning-text');
+    
+    if (warning && title && text) {
+      if (norwayMode) {
+        title.textContent = '⚠️ STREAK I FARE!';
+        text.innerHTML = `Du har en <strong>${streak} dagers</strong> rekke! Fullfør en oppgave i dag for å holde den i live.`;
+      } else {
+        title.textContent = '⚠️ STREAK TEHLIKEDE!';
+        text.innerHTML = `<strong>${streak} günlük</strong> streak\'in var! Bugün bir görev tamamla, streak\'ini kaybetme.`;
+      }
+      
+      setTimeout(() => warning.classList.add('show'), 2000);
+    }
+  }
+}
+
+function closeStreakWarning() {
+  document.getElementById('streak-warning').classList.remove('show');
+}
+
+// ============================================================
+// MOBILE SIDEBAR
+// ============================================================
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+
+// ============================================================
+// TOGGLE COMPLETE (UPDATED)
+// ============================================================
+function toggleComplete(idx){
+  const card = document.getElementById('card-' + idx);
+  
+  if(completed.includes(idx)){
+    // Uncomplete
+    lastAction = { type: 'uncomplete', idx };
+    completed = completed.filter(c=>c!==idx);
+    const msg = norwayMode ? 'Oppgave fjernet' : 'Gorev kaldirildi';
+    showUndoToast(msg);
+  } else {
+    // Complete with animation
+    if (card) card.classList.add('completing');
+    
+    lastAction = { type: 'complete', idx };
+    completed.push(idx);
+    
+    // Check for milestone
+    const milestone = MILESTONES.find(m => m.count === completed.length);
+    if (milestone) {
+      setTimeout(() => showMilestone(milestone), 300);
+    } else {
+      checkAchievement(idx);
+    }
+    
+    checkBadges();
+    
+    // Add progress glow effect
+    document.getElementById('overall-bar-wrap')?.classList.add('progress-updating');
+    setTimeout(() => document.getElementById('overall-bar-wrap')?.classList.remove('progress-updating'), 800);
+    
+    const msg = norwayMode ? 'Oppgave fullfort' : 'Gorev tamamlandi';
+    showUndoToast(msg);
+  }
+  
+  localStorage.setItem('rm_completed', JSON.stringify(completed));
+  renderMonthContent(currentMonth);
+  renderMonthList();
+  renderStats();
+  updateIstatistik();
+}
+
+function checkAchievement(idx){
+  const total = completed.length;
+  let msg = null;
+  if(total===1) msg="İlk adım atıldı! 🚀";
+  else if(total===10) msg="10 görev tamamlandı! 💪";
+  else if(total===50) msg="50 görev! Orta yola geldin!";
+  else if(total===100) msg="100 görev! Yarı yoldayı!";
+  else if(total===200) msg="200 görev! Neredeyse bitti!";
+  else if(total===237) msg="TÜM ROADMAP TAMAMLANDI! 🎉";
+  if(msg) showAchievement(msg);
+}
+
+function showAchievement(msg){
+  const el = document.getElementById('ach-popup');
+  document.getElementById('ach-text').textContent = msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 4000);
+}
+
+function renderStats(){
+  const done = completed.length;
+  const total = 237;
+  const pct = Math.round(done/total*100);
+  const months = MONTH_RANGES.filter(m=>
+    completed.filter(c=>c>=m.start&&c<=m.end).length === (m.end-m.start+1)
+  ).length;
+
+  document.getElementById('stat-done').textContent = done;
+  document.getElementById('stat-left').textContent = total - done;
+  document.getElementById('stat-months').textContent = months;
+  document.getElementById('stat-streak').textContent = calcStreak();
+  document.getElementById('overall-pct').textContent = `%${pct}`;
+  document.getElementById('overall-bar').style.width = pct+'%';
+  document.getElementById('hdr-done').textContent = done;
+  document.getElementById('hdr-streak').textContent = calcStreak();
+  document.getElementById('sb-pct').textContent = pct+'%';
+  document.getElementById('sb-bar').style.width = pct+'%';
+}
+
+function calcStreak(){
+  return calcRealStreak();
+}
+
+// ============================================================
+// MODAL / DETAIL
+// ============================================================
+function openDetail(idx){
+  const day = ROADMAP_DATA[idx];
+  const isDone = completed.includes(idx);
+  const motivation = MOTIVATIONS[idx % MOTIVATIONS.length];
+
+  // Find tips
+  let tipsData = TIPS_DB.default;
+  for(const key of Object.keys(TIPS_DB)){
+    if(key==='default') continue;
+    if(day.s.toLowerCase().includes(key.toLowerCase()) || day.desc.toLowerCase().includes(key.toLowerCase())){
+      tipsData = TIPS_DB[key];
+      break;
+    }
+  }
+  const linksHtml = tipsData.links.map(l=>`
+    <div class="tip-item">
+      <span class="tip-icon">→</span>
+      <div><a class="tip-link" href="${l.url}" target="_blank">${l.label}</a></div>
+    </div>`).join('');
+
+  const tipsHtml = tipsData.tips.map(t=>`
+    <div class="tip-item">
+      <span class="tip-icon">💡</span>
+      <div style="font-size:0.72rem;color:var(--text)">${t}</div>
+    </div>`).join('');
+
+  document.getElementById('modal-title').textContent = day.s;
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-section-title">// GÖREV AÇIKLAMASI</div>
+      <div class="modal-section-content">${day.desc.replace(/\|/g,' · ')}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">// PRATİK İPUÇLARI</div>
+      ${tipsHtml}
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">// KAYNAKLAR & LİNKLER</div>
+      ${linksHtml}
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">// GÜNÜN MOTİVASYONU</div>
+      <div class="motivation-box">${motivation}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">// GÜN SONU NOTUM</div>
+      <textarea class="day-note-area" id="day-note-textarea" placeholder="Bu gün için notunu yaz... (ne öğrendin, ne takıldın, ne hissettin)">${dayNotes[idx]||''}</textarea>
+      <button class="day-note-save-btn" onclick="saveDayNote(${idx})">NOTU KAYDET</button>
+      <div style="clear:both;"></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:16px;">
+      <button class="modal-complete-btn${isDone?' done':''}" style="flex:1" onclick="toggleComplete(${idx});this.textContent=completed.includes(${idx})?'✓ TAMAMLANDI — GERI AL':'TAMAMLANDI OLARAK İŞARETLE';this.classList.toggle('done')">
+        ${isDone?'✓ TAMAMLANDI — GERİ AL':'TAMAMLANDI OLARAK İŞARETLE'}
+      </button>
+      <button class="offday-btn${offDays.includes(idx)?' active':''}" onclick="toggleOffDay(${idx},this)" style="padding:12px 16px;margin-top:0;">
+        ${offDays.includes(idx)?'✈ OFF DAY':'OFF DAY AL'}
+      </button>
+    </div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e){
+  if(e.target === document.getElementById('modal-overlay')) closeModalDirect();
+}
+function closeModalDirect(){
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+// ================= COACH LINES =================
+const coachLines = [
+  "Bugün yapman gerekeni biliyorsun. Yapıp yapmamak senin karakterin.",
+  "Motivasyon bekleme. Disiplinle hareket et.",
+  "Bugün kaçarsan yarın daha zor olacak.",
+  "Kolay yolu seçersen zor bir hayat yaşarsın.",
+  "Kimse seni zorlamıyor. Bu yüzden kaybedersen sorumlusu sensin.",
+  "Kendine verdiğin sözleri tutmuyorsan bu ciddi bir problem.",
+  "Bugün çalışmak istemiyorsan, en çok bugün çalışmalısın.",
+  "Yarım bırakanlardan mı olacaksın yoksa bitirenlerden mi?"
+];
+
+function coachVoiceExtra(dayIndex) {
+  if (dayIndex < 10) return "Başlangıçtasın. Hafife alırsan burada bitersin.";
+  if (dayIndex < 50) return "Bu noktada çoğu kişi bırakır. Sen bırakmazsan fark yaratacaksın.";
+  if (dayIndex < 120) return "Artık bahanen kalmadı. Devam etmek zorundasın.";
+  if (dayIndex < 200) return "Buraya kadar geldiysen geri dönmek mantıksız.";
+  return "Son düzlük. Burada bırakanlar en çok pişman olanlar.";
+}
+
+function getCoachMessage(dayIndex, streak, missedDaysCount) {
+  let base = coachLines[dayIndex % coachLines.length];
+  if (missedDaysCount > 2) base += " Son günlerde gevşedin.";
+  if (streak > 5) base += " Ama iyi gidiyorsun, bozma.";
+  if (streak === 0) base += " Zinciri kırdın.";
+  base += " " + coachVoiceExtra(dayIndex);
+  return base;
+}
+
+// ================= 237 DAY GENERATOR =================
+let allMotivations = [];
+function generateDailyNotes() {
+  for (let i = 0; i < 237; i++) {
+    let fakeStreak = Math.floor(Math.random()*10);
+    let fakeMiss = Math.floor(Math.random()*5);
+    let msg = getCoachMessage(i, fakeStreak, fakeMiss);
+    if (Math.random() > 0.6) msg += " Bahane üretmek kolay.";
+    if (Math.random() > 0.7) msg += " Küçük ilerleme bile önemlidir ama sıfır ilerleme kabul edilemez.";
+    allMotivations.push(msg);
+  }
+}
+generateDailyNotes();
+
+function getDailyMotivation(dayIndex) {
+  return allMotivations[dayIndex] || "Bugünü boş geçme.";
+}
+
+// ================= MISSED DAY =================
+let missedDays = Number(localStorage.getItem("missedDays") || 0);
+let lastActiveDay = localStorage.getItem("lastActiveDay") || null;
+
+function checkMissedDays() {
+  let today = new Date().toDateString();
+  if (lastActiveDay && lastActiveDay !== today) {
+    let diff = (new Date(today) - new Date(lastActiveDay)) / (1000*60*60*24);
+    if (diff > 1) missedDays += (diff - 1);
+  }
+  localStorage.setItem("missedDays", missedDays);
+  localStorage.setItem("lastActiveDay", today);
+}
+checkMissedDays();
+
+// ================= STREAK RESET =================
+function handleStreakReset(streak) {
+  if (streak === 0) alert("Streak sıfırlandı. Disiplin kırıldı.");
+}
+
+// ================= REALITY MODE =================
+let realityMode = false;
+function toggleRealityMode() {
+  realityMode = !realityMode;
+  document.body.classList.toggle("reality-on", realityMode);
+}
+
+// ================= NORWAY MODE =================
+let norwayMode = false;
+
+// Türkçe -> Norveçce çeviri sözlüğü
+const TRANSLATIONS = {
+  // Header
+  'TAMAMLANAN:': 'FULLFØRT:',
+  'TOPLAM:': 'TOTALT:',
+  'STREAK:': 'REKKE:',
+  'ROADMAP': 'VEIKART',
+  'İSTATİSTİK': 'STATISTIKK',
+  'KVİZ': 'QUIZ',
+  'AI CHAT': 'AI CHAT',
+  'NOTLAR': 'NOTATER',
+  'OFF DAYS': 'FRIDAGER',
+  'PROFİL': 'PROFIL',
+  'HAFTALIK': 'UKENTLIG',
+  'SNİPPETLAR': 'KODEBITER',
+  '🇳🇴 NORVEÇ': '🇳🇴 NORGE',
+  
+  // Sidebar
+  '// AYLAR': '// MÅNEDER',
+  '// GENEL İLERLEME': '// GENERELL FREMGANG',
+  'İLERLEME': 'FREMGANG',
+  
+  // Stats
+  'TAMAMLANAN GÜN': 'FULLFØRTE DAGER',
+  'KALAN GÜN': 'GJENVÆRENDE DAGER',
+  'TAMAMLANAN AY': 'FULLFØRTE MÅNEDER',
+  'GÜNLÜK STREAK': 'DAGLIG REKKE',
+  '/ 237 toplam': '/ 237 totalt',
+  '/ 12 ay': '/ 12 måneder',
+  'devam et!': 'fortsett!',
+  '🔥 gün': '🔥 dager',
+  
+  // Progress
+  '12 AYLIK YOL HARİTASI İLERLEMESİ': '12 MÅNEDERS VEIKART FREMGANG',
+  
+  // İstatistik Page
+  'TAMAMLANAN': 'FULLFØRT',
+  'görev bitti': 'oppgaver fullført',
+  'YÜZDE': 'PROSENT',
+  'toplam ilerleme': 'total fremgang',
+  'PROJE GÜNÜ': 'PROSJEKTDAG',
+  'proje tamamlandı': 'prosjekter fullført',
+  'STREAK': 'REKKE',
+  '🔥 gün arka arkaya': '🔥 dager på rad',
+  '// AY BAZLI İLERLEME DURUMU': '// MÅNEDLIG FREMGANG',
+  '// HAFTALIK AKTIVITE (SON 4 HAFTA)': '// UKENTLIG AKTIVITET (SISTE 4 UKER)',
+  '// EN UZUN STREAK': '// LENGSTE REKKE',
+  'GÜN ART ARDA': 'DAGER PÅ RAD',
+  'Son 7 gün aktivitesi:': 'Siste 7 dagers aktivitet:',
+  
+  // Quiz Page
+  'AI DEVELOPER KVİZİ': 'AI UTVIKLER QUIZ',
+  'Öğrendiklerini test et — 10 soru': 'Test det du har lært — 10 spørsmål',
+  'SORU': 'SPØRSMÅL',
+  'SONRAKI SORU →': 'NESTE SPØRSMÅL →',
+  'TEKRAR BAŞLA': 'START PÅ NYTT',
+  'BAŞARI ORANI:': 'SUKSESSRATE:',
+  '🎉 Mükemmel! Konuya hakimsin.': '🎉 Utmerket! Du mestrer emnet.',
+  '👍 İyi gidiyor! Biraz daha pratik yap.': '👍 Bra! Øv litt mer.',
+  '📚 Konuları tekrar et ve devam et.': '📚 Gjennomgå emnene og fortsett.',
+  '✓ Doğru!': '✓ Riktig!',
+  '✗ Yanlış.': '✗ Feil.',
+  
+  // AI Chat
+  'AI MENTOR // ROADMAP ASISTANI': 'AI MENTOR // VEIKART ASSISTENT',
+  '// AI_MENTOR': '// AI_MENTOR',
+  '// SEN': '// DEG',
+  'Merhaba! 👋 Ben AI Roadmap asistanınım. Yol haritandaki herhangi bir konu hakkında soru sorabilirsin. Python, ML, DL, LLM, deployment — hangi konuda yardıma ihtiyacın var?': 'Hei! 👋 Jeg er din AI Veikart-assistent. Du kan stille spørsmål om alle emner i veikartet ditt. Python, ML, DL, LLM, deployment — hva trenger du hjelp med?',
+  'RAG nedir?': 'Hva er RAG?',
+  'LangChain nasıl başlarım?': 'Hvordan starter jeg med LangChain?',
+  'Fine-tuning için ne gerekli?': 'Hva trengs for finjustering?',
+  'Docker ile deploy nasıl yapılır?': 'Hvordan deployer man med Docker?',
+  "Portfolio'mu nasıl güçlendiririm?": 'Hvordan styrker jeg porteføljen min?',
+  'Sorunuzu yazın... (örn: PyTorch ile nasıl başlarım?)': 'Skriv spørsmålet ditt... (f.eks: Hvordan starter jeg med PyTorch?)',
+  'GÖNDER': 'SEND',
+  
+  // Notes Page
+  '// GÜNLÜK NOTLAR': '// DAGLIGE NOTATER',
+  'Bugün ne öğrendim...': 'Hva jeg lærte i dag...',
+  '// HEDEFLER': '// MÅL',
+  'Bu ay hedeflerim...': 'Mine mål denne måneden...',
+  '// KAYNAKLAR': '// RESSURSER',
+  'Faydalı linkler, videolar, kitaplar...': 'Nyttige lenker, videoer, bøker...',
+  '// ZORLUKLAR & ÇÖZÜMLER': '// UTFORDRINGER & LØSNINGER',
+  'Takıldığım konular ve nasıl aştım...': 'Emner jeg slet med og hvordan jeg løste dem...',
+  'KAYDET': 'LAGRE',
+  
+  // Off Days Page
+  '// OFF DAY TAKİBİ': '// FRIDAGSPORING',
+  'Off day aldığın günleri buradan görebilirsin. Her off day, o günden sonraki tüm görevlerin tarihini 1 gün öteliyor.': 'Her kan du se fridagene dine. Hver fridag forskyver alle oppgaver etter den med 1 dag.',
+  'TOPLAM OFF DAY': 'TOTALT FRIDAGER',
+  'gün izin': 'dager fri',
+  'BU AY OFF DAY': 'FRIDAGER DENNE MÅNEDEN',
+  'bu ay': 'denne måneden',
+  'TAKVİM KAYIŞI': 'KALENDERFORSKYVNING',
+  'gün ötelendi': 'dager forskjøvet',
+  'YENİ BİTİŞ': 'NY SLUTT',
+  'tahmini': 'estimert',
+  '// OFF DAY LİSTESİ': '// FRIDAGSLISTE',
+  'Henüz off day işaretlemedin. Gün kartlarındaki OFF butonunu kullan.': 'Du har ikke markert noen fridager ennå. Bruk OFF-knappen på dagkortene.',
+  'OFF DAY AL': 'TA FRIDAG',
+  '✈ OFF DAY': '✈ FRIDAG',
+  'KALDIR': 'FJERN',
+  
+  // Profile Page
+  '// MEVCUT SEVİYE': '// NÅVÆRENDE NIVÅ',
+  'görev': 'oppgaver',
+  '// KAZANILAN ROZETLER': '// OPPTJENTE MERKER',
+  'Henüz kazanılmadı': 'Ikke opptjent ennå',
+  'GERÇEK STREAK 🔥': 'EKTE REKKE 🔥',
+  'EN İYİ STREAK': 'BESTE REKKE',
+  'ROZET KAZANILDI': 'MERKER OPPTJENT',
+  
+  // Badges
+  'İLK ADIM': 'FØRSTE SKRITT',
+  'İlk görevi tamamla': 'Fullfør første oppgave',
+  'İLK HAFTA': 'FØRSTE UKE',
+  '7 gün art arda çalış (gerçek streak)': 'Jobb 7 dager på rad (ekte rekke)',
+  'AY 1 TAMAMLANDI': 'MÅNED 1 FULLFØRT',
+  "Ay 1'i bitir": 'Fullfør måned 1',
+  'ON GÖREV': 'TI OPPGAVER',
+  '10 görev tamamla': 'Fullfør 10 oppgaver',
+  'ELLİ GÖREV': 'FEMTI OPPGAVER',
+  '50 görev tamamla': 'Fullfør 50 oppgaver',
+  'YÜZ GÖREV': 'HUNDRE OPPGAVER',
+  '100 görev tamamla': 'Fullfør 100 oppgaver',
+  'İKİ HAFTA ALEV': 'TO UKER I FART',
+  '14 gün art arda gerçek streak': '14 dager på rad ekte rekke',
+  'AY BOYUNCA': 'HELE MÅNEDEN',
+  '30 gün art arda gerçek streak': '30 dager på rad ekte rekke',
+  'İLK PROJE': 'FØRSTE PROSJEKT',
+  'İlk proje gününü tamamla': 'Fullfør første prosjektdag',
+  'ML USTASI': 'ML MESTER',
+  "Ay 3'ü tamamla": 'Fullfør måned 3',
+  'LLM ÇAĞINA GİRDİN': 'VELKOMMEN TIL LLM-ÆRAEN',
+  "Ay 5'i tamamla": 'Fullfør måned 5',
+  'SNIPPET KOLEKSİYONERİ': 'KODEBITSAMLER',
+  '10 snippet kaydet': 'Lagre 10 kodebiter',
+  'DEVAMLILIIK': 'UTHOLDENHET',
+  'Hiç off day almadan 30 görev': '30 oppgaver uten fridager',
+  'YARI YOL': 'HALVVEIS',
+  '120 görev tamamla': 'Fullfør 120 oppgaver',
+  'NEREDEYSE BİTTİ': 'NESTEN FERDIG',
+  '200 görev tamamla': 'Fullfør 200 oppgaver',
+  'ROADMAP TAMAMLANDI': 'VEIKART FULLFØRT',
+  'Tüm 237 görevi bitir': 'Fullfør alle 237 oppgaver',
+  
+  // Weekly Report Page
+  '// HAFTALIK PERFORMANS RAPORU': '// UKENTLIG YTELSESRAPPORT',
+  'Son 8 haftanın gerçek aktivite verisi — tarihlere göre hesaplanır.': 'Ekte aktivitetsdata for de siste 8 ukene — beregnet etter datoer.',
+  '// MEVCUT HAFTA (SON 7 GÜN)': '// DENNE UKEN (SISTE 7 DAGER)',
+  '// TREND ANALİZİ': '// TRENDANALYSE',
+  '// SON 8 HAFTA AKTİVİTESİ': '// AKTIVITET SISTE 8 UKER',
+  '// GERÇEK STREAK ANALİZİ': '// EKTE REKKE ANALYSE',
+  'Bu hafta': 'Denne uken',
+  'gün çalıştın': 'dager jobbet',
+  '💪 Güçlü tempo!': '💪 Sterkt tempo!',
+  '👍 Orta tempo — artırabilirsin.': '👍 Middels tempo — du kan øke.',
+  '⚠️ Düşük tempo — dikkat.': '⚠️ Lavt tempo — vær oppmerksom.',
+  'Geçen hafta': 'Forrige uke',
+  'gün': 'dager',
+  'Değişim': 'Endring',
+  'Gerçek streak': 'Ekte rekke',
+  'En iyi streak': 'Beste rekke',
+  'Toplam tamamlanan': 'Totalt fullført',
+  '❌ Streak yok. Bugün bir şey tamamla.': '❌ Ingen rekke. Fullfør noe i dag.',
+  'Devam et.': 'Fortsett.',
+  'İlk haftaya yaklaşıyorsun.': 'Du nærmer deg første uke.',
+  'Harika gidiyorsun.': 'Du gjør det kjempebra.',
+  'Efsaneleşiyorsun.': 'Du blir en legende.',
+  'günlük streak': 'dagers rekke',
+  'Mevcut streak tarihe göre hesaplanıyor — off day günleri streaki kırmıyor ama saymıyor.': 'Nåværende rekke beregnes etter dato — fridager bryter ikke rekken men teller ikke.',
+  'EN İYİ STREAK:': 'BESTE REKKE:',
+  'Şu an rekor kırıyorsun!': 'Du slår rekorden nå!',
+  
+  // Snippet Page
+  '// KOD SNİPPET DEPOSU': '// KODEBITLAGER',
+  'Öğrendiğin kod parçalarını buraya kaydet. Arayabilir, kopyalayabilirsin.': 'Lagre kodebitene du lærer her. Du kan søke og kopiere.',
+  '// YENİ SNİPPET EKLE': '// LEGG TIL NY KODEBIT',
+  'Başlık (örn: DataFrame merge işlemi)': 'Tittel (f.eks: DataFrame sammenslåing)',
+  'Konu (örn: Pandas, PyTorch...)': 'Emne (f.eks: Pandas, PyTorch...)',
+  'Diğer': 'Annet',
+  '# Kodunu buraya yapıştır...': '# Lim inn koden din her...',
+  '+ SNİPPET EKLE': '+ LEGG TIL KODEBIT',
+  '🔍 Snippet ara... (başlık veya konu)': '🔍 Søk kodebiter... (tittel eller emne)',
+  'KOPYALA': 'KOPIER',
+  'Henüz snippet eklemedin. Yukarıdaki formu kullan.': 'Du har ikke lagt til noen kodebiter ennå. Bruk skjemaet ovenfor.',
+  'Arama sonucu yok.': 'Ingen søkeresultater.',
+  '⚠ Başlık ve kod zorunlu!': '⚠ Tittel og kode er påkrevd!',
+  '📦 Snippet kaydedildi!': '📦 Kodebit lagret!',
+  '📋 Kopyalandı!': '📋 Kopiert!',
+  
+  // Day Card Actions
+  'TAMAMLA': 'FULLFØR',
+  'TAMAMLANDI': 'FULLFØRT',
+  'DETAY': 'DETALJER',
+  'Gün': 'Dag',
+  
+  // Modal
+  '// AÇIKLAMA': '// BESKRIVELSE',
+  '// İPUÇLARI': '// TIPS',
+  '// KAYNAKLAR': '// RESSURSER',
+  '// MOTİVASYON': '// MOTIVASJON',
+  'Bu günü tamamla': 'Fullfør denne dagen',
+  '✓ Tamamlandı': '✓ Fullført',
+  '// GÜN NOTU': '// DAGNOTAT',
+  'Bu gün hakkında notlar...': 'Notater om denne dagen...',
+  'NOT KAYDET': 'LAGRE NOTAT',
+  
+  // Months
+  'AY 1 — PYTHON TEMELLERİ': 'MÅNED 1 — PYTHON GRUNNLEGGENDE',
+  'AY 2 — VERİ ANALİZİ': 'MÅNED 2 — DATAANALYSE',
+  'AY 3 — MAKİNE ÖĞRENMESİ': 'MÅNED 3 — MASKINLÆRING',
+  'AY 4 — DERİN ÖĞRENME': 'MÅNED 4 — DYPLÆRING',
+  'AY 5 — LLM & API': 'MÅNED 5 — LLM & API',
+  'AY 6 — RAG & VEKTÖR': 'MÅNED 6 — RAG & VEKTOR',
+  'AY 7 — AGENT SİSTEMLERİ': 'MÅNED 7 — AGENTSYSTEMER',
+  'AY 8 — FİNE-TUNİNG': 'MÅNED 8 — FINJUSTERING',
+  'AY 9 — MLOPS': 'MÅNED 9 — MLOPS',
+  'AY 10 — İLERİ PROJELER': 'MÅNED 10 — AVANSERTE PROSJEKTER',
+  'AY 11 — PORTFOLIO': 'MÅNED 11 — PORTEFØLJE',
+  'AY 12 — İŞ ARAMA': 'MÅNED 12 — JOBBSØK',
+  
+  // Levels
+  'SCRIPT KIDDIE': 'SCRIPT KIDDIE',
+  'PYTHON APPRENTICE': 'PYTHON LÆRLING',
+  'DATA WRANGLER': 'DATA MANIPULATOR',
+  'ML ENGINEER': 'ML INGENIØR',
+  'DEEP LEARNER': 'DYPLÆRER',
+  'LLM CRAFTSMAN': 'LLM HÅNDVERKER',
+  'AI ARCHITECT': 'AI ARKITEKT',
+  'SENIOR AI DEV': 'SENIOR AI DEV',
+  'PRINCIPAL ENGINEER': 'SJEFSINGENIØR',
+  'AI MASTER': 'AI MESTER',
+  
+  // Achievement
+  '// BAŞARIM KAZANILDI': '// PRESTASJON LÅST OPP',
+  'Not kaydedildi ✓': 'Notat lagret ✓',
+  'Gün notu kaydedildi ✓': 'Dagnotat lagret ✓',
+  'Off day geri alındı — takvim düzeldi': 'Fridag fjernet — kalender oppdatert',
+  'Off day kaldırıldı': 'Fridag fjernet',
+  '🏅 YENİ ROZET:': '🏅 NYTT MERKE:',
+  
+  // Day types
+  'PROJE': 'PROSJEKT',
+  'BONUS': 'BONUS',
+  'KAPANIŞ': 'AVSLUTNING',
+  'NORMAL': 'NORMAL',
+  
+  // Week days
+  'Pzt': 'Man',
+  'Sal': 'Tir',
+  'Çar': 'Ons',
+  'Per': 'Tor',
+  'Cum': 'Fre',
+  'Cmt': 'Lør',
+  'Paz': 'Søn',
+  'PAZ': 'SØN',
+  'PZT': 'MAN',
+  'SAL': 'TIR',
+  'ÇAR': 'ONS',
+  'PER': 'TOR',
+  'CUM': 'FRE',
+  'CMT': 'LØR'
+};
+
+// Orijinal içerikleri sakla
+let originalContents = new Map();
+
+function translateElement(el, toNorwegian) {
+  if (el.nodeType === Node.TEXT_NODE) {
+    const text = el.textContent.trim();
+    if (!text) return;
+    
+    if (toNorwegian) {
+      // Orijinali sakla
+      if (!originalContents.has(el)) {
+        originalContents.set(el, el.textContent);
+      }
+      // Çevir
+      let translated = el.textContent;
+      for (const [tr, no] of Object.entries(TRANSLATIONS)) {
+        if (translated.includes(tr)) {
+          translated = translated.split(tr).join(no);
+        }
+      }
+      el.textContent = translated;
+    } else {
+      // Orijinale dön
+      if (originalContents.has(el)) {
+        el.textContent = originalContents.get(el);
+      }
+    }
+  } else if (el.nodeType === Node.ELEMENT_NODE) {
+    // Placeholder attribute
+    if (el.placeholder) {
+      if (toNorwegian) {
+        if (!el.dataset.origPlaceholder) {
+          el.dataset.origPlaceholder = el.placeholder;
+        }
+        let translated = el.placeholder;
+        for (const [tr, no] of Object.entries(TRANSLATIONS)) {
+          if (translated.includes(tr)) {
+            translated = translated.split(tr).join(no);
+          }
+        }
+        el.placeholder = translated;
+      } else if (el.dataset.origPlaceholder) {
+        el.placeholder = el.dataset.origPlaceholder;
+      }
+    }
+    
+    // Title attribute
+    if (el.title) {
+      if (toNorwegian) {
+        if (!el.dataset.origTitle) {
+          el.dataset.origTitle = el.title;
+        }
+        el.title = TRANSLATIONS[el.title] || el.title;
+      } else if (el.dataset.origTitle) {
+        el.title = el.dataset.origTitle;
+      }
+    }
+    
+    // Recursively translate children
+    for (const child of el.childNodes) {
+      translateElement(child, toNorwegian);
+    }
+  }
+}
+
+function translatePage(toNorwegian) {
+  // HTML lang attribute
+  document.documentElement.lang = toNorwegian ? 'no' : 'tr';
+  
+  // Title
+  if (toNorwegian) {
+    if (!document.title.includes('🇳🇴')) {
+      document.title = '🇳🇴 AI Utvikler Veikart — 12 Måneder';
+    }
+  } else {
+    document.title = 'AI Developer Roadmap — 12 Ay';
+  }
+  
+  // Translate app container
+  const app = document.querySelector('.app');
+  if (app) {
+    translateElement(app, toNorwegian);
+  }
+  
+  // Translate modal
+  const modal = document.querySelector('.modal');
+  if (modal) {
+    translateElement(modal, toNorwegian);
+  }
+  
+  // Translate achievement popup
+  const achPopup = document.getElementById('ach-popup');
+  if (achPopup) {
+    translateElement(achPopup, toNorwegian);
+  }
+}
+
+function toggleNorwayMode() {
+  norwayMode = !norwayMode;
+  document.body.classList.toggle("norway-on", norwayMode);
+  const btn = document.getElementById('norway-btn');
+  if (btn) btn.classList.toggle('active', norwayMode);
+  
+  // Matrix rain renk güncelle
+  const canvas = document.getElementById('matrix-bg');
+  if (canvas) canvas.style.opacity = norwayMode ? '0.05' : '0.07';
+  
+  // Sayfayı çevir
+  translatePage(norwayMode);
+  
+  // Re-render dynamic content
+  renderMonthList();
+  renderMonthContent(currentMonth);
+  if (document.getElementById('page-istatistik').classList.contains('active')) {
+    updateIstatistik();
+  }
+  if (document.getElementById('page-profil').classList.contains('active')) {
+    renderLevelDisplay();
+    renderRozetler();
+  }
+  if (document.getElementById('page-haftalik').classList.contains('active')) {
+    renderHaftalikRapor();
+  }
+  if (document.getElementById('page-offdays').classList.contains('active')) {
+    renderOffDayPage();
+  }
+  if (document.getElementById('page-snippets').classList.contains('active')) {
+    renderSnippets();
+  }
+  
+  // Çevrilmiş achievement mesajı
+  showAchievement(norwayMode ? '🇳🇴 Norsk modus AKTIV — Nordlysene venter!' : '🟢 Standard modus lastet.');
+}
+
+// ================= RIVAL SYSTEM =================
+function getFakeRivalProgress(userProgress) {
+  let rival = userProgress + Math.random() * 10;
+  if (rival > 100) rival = 100;
+  return Math.floor(rival);
+}
+
+// ================= MISSED DAY MODAL =================
+function showMissedDayModal() {
+  alert("Bugünü boş geçtin. Zinciri sen kırdın. Devam mı edeceksin?");
+}
+
+// ================= MODAL MOTIVASYON =================
+function injectMotivation(dayIndex) {
+  let box = `<div class="motivation-box">${getDailyMotivation(dayIndex)}</div>`;
+  const mb = document.getElementById("modal-body");
+  if (mb) mb.innerHTML += box;
+}
+
+// ============================================================
+// PAGES
+// ============================================================
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  event && event.target && event.target.classList.add('active');
+  if(page==='istatistik') updateIstatistik();
+  if(page==='offdays') renderOffDayPage();
+  if(page==='profil'){ renderLevelDisplay(); renderRozetler(); }
+  if(page==='haftalik') renderHaftalikRapor();
+  if(page==='snippets') renderSnippets();
+}
+
+function updateIstatistik(){
+  const done = completed.length;
+  const pct = Math.round(done/237*100);
+  const projDone = completed.filter(i=>{
+    const d = ROADMAP_DATA[i];
+    return d && d.desc.includes('PROJE') && !d.desc.includes('BONUS');
+  }).length;
+  const streak = calcStreak();
+
+  document.getElementById('ist-done').textContent = done;
+  document.getElementById('ist-pct').textContent = pct+'%';
+  document.getElementById('ist-proj').textContent = projDone;
+  document.getElementById('ist-streak').textContent = streak;
+  document.getElementById('best-streak').textContent = streak;
+
+  // Norveçce çeviriler
+  const monthLabel = norwayMode ? 'MÅNED' : 'AY';
+
+  // Bar chart
+  const chartEl = document.getElementById('month-bar-chart');
+  const maxDays = Math.max(...MONTH_RANGES.map(m=>m.end-m.start+1));
+  chartEl.innerHTML = MONTH_RANGES.map((m,i)=>{
+    const total = m.end - m.start + 1;
+    const done2 = completed.filter(c=>c>=m.start&&c<=m.end).length;
+    const pct2 = Math.round(done2/total*100);
+    const height = Math.max(3, Math.round(pct2/100*120));
+    const cls = pct2===100?'done':pct2>0?'partial':'';
+    return `<div class="bar-item">
+      <div class="bar-fill ${cls}" style="height:${height}px" title="${monthLabel}${i+1}: ${done2}/${total}"></div>
+      <div class="bar-label" style="font-size:0.5rem;color:var(--text-dim)">${monthLabel}${i+1}</div>
+    </div>`;
+  }).join('');
+
+  // Weekly activity
+  const weekEl = document.getElementById('week-activity');
+  const days7 = [6,5,4,3,2,1,0].map(d=>{
+    const date = new Date();
+    date.setDate(date.getDate()-d);
+    return date.toISOString().split('T')[0];
+  });
+  const dayNamesTR = ['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'];
+  const dayNamesNO = ['Søn','Man','Tir','Ons','Tor','Fre','Lør'];
+  const dayNames = norwayMode ? dayNamesNO : dayNamesTR;
+  const activityLabel = norwayMode ? 'Siste 7 dagers aktivitet:' : 'Son 7 gün aktivitesi:';
+  weekEl.innerHTML = activityLabel + '<br>' + days7.map(d=>{
+    const dayName = dayNames[new Date(d).getDay()];
+    const hasDone = ROADMAP_DATA.some((rd,i)=>rd.d===d && completed.includes(i));
+    return `<span style="color:${hasDone?'var(--green)':'var(--text-dim)'}">${dayName} ${hasDone?'■':'□'} </span>`;
+  }).join('');
+}
+
+// ============================================================
+// QUIZ
+// ============================================================
+function initQuiz(){
+  quizIdx = 0; quizScore = 0;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const area = document.getElementById('quiz-area');
+  if(quizIdx >= QUIZ_QUESTIONS.length){
+    const pct = Math.round(quizScore/QUIZ_QUESTIONS.length*100);
+    area.innerHTML = `<div class="quiz-result">
+      <div class="quiz-score">${quizScore}/${QUIZ_QUESTIONS.length}</div>
+      <div style="font-family:'Orbitron',monospace;font-size:0.75rem;color:var(--text-dim);letter-spacing:2px;margin-bottom:16px;">BAŞARI ORANI: %${pct}</div>
+      <div style="font-size:0.85rem;color:${pct>=80?'var(--green)':'var(--amber)'};margin-bottom:20px;">
+        ${pct>=80?'🎉 Mükemmel! Konuya hakimsin.':pct>=60?'👍 İyi gidiyor! Biraz daha pratik yap.':'📚 Konuları tekrar et ve devam et.'}
+      </div>
+      <button class="quiz-next-btn" onclick="initQuiz()">TEKRAR BAŞLA</button>
+    </div>`;
+    document.getElementById('quiz-prog').style.width='100%';
+    return;
+  }
+
+  const q = QUIZ_QUESTIONS[quizIdx];
+  quizAnswered = false;
+  document.getElementById('quiz-prog').style.width = (quizIdx/QUIZ_QUESTIONS.length*100)+'%';
+
+  area.innerHTML = `
+    <div class="quiz-question-box">
+      <div class="quiz-q-num">SORU ${quizIdx+1} / ${QUIZ_QUESTIONS.length}</div>
+      <div class="quiz-q-text">${q.q}</div>
+    </div>
+    <div class="quiz-options">
+      ${q.opts.map((o,i)=>`<button class="quiz-option" onclick="answerQuiz(${i})">${String.fromCharCode(65+i)}) ${o}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="quiz-fb"></div>
+    <button class="quiz-next-btn" id="quiz-next" onclick="nextQuestion()" style="display:none">SONRAKI SORU →</button>
+  `;
+}
+
+function answerQuiz(chosen){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const q = QUIZ_QUESTIONS[quizIdx];
+  const opts = document.querySelectorAll('.quiz-option');
+  const fb = document.getElementById('quiz-fb');
+
+  opts.forEach(o=>o.disabled=true);
+  opts[chosen].classList.add(chosen===q.a?'correct':'wrong');
+  if(chosen!==q.a) opts[q.a].classList.add('correct');
+
+  if(chosen===q.a){
+    quizScore++;
+    fb.textContent = '✓ Doğru! '+q.exp;
+    fb.className='quiz-feedback ok';
+  } else {
+    fb.textContent = '✗ Yanlış. '+q.exp;
+    fb.className='quiz-feedback fail';
+  }
+
+  document.getElementById('quiz-next').style.display='block';
+}
+
+function nextQuestion(){
+  quizIdx++;
+  renderQuiz();
+}
+
+// ============================================================
+// AI CHAT (Anthropic API)
+// ============================================================
+async function sendChat(){
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if(!msg) return;
+  input.value='';
+
+  appendMsg('user', msg);
+  chatHistory.push({role:'user',content:msg});
+
+  // Show typing
+  const typingEl = document.createElement('div');
+  typingEl.className='typing-indicator';
+  typingEl.innerHTML='<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  document.getElementById('chat-messages').appendChild(typingEl);
+  scrollChat();
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:1000,
+        system:`Sen bir AI Developer Roadmap asistanısın. Kullanıcı 12 aylık bir AI geliştirici yol haritası takip ediyor (Python → Data Science → ML → DL → LLM → MLOps → İş Arama). Türkçe cevap ver. Kısa, pratik ve motive edici ol. Kod örnekleri verebilirsin. Roadmap konuları: Python, Pandas, NumPy, scikit-learn, PyTorch, HuggingFace, OpenAI API, LangChain, RAG, FAISS, FastAPI, Docker, MLOps, Fine-tuning, LangGraph, Agents.`,
+        messages: chatHistory.slice(-10)
+      })
+    });
+
+    const data = await response.json();
+    typingEl.remove();
+
+    const reply = data.content?.[0]?.text || "API bağlantısında sorun oluştu. Lütfen tekrar dene.";
+    chatHistory.push({role:'assistant',content:reply});
+    appendMsg('ai', reply);
+  } catch(e){
+    typingEl.remove();
+    appendMsg('ai', 'Bağlantı hatası oluştu. API erişimi gereklidir. Lütfen tekrar dene.');
+  }
+}
+
+function appendMsg(role, text){
+  const el = document.createElement('div');
+  el.className='msg '+role;
+  el.innerHTML=`<div class="msg-prefix">${role==='user'?'// SEN':'// AI_MENTOR'}</div>${escapeHtml(text)}`;
+  document.getElementById('chat-messages').appendChild(el);
+  scrollChat();
+}
+
+function scrollChat(){
+  const m = document.getElementById('chat-messages');
+  m.scrollTop = m.scrollHeight;
+}
+
+function escapeHtml(t){
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+function sendSuggestion(btn){
+  document.getElementById('chat-input').value = btn.textContent;
+  sendChat();
+}
+
+// ============================================================
+// NOTES
+// ============================================================
+function loadNotes(){
+  const keys = ['daily','goals','resources','challenges'];
+  keys.forEach(k=>{
+    const el = document.getElementById('note-'+k);
+    if(el && notes[k]) el.value = notes[k];
+  });
+}
+
+function saveNote(key){
+  const el = document.getElementById('note-'+key);
+  if(!el) return;
+  notes[key] = el.value;
+  localStorage.setItem('rm_notes', JSON.stringify(notes));
+  const msg = norwayMode ? 'Notat lagret ✓' : 'Not kaydedildi ✓';
+  showAchievement(msg);
+}
+
+// ============================================================
+// DAY NOTES
+// ============================================================
+function saveDayNote(idx){
+  const el = document.getElementById('day-note-textarea');
+  if(!el) return;
+  dayNotes[idx] = el.value;
+  localStorage.setItem('rm_daynotes', JSON.stringify(dayNotes));
+  const msg = norwayMode ? 'Dagnotat lagret ✓' : 'Gün notu kaydedildi ✓';
+  showAchievement(msg);
+  // Update card indicator
+  renderMonthContent(currentMonth);
+}
+
+// ============================================================
+// OFF DAYS
+// ============================================================
+function toggleOffDay(idx, btn){
+  const labels = norwayMode ? {
+    takeOffDay: 'TA FRIDAG',
+    offDayActive: '✈ FRIDAG',
+    offDayRemoved: 'Fridag fjernet — kalender oppdatert',
+    offDayTaken: (count) => `✈ Fridag tatt — ${count} dager forskjøvet med 1 dag`
+  } : {
+    takeOffDay: 'OFF DAY AL',
+    offDayActive: '✈ OFF DAY',
+    offDayRemoved: 'Off day geri alındı — takvim düzeldi',
+    offDayTaken: (count) => `✈ Off day alındı — ${count} günün tarihi 1 gün kaydı`
+  };
+  
+  if(offDays.includes(idx)){
+    offDays = offDays.filter(i=>i!==idx);
+    btn.textContent = labels.takeOffDay;
+    btn.classList.remove('active');
+    showAchievement(labels.offDayRemoved);
+  } else {
+    offDays.push(idx);
+    btn.textContent = labels.offDayActive;
+    btn.classList.add('active');
+    // Show brutal off-day message
+    const brutalMsg = BRUTAL_OFFDAY_MSGS[offDays.length % BRUTAL_OFFDAY_MSGS.length];
+    const afterCount = ROADMAP_DATA.length - idx - 1;
+    showAchievement(labels.offDayTaken(afterCount));
+    // Show brutal message in a brief overlay after the achievement
+    setTimeout(()=>{ showAchievement(brutalMsg); }, 2500);
+  }
+  localStorage.setItem('rm_offdays', JSON.stringify(offDays));
+  renderMonthContent(currentMonth);
+  renderMonthList();
+  // Update off day page if open
+  renderOffDayPage();
+}
+
+function renderOffDayPage(){
+  const totalEl = document.getElementById('od-total');
+  const monthEl = document.getElementById('od-month');
+  const listEl = document.getElementById('offday-list');
+  const shiftEl = document.getElementById('od-shift');
+  const endEl = document.getElementById('od-enddate');
+  if(!totalEl) return;
+
+  totalEl.textContent = offDays.length;
+
+  // This month
+  const m = MONTH_RANGES[currentMonth];
+  const thisMonth = offDays.filter(i=>i>=m.start&&i<=m.end).length;
+  monthEl.textContent = thisMonth;
+
+  // Total shift = total off days (each off day pushes everything after it by 1)
+  if(shiftEl) shiftEl.textContent = offDays.length;
+
+  // Norveçce çeviriler
+  const monthsTR = ['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
+  const monthsNO = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
+  const monthNames = norwayMode ? monthsNO : monthsTR;
+  
+  const labels = norwayMode ? {
+    noOffDays: 'Du har ikke markert noen fridager ennå. Bruk DETALJER-knappen på dagkortene og velg TA FRIDAG.',
+    original: 'Original',
+    shifted: 'Forskjøvet',
+    remove: 'FJERN'
+  } : {
+    noOffDays: 'Henüz off day işaretlemedin. Gün kartlarındaki DETAY butonuna tıklayıp OFF DAY AL\'ı kullan.',
+    original: 'Orijinal',
+    shifted: 'Kaydı',
+    remove: 'KALDIR'
+  };
+
+  // New estimated end date: last day of roadmap + total off days
+  if(endEl){
+    const lastDay = ROADMAP_DATA[ROADMAP_DATA.length - 1];
+    const lastDate = new Date(lastDay.d);
+    lastDate.setDate(lastDate.getDate() + offDays.length);
+    endEl.textContent = `${lastDate.getDate()} ${monthNames[lastDate.getMonth()]} ${lastDate.getFullYear()}`;
+  }
+
+  if(offDays.length === 0){
+    listEl.innerHTML = `<div style="color:var(--text-dim);font-size:0.72rem;padding:10px 0;">${labels.noOffDays}</div>`;
+    return;
+  }
+
+  const sorted = [...offDays].sort((a,b)=>a-b);
+  listEl.innerHTML = sorted.map((idx,i)=>{
+    const day = ROADMAP_DATA[idx];
+    if(!day) return '';
+    const note = dayNotes[idx] ? `<div style="color:var(--amber);font-size:0.65rem;margin-top:4px;padding-left:10px;">📝 ${dayNotes[idx].slice(0,80)}${dayNotes[idx].length>80?'...':''}</div>` : '';
+    const shiftedDate = getShiftedDate(day.d, idx);
+    return `<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);">
+      <span style="color:#4488ff;flex-shrink:0;font-family:'Orbitron',monospace;font-size:0.65rem;">#${i+1}</span>
+      <div style="flex:1;">
+        <div style="color:var(--text);font-size:0.75rem;">${day.s}</div>
+        <div style="color:var(--text-dim);font-size:0.65rem;">${labels.original}: ${day.d} → <span style="color:var(--amber)">${labels.shifted}: ${shiftedDate}</span></div>
+        ${note}
+      </div>
+      <button onclick="removeOffDay(${idx})" style="background:none;border:1px solid var(--border);color:var(--text-dim);padding:3px 8px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:0.6rem;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">${labels.remove}</button>
+    </div>`;
+  }).join('');
+}
+
+function removeOffDay(idx){
+  offDays = offDays.filter(i=>i!==idx);
+  localStorage.setItem('rm_offdays', JSON.stringify(offDays));
+  renderMonthContent(currentMonth);
+  renderOffDayPage();
+  const msg = norwayMode ? 'Fridag fjernet' : 'Off day kaldırıldı';
+  showAchievement(msg);
+}
+
+// ============================================================
+// GERÇEK STREAK SİSTEMİ (tarihe göre)
+// ============================================================
+function calcRealStreak() {
+  // Build a set of dates that have completed tasks
+  const completedDates = new Set();
+  completed.forEach(idx => {
+    const day = ROADMAP_DATA[idx];
+    if (day) completedDates.add(getShiftedDate(day.d, idx));
+  });
+  const offDayDates = new Set();
+  offDays.forEach(idx => {
+    const day = ROADMAP_DATA[idx];
+    if (day) offDayDates.add(getShiftedDate(day.d, idx));
+  });
+
+  let streak = 0;
+  let d = new Date();
+  // If today not done yet, start from yesterday
+  const todayStr = d.toISOString().split('T')[0];
+  if (!completedDates.has(todayStr) && !offDayDates.has(todayStr)) {
+    d.setDate(d.getDate() - 1);
+  }
+
+  for (let i = 0; i < 365; i++) {
+    const ds = d.toISOString().split('T')[0];
+    if (completedDates.has(ds) || offDayDates.has(ds)) {
+      if (!offDayDates.has(ds)) streak++; // off days don't add to streak but don't break it
+      d.setDate(d.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+  return streak;
+}
+
+function calcBestStreak() {
+  const completedDates = new Set();
+  completed.forEach(idx => {
+    const day = ROADMAP_DATA[idx];
+    if (day) completedDates.add(getShiftedDate(day.d, idx));
+  });
+  const offDayDates = new Set();
+  offDays.forEach(idx => {
+    const day = ROADMAP_DATA[idx];
+    if (day) offDayDates.add(getShiftedDate(day.d, idx));
+  });
+
+  // Get all unique dates sorted
+  const allDates = [...completedDates, ...offDayDates].sort();
+  let best = 0, cur = 0, prev = null;
+  allDates.forEach(ds => {
+    if (prev) {
+      const diff = (new Date(ds) - new Date(prev)) / 86400000;
+      if (diff <= 1) {
+        if (!offDayDates.has(ds)) cur++;
+      } else {
+        best = Math.max(best, cur);
+        cur = completedDates.has(ds) ? 1 : 0;
+      }
+    } else {
+      cur = completedDates.has(ds) ? 1 : 0;
+    }
+    prev = ds;
+  });
+  return Math.max(best, cur);
+}
+
+// ============================================================
+// SEVİYE SİSTEMİ
+// ============================================================
+const LEVELS = [
+  { min:0,   max:9,   rank:'LVL 00', title:'SCRIPT KIDDIE',    color:'#5a9960' },
+  { min:10,  max:24,  rank:'LVL 01', title:'PYTHON APPRENTICE', color:'#00aa2a' },
+  { min:25,  max:49,  rank:'LVL 02', title:'DATA WRANGLER',     color:'#00cc33' },
+  { min:50,  max:79,  rank:'LVL 03', title:'ML ENGINEER',       color:'#00ee44' },
+  { min:80,  max:119, rank:'LVL 04', title:'DEEP LEARNER',      color:'#00ff55' },
+  { min:120, max:159, rank:'LVL 05', title:'LLM CRAFTSMAN',     color:'#33ff77' },
+  { min:160, max:199, rank:'LVL 06', title:'AI ARCHITECT',      color:'#66ffaa' },
+  { min:200, max:224, rank:'LVL 07', title:'SENIOR AI DEV',     color:'#99ffcc' },
+  { min:225, max:236, rank:'LVL 08', title:'PRINCIPAL ENGINEER', color:'#ccffee' },
+  { min:237, max:999, rank:'LVL 09', title:'AI MASTER',         color:'#ffffff' },
+];
+
+function getLevel(done) {
+  return LEVELS.find(l => done >= l.min && done <= l.max) || LEVELS[0];
+}
+
+function renderLevelDisplay() {
+  const done = completed.length;
+  const lv = getLevel(done);
+  const nextLv = LEVELS[LEVELS.indexOf(lv) + 1];
+  const xpInLevel = done - lv.min;
+  const xpNeeded = nextLv ? (nextLv.min - lv.min) : 1;
+  const xpPct = Math.min(100, Math.round(xpInLevel / xpNeeded * 100));
+  const streak = calcRealStreak();
+
+  // Norveçce çeviriler
+  const labels = norwayMode ? {
+    currentLevel: '// NÅVÆRENDE NIVÅ',
+    tasks: 'oppgaver',
+    realStreak: 'EKTE REKKE 🔥',
+    bestStreak: 'BESTE REKKE',
+    badgesEarned: 'MERKER OPPTJENT'
+  } : {
+    currentLevel: '// MEVCUT SEVİYE',
+    tasks: 'görev',
+    realStreak: 'GERÇEK STREAK 🔥',
+    bestStreak: 'EN İYİ STREAK',
+    badgesEarned: 'ROZET KAZANILDI'
+  };
+
+  const el = document.getElementById('level-display-area');
+  if (!el) return;
+  el.innerHTML = `
+    <div class="level-display" style="margin-bottom:20px;">
+      <div style="font-size:0.6rem;color:var(--text-dim);letter-spacing:3px;margin-bottom:6px;">${labels.currentLevel}</div>
+      <div class="level-rank" style="color:${lv.color}">${lv.rank}</div>
+      <div class="level-title">${lv.title}</div>
+      <div class="xp-bar-wrap">
+        <div class="xp-bar-fill" style="width:${xpPct}%;background:linear-gradient(90deg,${lv.color}88,${lv.color})"></div>
+      </div>
+      <div class="xp-label">
+        <span>${done} / ${nextLv ? nextLv.min : done} ${labels.tasks}</span>
+        <span style="color:${lv.color}">${xpPct}% → ${nextLv ? nextLv.title : 'MAX LEVEL'}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;">
+        <div style="text-align:center;border:1px solid var(--border);padding:10px;background:var(--bg3);">
+          <div style="font-family:'Orbitron',monospace;font-size:1.2rem;color:var(--green);">${streak}</div>
+          <div style="font-size:0.6rem;color:var(--text-dim);letter-spacing:1px;">${labels.realStreak}</div>
+        </div>
+        <div style="text-align:center;border:1px solid var(--border);padding:10px;background:var(--bg3);">
+          <div style="font-family:'Orbitron',monospace;font-size:1.2rem;color:var(--green);">${calcBestStreak()}</div>
+          <div style="font-size:0.6rem;color:var(--text-dim);letter-spacing:1px;">${labels.bestStreak}</div>
+        </div>
+        <div style="text-align:center;border:1px solid var(--border);padding:10px;background:var(--bg3);">
+          <div style="font-family:'Orbitron',monospace;font-size:1.2rem;color:var(--green);">${badges.filter(b=>b.earned).length}</div>
+          <div style="font-size:0.6rem;color:var(--text-dim);letter-spacing:1px;">${labels.badgesEarned}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ============================================================
+// ROZET SİSTEMİ
+// ============================================================
+let badges = JSON.parse(localStorage.getItem('rm_badges') || '[]');
+
+const BADGE_DEFS = [
+  { id:'first_step',   icon:'🚀', name:'İLK ADIM',         nameNO:'FØRSTE SKRITT',         desc:'İlk görevi tamamla',                 descNO:'Fullfør første oppgave',                check: ()=> completed.length >= 1 },
+  { id:'week1',        icon:'📅', name:'İLK HAFTA',         nameNO:'FØRSTE UKE',             desc:'7 gün art arda çalış (gerçek streak)',descNO:'Jobb 7 dager på rad (ekte rekke)',check: ()=> calcRealStreak() >= 7 },
+  { id:'month1',       icon:'🏆', name:'AY 1 TAMAMLANDI',   nameNO:'MÅNED 1 FULLFØRT',       desc:'Ay 1\'i bitir',                      descNO:'Fullfør måned 1', check: ()=> completed.filter(c=>c>=0&&c<=19).length===20 },
+  { id:'ten',          icon:'🔟', name:'ON GÖREV',           nameNO:'TI OPPGAVER',            desc:'10 görev tamamla',                   descNO:'Fullfør 10 oppgaver', check: ()=> completed.length >= 10 },
+  { id:'fifty',        icon:'5️⃣0️⃣', name:'ELLİ GÖREV',        nameNO:'FEMTI OPPGAVER',         desc:'50 görev tamamla',                   descNO:'Fullfør 50 oppgaver', check: ()=> completed.length >= 50 },
+  { id:'hundred',      icon:'💯', name:'YÜZ GÖREV',          nameNO:'HUNDRE OPPGAVER',        desc:'100 görev tamamla',                  descNO:'Fullfør 100 oppgaver', check: ()=> completed.length >= 100 },
+  { id:'streak14',     icon:'🔥', name:'İKİ HAFTA ALEV',    nameNO:'TO UKER I FART',         desc:'14 gün art arda gerçek streak',       descNO:'14 dager på rad ekte rekke', check: ()=> calcRealStreak() >= 14 },
+  { id:'streak30',     icon:'⚡', name:'AY BOYUNCA',         nameNO:'HELE MÅNEDEN',           desc:'30 gün art arda gerçek streak',       descNO:'30 dager på rad ekte rekke', check: ()=> calcRealStreak() >= 30 },
+  { id:'first_proj',   icon:'🛠️', name:'İLK PROJE',          nameNO:'FØRSTE PROSJEKT',        desc:'İlk proje gününü tamamla',           descNO:'Fullfør første prosjektdag', check: ()=> completed.some(i=>ROADMAP_DATA[i]&&ROADMAP_DATA[i].desc.includes('PROJE')) },
+  { id:'ml_master',    icon:'🤖', name:'ML USTASI',           nameNO:'ML MESTER',              desc:'Ay 3\'ü tamamla',                    descNO:'Fullfør måned 3', check: ()=> completed.filter(c=>c>=40&&c<=59).length===20 },
+  { id:'llm_era',      icon:'🧠', name:'LLM ÇAĞINA GİRDİN', nameNO:'VELKOMMEN TIL LLM-ÆRA',  desc:'Ay 5\'i tamamla',                    descNO:'Fullfør m��ned 5', check: ()=> completed.filter(c=>c>=80&&c<=99).length===20 },
+  { id:'snippet10',    icon:'📦', name:'SNIPPET KOLEKSİYONERİ', nameNO:'KODEBITSAMLER',      desc:'10 snippet kaydet',                  descNO:'Lagre 10 kodebiter', check: ()=> snippets.length >= 10 },
+  { id:'nooffday',     icon:'💎', name:'DEVAMLILIIK',         nameNO:'UTHOLDENHET',            desc:'Hiç off day almadan 30 görev',       descNO:'30 oppgaver uten fridager', check: ()=> offDays.length === 0 && completed.length >= 30 },
+  { id:'halfwayml',    icon:'🎯', name:'YARI YOL',            nameNO:'HALVVEIS',               desc:'120 görev tamamla',                  descNO:'Fullfør 120 oppgaver', check: ()=> completed.length >= 120 },
+  { id:'almost',       icon:'🌟', name:'NEREDEYSE BİTTİ',    nameNO:'NESTEN FERDIG',          desc:'200 görev tamamla',                  descNO:'Fullfør 200 oppgaver', check: ()=> completed.length >= 200 },
+  { id:'complete',     icon:'🏅', name:'ROADMAP TAMAMLANDI', nameNO:'VEIKART FULLFØRT',       desc:'Tüm 237 görevi bitir',               descNO:'Fullfør alle 237 oppgaver', check: ()=> completed.length >= 237 },
+];
+
+function checkBadges() {
+  let newEarned = false;
+  const newBadgeLabel = norwayMode ? '🏅 NYTT MERKE:' : '🏅 YENİ ROZET:';
+  BADGE_DEFS.forEach(def => {
+    const existing = badges.find(b => b.id === def.id);
+    if (!existing && def.check()) {
+      badges.push({ id: def.id, earnedAt: new Date().toISOString().split('T')[0] });
+      newEarned = true;
+      const badgeName = norwayMode ? def.nameNO : def.name;
+      showAchievement(`${newBadgeLabel} ${badgeName} ${def.icon}`);
+    }
+  });
+  if (newEarned) localStorage.setItem('rm_badges', JSON.stringify(badges));
+}
+
+function renderRozetler() {
+  const el = document.getElementById('rozet-showcase');
+  if (!el) return;
+  const notEarnedLabel = norwayMode ? 'Ikke opptjent ennå' : 'Henüz kazanılmadı';
+  el.innerHTML = BADGE_DEFS.map(def => {
+    const earned = badges.find(b => b.id === def.id);
+    const badgeName = norwayMode ? def.nameNO : def.name;
+    const badgeDesc = norwayMode ? def.descNO : def.desc;
+    return `<div class="rozet-item ${earned ? 'earned' : 'locked'}">
+      <div class="rozet-icon">${def.icon}</div>
+      <div class="rozet-info">
+        <div class="rozet-name">${badgeName}</div>
+        <div class="rozet-desc">${badgeDesc}</div>
+        ${earned ? `<div class="rozet-date">✓ ${earned.earnedAt}</div>` : `<div class="rozet-date" style="color:var(--border)">${notEarnedLabel}</div>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+  
+// ============================================================
+// HAFTALIK RAPOR
+// ============================================================
+function renderHaftalikRapor() {
+  // Build date->completedCount map
+  const dateMap = {};
+  completed.forEach(idx => {
+    const day = ROADMAP_DATA[idx];
+    if (!day) return;
+    const d = getShiftedDate(day.d, idx);
+    dateMap[d] = (dateMap[d] || 0) + 1;
+  });
+  const offDateSet = new Set();
+  offDays.forEach(idx => {
+    const day = ROADMAP_DATA[idx];
+    if (day) offDateSet.add(getShiftedDate(day.d, idx));
+  });
+
+  // Current week (last 7 days)
+  const today = new Date();
+  const weekDayNamesTR = ['PAZ','PZT','SAL','ÇAR','PER','CUM','CMT'];
+  const weekDayNamesNO = ['SØN','MAN','TIR','ONS','TOR','FRE','LØR'];
+  const weekDayNames = norwayMode ? weekDayNamesNO : weekDayNamesTR;
+  const weekCells = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const ds = d.toISOString().split('T')[0];
+    const isToday = i === 0;
+    const count = dateMap[ds] || 0;
+    const isOff = offDateSet.has(ds);
+    weekCells.push({ ds, count, isOff, isToday, dayName: weekDayNames[d.getDay()] });
+  }
+
+  const weekGrid = document.getElementById('current-week-grid');
+  if (weekGrid) {
+    weekGrid.innerHTML = weekCells.map(c => `
+      <div class="week-cell ${c.count>0?'active':''} ${c.isOff?'offday-c':''} ${c.isToday?'today':''}">
+        <div class="week-cell-day">${c.dayName}</div>
+        <div class="week-cell-count">${c.isOff?'✈':c.count>0?c.count:'—'}</div>
+      </div>`).join('');
+  }
+
+  const thisWeekDone = weekCells.filter(c=>c.count>0).length;
+  const weekSumEl = document.getElementById('week-summary');
+  if (weekSumEl) {
+    const thisWeekLabel = norwayMode ? 'Denne uken' : 'Bu hafta';
+    const daysWorkedLabel = norwayMode ? 'dager jobbet' : 'gün çalıştın';
+    const strongTempo = norwayMode ? '💪 Sterkt tempo!' : '💪 Güçlü tempo!';
+    const mediumTempo = norwayMode ? '👍 Middels tempo — du kan øke.' : '👍 Orta tempo — artırabilirsin.';
+    const lowTempo = norwayMode ? '⚠️ Lavt tempo — vær oppmerksom.' : '⚠️ Düşük tempo — dikkat.';
+    weekSumEl.innerHTML = `${thisWeekLabel} <span style="color:var(--green);font-family:'Orbitron',monospace">${thisWeekDone}/7</span> ${daysWorkedLabel}. ${thisWeekDone>=5?strongTempo:thisWeekDone>=3?mediumTempo:lowTempo}`;
+  }
+
+  // Last 8 weeks bar chart
+  const weekBars = document.getElementById('weekly-bar-chart');
+  const dayLabel = norwayMode ? 'dager' : 'gün';
+  const weekLabel = norwayMode ? 'U' : 'H';
+  if (weekBars) {
+    const weeks = [];
+    for (let w = 7; w >= 0; w--) {
+      let count = 0;
+      for (let d = 0; d < 7; d++) {
+        const dt = new Date(today);
+        dt.setDate(today.getDate() - w*7 - d);
+        const ds = dt.toISOString().split('T')[0];
+        if (dateMap[ds]) count++;
+      }
+      weeks.push(count);
+    }
+    const maxW = Math.max(...weeks, 1);
+    weekBars.innerHTML = weeks.map((c,i) => {
+      const h = Math.max(3, Math.round(c/maxW*90));
+      const cls = i===7?'done':c>=5?'done':c>=3?'partial':'';
+      return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:100%;">
+        <div class="bar-fill ${cls}" style="width:100%;height:${h}px;" title="${c} ${dayLabel}"></div>
+        <div style="font-size:0.48rem;color:var(--text-dim)">${weekLabel}${i+1}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Trend analysis - Norveçce çeviriler
+  const trendLabels = norwayMode ? {
+    thisWeek: 'Denne uken',
+    lastWeek: 'Forrige uke',
+    change: 'Endring',
+    realStreak: 'Ekte rekke',
+    bestStreak: 'Beste rekke',
+    totalCompleted: 'Totalt fullført',
+    days: 'dager'
+  } : {
+    thisWeek: 'Bu hafta',
+    lastWeek: 'Geçen hafta',
+    change: 'Değişim',
+    realStreak: 'Gerçek streak',
+    bestStreak: 'En iyi streak',
+    totalCompleted: 'Toplam tamamlanan',
+    days: 'gün'
+  };
+
+  const trendEl = document.getElementById('trend-data');
+  if (trendEl) {
+    const lastWeekDone = (() => {
+      let c = 0;
+      for (let d = 7; d < 14; d++) {
+        const dt = new Date(today); dt.setDate(today.getDate()-d);
+        if (dateMap[dt.toISOString().split('T')[0]]) c++;
+      }
+      return c;
+    })();
+    const diff = thisWeekDone - lastWeekDone;
+    const arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '→';
+    const arrowColor = diff > 0 ? 'var(--green)' : diff < 0 ? 'var(--red)' : 'var(--amber)';
+    trendEl.innerHTML = `
+      <div class="trend-row"><span class="trend-label">${trendLabels.thisWeek}</span><span class="trend-val">${thisWeekDone} ${trendLabels.days}</span></div>
+      <div class="trend-row"><span class="trend-label">${trendLabels.lastWeek}</span><span class="trend-val">${lastWeekDone} ${trendLabels.days}</span></div>
+      <div class="trend-row"><span class="trend-label">${trendLabels.change}</span><span class="trend-val" style="color:${arrowColor}">${arrow} ${Math.abs(diff)} ${trendLabels.days}</span></div>
+      <div class="trend-row"><span class="trend-label">${trendLabels.realStreak}</span><span class="trend-val">${calcRealStreak()} 🔥</span></div>
+      <div class="trend-row"><span class="trend-label">${trendLabels.bestStreak}</span><span class="trend-val">${calcBestStreak()} ⚡</span></div>
+      <div class="trend-row"><span class="trend-label">${trendLabels.totalCompleted}</span><span class="trend-val">${completed.length}</span></div>`;
+  }
+
+  // Streak analysis - Norveçce çeviriler
+  const streakLabels = norwayMode ? {
+    noStreak: '❌ Ingen rekke. Fullfør noe i dag.',
+    continueMsg: 'Fortsett.',
+    firstWeekMsg: 'Du nærmer deg første uke.',
+    greatMsg: 'Du gjør det kjempebra.',
+    legendMsg: 'Du blir en legende.',
+    daysStreak: 'dagers rekke',
+    streakInfo: 'Nåværende rekke beregnes etter dato — fridager bryter ikke rekken men teller ikke.',
+    bestStreakLabel: 'BESTE REKKE:',
+    breakingRecord: 'Du slår rekorden nå!',
+    days: 'dager'
+  } : {
+    noStreak: '❌ Streak yok. Bugün bir şey tamamla.',
+    continueMsg: 'Devam et.',
+    firstWeekMsg: 'İlk haftaya yaklaşıyorsun.',
+    greatMsg: 'Harika gidiyorsun.',
+    legendMsg: 'Efsaneleşiyorsun.',
+    daysStreak: 'günlük streak',
+    streakInfo: 'Mevcut streak tarihe göre hesaplanıyor — off day günleri streaki kırmıyor ama saymıyor.',
+    bestStreakLabel: 'EN İYİ STREAK:',
+    breakingRecord: 'Şu an rekor kırıyorsun!',
+    days: 'gün'
+  };
+
+  const streakEl = document.getElementById('streak-analysis');
+  if (streakEl) {
+    const realStreak = calcRealStreak();
+    const best = calcBestStreak();
+    const msg = realStreak === 0 ? streakLabels.noStreak :
+                realStreak < 3  ? `🌱 ${realStreak} ${streakLabels.daysStreak}. ${streakLabels.continueMsg}` :
+                realStreak < 7  ? `🔥 ${realStreak} ${streakLabels.daysStreak}. ${streakLabels.firstWeekMsg}` :
+                realStreak < 14 ? `⚡ ${realStreak} ${streakLabels.daysStreak}! ${streakLabels.greatMsg}` :
+                                  `🏆 ${realStreak} ${streakLabels.daysStreak}! ${streakLabels.legendMsg}`;
+    streakEl.innerHTML = `
+      <div style="font-size:0.85rem;color:var(--green);margin-bottom:12px;">${msg}</div>
+      <div style="font-size:0.7rem;color:var(--text-dim);">${streakLabels.streakInfo}</div>
+      <div style="margin-top:12px;padding:10px;background:var(--bg3);border:1px solid var(--border);">
+        <span style="color:var(--text-dim);font-size:0.65rem;">${streakLabels.bestStreakLabel} </span>
+        <span style="color:var(--green);font-family:'Orbitron',monospace;">${best} ${streakLabels.days}</span>
+        ${best < realStreak ? ` — <span style="color:var(--amber);font-size:0.65rem;">${streakLabels.breakingRecord}</span>` : ''}
+      </div>`;
+  }
+}
+
+// ============================================================
+// KOD SNİPPET DEPOSU
+// ============================================================
+let snippets = JSON.parse(localStorage.getItem('rm_snippets') || '[]');
+
+function addSnippet() {
+  const title = document.getElementById('snip-title').value.trim();
+  const topic = document.getElementById('snip-topic').value.trim();
+  const lang  = document.getElementById('snip-lang').value;
+  const code  = document.getElementById('snip-code').value.trim();
+  const errorMsg = norwayMode ? '⚠ Tittel og kode er påkrevd!' : '⚠ Başlık ve kod zorunlu!';
+  const successMsg = norwayMode ? '📦 Kodebit lagret!' : '📦 Snippet kaydedildi!';
+  if (!title || !code) { showAchievement(errorMsg); return; }
+  snippets.unshift({ id: Date.now(), title, topic, lang, code, date: new Date().toISOString().split('T')[0] });
+  localStorage.setItem('rm_snippets', JSON.stringify(snippets));
+  document.getElementById('snip-title').value = '';
+  document.getElementById('snip-topic').value = '';
+  document.getElementById('snip-code').value = '';
+  showAchievement(successMsg);
+  checkBadges();
+  renderSnippets();
+}
+
+function deleteSnippet(id) {
+  snippets = snippets.filter(s => s.id !== id);
+  localStorage.setItem('rm_snippets', JSON.stringify(snippets));
+  renderSnippets();
+}
+
+function toggleSnippet(id) {
+  const block = document.getElementById('snip-block-'+id);
+  if (block) block.classList.toggle('open');
+}
+
+function copySnippet(id) {
+  const s = snippets.find(s=>s.id===id);
+  if (!s) return;
+  const copyMsg = norwayMode ? '📋 Kopiert!' : '📋 Kopyalandı!';
+  navigator.clipboard.writeText(s.code).then(()=>showAchievement(copyMsg));
+}
+
+function renderSnippets() {
+  const el = document.getElementById('snippet-list');
+  if (!el) return;
+  const query = (document.getElementById('snip-search')?.value||'').toLowerCase();
+  const filtered = snippets.filter(s =>
+    s.title.toLowerCase().includes(query) ||
+    (s.topic||'').toLowerCase().includes(query) ||
+    s.lang.toLowerCase().includes(query)
+  );
+  
+  const labels = norwayMode ? {
+    noSnippets: 'Du har ikke lagt til noen kodebiter ennå. Bruk skjemaet ovenfor.',
+    noResults: 'Ingen søkeresultater.',
+    copy: 'KOPIER'
+  } : {
+    noSnippets: 'Henüz snippet eklemedin. Yukarıdaki formu kullan.',
+    noResults: 'Arama sonucu yok.',
+    copy: 'KOPYALA'
+  };
+  
+  if (filtered.length === 0) {
+    el.innerHTML = `<div style="color:var(--text-dim);font-size:0.72rem;padding:20px;text-align:center;border:1px solid var(--border);">${snippets.length===0?labels.noSnippets:labels.noResults}</div>`;
+    return;
+  }
+  el.innerHTML = filtered.map(s => `
+    <div class="snippet-card">
+      <div class="snippet-card-header" onclick="toggleSnippet(${s.id})">
+        <span class="snippet-lang-badge">${s.lang.toUpperCase()}</span>
+        <span class="snippet-title-text">${escapeHtml(s.title)}</span>
+        ${s.topic ? `<span class="snippet-topic-tag">${escapeHtml(s.topic)}</span>` : ''}
+        <span style="font-size:0.6rem;color:var(--text-dim);flex-shrink:0;">${s.date}</span>
+        <button class="snippet-del-btn" onclick="event.stopPropagation();deleteSnippet(${s.id})">✕</button>
+      </div>
+      <div class="snippet-code-block" id="snip-block-${s.id}">
+        <button class="snip-copy-btn" onclick="copySnippet(${s.id})">${labels.copy}</button>
+        ${escapeHtml(s.code)}
+      </div>
+    </div>`).join('');
+}
+
+  // sayfa açılınca aktif et
+  document.body.classList.add("bg-motivation");
+
+  // basit rotate (hala çalışır)
+  const bgList = [
+    "focus.jpg",
+    "./assets/bg2.jpg",
+    "./assets/bg3.jpg"
+  ];
+
+  let i = 0;
+
+  function changeBg() {
+    i++;
+
+    if (i >= bgList.length) {
+      i = 0;
+    }
+
+    // burada sadece url değiştiriyoruz
+    // küçük hack: css değiştiriyoruz ama class'ı koruyoruz
+    document.body.style.setProperty(
+      "--bg-url",
+      "url('" + bgList[i] + "')"
+    );
+  }
+
+  // çok kurcalamak istemedim
+  setInterval(changeBg, 15000);
+
+// ============================================================
+// START
+// ============================================================
+init();
+</script>
+</body>
+</html>
