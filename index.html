@@ -12,40 +12,6 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-/* arka planı ayrı class'a alıyoruz */
-body.bg-motivation {
-  background-image: 
-    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.8)),
-    url('focus.jpg');
-
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* LIGHT MODE override (önceden yoktu, ekliyoruz) */
-body.light-mode.bg-motivation {
-  /* daha açık overlay lazım yoksa çok karanlık kalır */
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.7)),
-    url('./assets/bg.jpg');
-}
-.logo, .mono {
-  font-family: 'JetBrains Mono', monospace;
-}
-body::after {
-  content:'';
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-
-  /* bunu sonradan ekledim çünkü görseller çok dikkat çekiyordu */
-  background: rgba(0,0,0,0.55);
-
-  backdrop-filter: blur(3px); /* hafif blur, çok abartmadım */
-
-  pointer-events:none;
-  z-index:0;
-}
 /* REALITY MODE */
 body.reality-on {
   background:#0a0000;
@@ -4256,36 +4222,7 @@ function renderSnippets() {
     </div>`).join('');
 }
 
-  // sayfa açılınca aktif et
-  document.body.classList.add("bg-motivation");
-
-  // basit rotate (hala çalışır)
-  const bgList = [
-    "focus.jpg",
-    "./assets/bg2.jpg",
-    "./assets/bg3.jpg"
-  ];
-
-  let i = 0;
-
-  function changeBg() {
-    i++;
-
-    if (i >= bgList.length) {
-      i = 0;
-    }
-
-    // burada sadece url değiştiriyoruz
-    // küçük hack: css değiştiriyoruz ama class'ı koruyoruz
-    document.body.style.setProperty(
-      "--bg-url",
-      "url('" + bgList[i] + "')"
-    );
-  }
-
-  // çok kurcalamak istemedim
-  setInterval(changeBg, 15000);
-
+  
 // ============================================================
 // START
 // ============================================================
